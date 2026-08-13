@@ -15,9 +15,6 @@ node_modules
 # Testing
 coverage
 
-# Turbo
-.turbo
-
 # Vercel
 .vercel
 
@@ -49,3 +46,9 @@ apps/base/.gocache/
 .bv/
 
 .gocache/
+
+
+
+.nx/cache
+.nx/workspace-data
+.nx/migrate-runs

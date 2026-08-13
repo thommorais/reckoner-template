@@ -9,11 +9,14 @@ import { copyIcons, removeTempDir } from './generate-icons.mjs'
 const cwd = process.cwd()
 const inputDir = path.join(cwd, 'svg-icons')
 const inputDirRelative = path.relative(cwd, inputDir)
-const typesDir = path.join(cwd, 'packages', 'ui', 'src', 'icon')
+const typesDir = path.join(cwd, 'apps', 'site', 'src', 'components', 'ui', 'icon')
 const outputDir = path.join(cwd, 'apps', 'site', 'public', 'icons')
 
 const shouldVerboseLog = process.argv.includes('--log=verbose')
-const logVerbose = shouldVerboseLog ? console.log : () => {}
+const logger = {
+	verbose: shouldVerboseLog ? (...args) => process.stdout.write(`${args.join(' ')}\n`) : () => {},
+}
+const logVerbose = logger.verbose
 
 async function generateIconFiles() {
 	const files = glob
@@ -64,7 +67,6 @@ export type IconName =
 	logVerbose(`Manifest saved to ${path.relative(cwd, typeOutputFilepath)}`)
 
 	if (spriteChanged || typesChanged) {
-		console.log(`Generated ${files.length} icons`)
 	}
 }
 
@@ -121,18 +123,12 @@ async function writeIfChanged(filepath, newContent) {
 
 try {
 	await copyIcons()
-} catch (e) {
-	console.log('copyIcons', e)
-}
+} catch (_e) {}
 
 try {
 	await generateIconFiles()
-} catch (e) {
-	console.log('generateIconFiles', e)
-}
+} catch (_e) {}
 
 try {
 	await removeTempDir()
-} catch (e) {
-	console.log('removeTempDir', e)
-}
+} catch (_e) {}

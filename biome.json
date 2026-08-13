@@ -14,7 +14,7 @@
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"includes": ["**", "!!.turbo", "!!.claude", "!**/pocketbase-types.ts", "!!.next", "!!dist", "!!node_modules"]
+		"includes": ["**", "!!.nx", "!!.claude", "!**/pocketbase-types.ts", "!!.next", "!!dist", "!!node_modules"]
 	},
 	"formatter": {
 		"enabled": true,

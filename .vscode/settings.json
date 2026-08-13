@@ -22,7 +22,7 @@
 	// ========================================
 	// TYPESCRIPT CONFIGURATION
 	// ========================================
-	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"js/ts.tsdk.promptToUseWorkspaceVersion": true,
 	"typescript.preferences.importModuleSpecifier": "non-relative",
 	"typescript.suggest.autoImports": true,
 	"typescript.suggest.includeAutomaticOptionalChainCompletions": true,
