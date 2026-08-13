@@ -46,7 +46,7 @@ export const Select = forwardRef(function Select(
 					// Hide default focus styles
 					'focus:outline-hidden',
 					// Invalid state
-					'data-invalid:data-hover:border-red-500 data-invalid:border-red-500',
+					'data-invalid:border-red-500 data-invalid:data-hover:border-red-500',
 					// Disabled state
 					'data-disabled:border-black/20 data-disabled:opacity-100',
 				])}

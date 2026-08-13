@@ -9,11 +9,11 @@ type DateType = (typeof dateTypes)[number]
 export const inputControlClasses = tv({
 	base: [
 		'relative block w-full',
-		'rounded-sm border border-info-700/20 data-hover:border-info-700/30',
+		'border-info-700/20 data-hover:border-info-700/30 rounded-sm border',
 		'has-data-disabled:opacity-50',
 		'has-data-invalid:before:shadow-red-500/10',
 		'*:data-[slot=icon]:text-zinc-500',
-		'rounded-sm border border-info-700/20 data-hover:border-info-700/30',
+		'border-info-700/20 data-hover:border-info-700/30 rounded-sm border',
 		'before:absolute before:inset-px before:rounded-[calc(var(--radius-sm)-1px)] before:bg-white before:shadow-sm',
 	],
 })
@@ -21,9 +21,9 @@ export const inputControlClasses = tv({
 const inputClasses = tv({
 	base: [
 		'relative block w-full appearance-none rounded-sm px-[calc(calc(var(--spacing)*3.5)-1px)] py-[calc(calc(var(--spacing)*2.5)-1px)]',
-		'text-base/6 text-info-700 placeholder:text-info-500 sm:text-base',
+		'text-info-700 placeholder:text-info-500 text-base/6 sm:text-base',
 		'focus:outline-hidden',
-		'data-invalid:data-hover:border-red-500 data-invalid:border-red-500',
+		'data-invalid:border-red-500 data-invalid:data-hover:border-red-500',
 		'data-disabled:border-black/20',
 	],
 	variants: {

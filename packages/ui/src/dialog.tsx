@@ -48,7 +48,7 @@ export function Dialog({
 							className,
 							sizes[size],
 							'row-start-2 w-full min-w-0 rounded-t-3xl bg-white p-(--gutter) shadow-lg ring-1 ring-black/10 [--gutter:calc(var(--spacing)*8)] sm:mb-auto sm:rounded-2xl forced-colors:outline',
-							'transition duration-100 will-change-transform data-closed:translate-y-12 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in sm:data-closed:data-enter:scale-95 sm:data-closed:translate-y-0',
+							'transition duration-100 will-change-transform data-closed:translate-y-12 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in sm:data-closed:translate-y-0 sm:data-closed:data-enter:scale-95',
 						)}
 					>
 						{children}
@@ -66,7 +66,7 @@ export function Title({
 	return (
 		<Headless.DialogTitle
 			{...props}
-			className={clsx(className, 'text-balance font-semibold text-black text-lg/6 sm:text-base/6')}
+			className={clsx(className, 'text-lg/6 font-semibold text-balance text-black sm:text-base/6')}
 		/>
 	)
 }

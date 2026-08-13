@@ -5,5 +5,5 @@ const config = {
 	},
 }
 
-// biome-ignore lint/style/noDefaultExport: config
+// oxlint-disable-next-line import/no-default-export -- config
 export default config

@@ -31,13 +31,12 @@
 		"./select": "./src/select.tsx",
 		"./combobox": "./src/combobox.tsx"
 	},
-	"generators": "./generators.json",
 	"scripts": {
 		"generate:component": "nx g @thom/ui:react-component",
 		"check-types": "tsc --noEmit",
 		"clean": "rm -rf node_modules && rm -rf dist",
-		"lint": "pnpm biome lint ./src/**",
-		"format": "biome format ./src "
+		"lint": "oxlint ./src",
+		"format": "oxfmt ./src"
 	},
 	"dependencies": {
 		"@headlessui/react": "^2.2.0",
@@ -57,12 +56,13 @@
 		"tailwindcss": "^4.0.3"
 	},
 	"devDependencies": {
-		"@thom/typescript-config": "workspace:*",
 		"@nx/devkit": "23.1.1",
+		"@thom/typescript-config": "workspace:*",
 		"@types/node": "^20.11.24",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
 		"postcss": "^8.4.49",
 		"typescript": "5.5.4"
-	}
+	},
+	"generators": "./generators.json"
 }

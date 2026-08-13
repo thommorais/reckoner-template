@@ -1,7 +1,7 @@
 import { Card } from '@thom/ui/card'
 import { Logo } from '_/components/features/logo'
 import { Container } from '_/components/ui/container'
-import { AuthGuard } from './AuthGuard'
+import { AuthGuard } from './auth-guard'
 
 type LocaleLayoutProps = {
 	children: React.ReactNode
@@ -22,5 +22,5 @@ const AuthLayout = async ({ children }: LocaleLayoutProps) => {
 	)
 }
 
-// biome-ignore lint/style/noDefaultExport: layout
+// oxlint-disable-next-line import/no-default-export -- layout
 export default AuthLayout

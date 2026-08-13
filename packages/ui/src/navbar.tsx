@@ -13,7 +13,7 @@ export function Navbar({ className, ...props }: React.ComponentPropsWithoutRef<'
 }
 
 export function NavbarDivider({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-	return <div aria-hidden='true' {...props} className={clsx(className, 'h-6 w-px bg-primary-200')} />
+	return <div aria-hidden='true' {...props} className={clsx(className, 'bg-primary-200 h-6 w-px')} />
 }
 
 export function NavbarSection({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
@@ -44,13 +44,13 @@ export const NavbarItem = forwardRef(function NavbarItem(
 ) {
 	const classes = clsx(
 		// Base
-		'relative flex min-w-0 items-center gap-3 rounded-lg p-2 text-left font-medium text-base/6 text-primary-900 sm:text-sm/5',
+		'text-primary-900 relative flex min-w-0 items-center gap-3 rounded-lg p-2 text-left text-base/6 font-medium sm:text-sm/5',
 		// Leading icon/icon-only
-		'*:data-[slot=icon]:size-6 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:stroke-primary-600 sm:*:data-[slot=icon]:size-5',
+		'*:data-[slot=icon]:stroke-primary-600 *:data-[slot=icon]:size-6 *:data-[slot=icon]:shrink-0 sm:*:data-[slot=icon]:size-5',
 		// Trailing icon (down chevron or similar)
 		'*:not-nth-2:last:data-[slot=icon]:ml-auto *:not-nth-2:last:data-[slot=icon]:size-5 sm:*:not-nth-2:last:data-[slot=icon]:size-4',
 		// Avatar
-		'*:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-7 sm:*:data-[slot=avatar]:size-6 *:data-[slot=avatar]:[--avatar-radius:var(--radius-md)]',
+		'*:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-7 *:data-[slot=avatar]:[--avatar-radius:var(--radius-md)] sm:*:data-[slot=avatar]:size-6',
 		// Hover
 		'data-hover:bg-primary-100/50 data-hover:*:data-[slot=icon]:stroke-primary-700',
 		// Active
@@ -62,7 +62,7 @@ export const NavbarItem = forwardRef(function NavbarItem(
 			{current && (
 				<motion.span
 					layoutId='current-indicator'
-					className='absolute inset-x-2 -bottom-2.5 h-0.5 rounded-full bg-primary-600'
+					className='bg-primary-600 absolute inset-x-2 -bottom-2.5 h-0.5 rounded-full'
 				/>
 			)}
 			{typeof props.href === 'string' ? (

@@ -84,9 +84,9 @@ export const Combobox = <T,>({
 					// Background color + shadow applied to inset pseudo element
 					'before:absolute before:inset-px before:rounded-[calc(var(--radius-md)-1px)] before:bg-white before:shadow-sm',
 					// Focus ring
-					'after:pointer-events-none after:absolute after:inset-0 after:rounded-md after:ring-transparent after:ring-inset sm:focus-within:after:ring-2 sm:focus-within:after:ring-info-500',
+					'sm:focus-within:after:ring-info-500 after:pointer-events-none after:absolute after:inset-0 after:rounded-md after:ring-transparent after:ring-inset sm:focus-within:after:ring-2',
 					// Disabled state
-					'has-data-disabled:opacity-50 has-data-disabled:before:bg-info-700/5 has-data-disabled:before:shadow-none',
+					'has-data-disabled:before:bg-info-700/5 has-data-disabled:opacity-50 has-data-disabled:before:shadow-none',
 					// Invalid state
 					'has-data-invalid:before:shadow-danger-500/10',
 				])}
@@ -104,9 +104,9 @@ export const Combobox = <T,>({
 						// Horizontal padding
 						'pr-[calc(--spacing(10)-1px)] pl-[calc(--spacing(3.5)-1px)] sm:pr-[calc(--spacing(9)-1px)] sm:pl-[calc(--spacing(3)-1px)]',
 						// Typography
-						'text-base/6 text-info-700 placeholder:text-info-500 sm:text-base',
+						'text-info-700 placeholder:text-info-500 text-base/6 sm:text-base',
 						// Border
-						'border border-info-700/20 data-hover:border-info-700/30',
+						'border-info-700/20 data-hover:border-info-700/30 border',
 						// Background color
 						'bg-transparent',
 						// Hide default focus styles
@@ -119,7 +119,7 @@ export const Combobox = <T,>({
 				/>
 				<Headless.ComboboxButton className='group absolute inset-y-0 right-0 flex items-center px-2'>
 					<svg
-						className='size-5 stroke-info-500 group-data-disabled:stroke-info-400 group-data-hover:stroke-info-600 sm:size-4 forced-colors:stroke-[CanvasText]'
+						className='stroke-info-500 group-data-disabled:stroke-info-400 group-data-hover:stroke-info-600 size-5 sm:size-4 forced-colors:stroke-[CanvasText]'
 						viewBox='0 0 16 16'
 						aria-hidden='true'
 						fill='none'
@@ -136,7 +136,7 @@ export const Combobox = <T,>({
 					// Anchor positioning
 					'[--anchor-gap:--spacing(2)] [--anchor-padding:--spacing(4)] sm:data-[anchor~=start]:[--anchor-offset:-4px]',
 					// Base styles,
-					'isolate min-w-[calc(var(--input-width)+8px)] select-none scroll-py-1 rounded-xl p-1 empty:invisible',
+					'isolate min-w-[calc(var(--input-width)+8px)] scroll-py-1 rounded-xl p-1 select-none empty:invisible',
 					// Invisible border that is only visible in `forced-colors` mode for accessibility purposes
 					'outline outline-transparent focus:outline-hidden',
 					// Handle scrolling when menu won't fit in viewport
@@ -144,7 +144,7 @@ export const Combobox = <T,>({
 					// Popover background
 					'bg-white/90 backdrop-blur-xl',
 					// Shadows
-					'shadow-lg ring-1 ring-info-700/10',
+					'ring-info-700/10 shadow-lg ring-1',
 					// Transitions
 					'transition-opacity duration-100 ease-in data-closed:data-leave:opacity-0 data-transition:pointer-events-none',
 				)}
@@ -181,9 +181,9 @@ export function ComboboxOption<T>({
 				// Basic layout
 				'group/option grid w-full cursor-default grid-cols-[1fr_--spacing(5)] items-baseline gap-x-2 rounded-md py-2.5 pr-2 pl-3.5 sm:grid-cols-[1fr_--spacing(4)] sm:py-1.5 sm:pr-2 sm:pl-3',
 				// Typography
-				'text-base/6 text-info-700 sm:text-sm/6 forced-colors:text-[CanvasText]',
+				'text-info-700 text-base/6 sm:text-sm/6 forced-colors:text-[CanvasText]',
 				// Focus
-				'outline-hidden data-focus:bg-info-500 data-focus:text-white',
+				'data-focus:bg-info-500 outline-hidden data-focus:text-white',
 				// Forced colors mode
 				'forced-color-adjust-none forced-colors:data-focus:bg-[Highlight] forced-colors:data-focus:text-[HighlightText]',
 				// Disabled
@@ -213,7 +213,7 @@ export function ComboboxDescription({ className, children, ...props }: React.Com
 			{...props}
 			className={clsx(
 				className,
-				'flex flex-1 overflow-hidden text-info-500 before:w-2 before:min-w-0 before:shrink group-data-focus/option:text-white',
+				'text-info-500 flex flex-1 overflow-hidden group-data-focus/option:text-white before:w-2 before:min-w-0 before:shrink',
 			)}
 		>
 			<span className='flex-1 truncate'>{children}</span>

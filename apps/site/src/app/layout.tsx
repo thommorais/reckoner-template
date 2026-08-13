@@ -45,5 +45,5 @@ type RootLayoutProps = {
 
 const RootLayout = async ({ children }: RootLayoutProps): Promise<React.ReactNode> => children
 
-// biome-ignore lint/style/noDefaultExport: layout
+// oxlint-disable-next-line import/no-default-export -- layout
 export default RootLayout

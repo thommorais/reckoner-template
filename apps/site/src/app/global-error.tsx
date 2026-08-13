@@ -13,7 +13,7 @@ function GlobalError({ reset }: { error: Error & { digest?: string }; reset: () 
 					<section className='h-dvh place-items-center'>
 						<Card className='w-full max-w-sm'>
 							<CardHeader className='w-full'>
-								<h2 className='w-full grow text-center text-danger-700'>Something went wrong!</h2>
+								<h2 className='text-danger-700 w-full grow text-center'>Something went wrong!</h2>
 							</CardHeader>
 							<CardFooter className='justify-center'>
 								<Button type='button' variant='outline' color='info' onClick={() => reset()}>
@@ -28,5 +28,5 @@ function GlobalError({ reset }: { error: Error & { digest?: string }; reset: () 
 	)
 }
 
-// biome-ignore lint/style/noDefaultExport: page
+// oxlint-disable-next-line import/no-default-export -- page
 export default GlobalError

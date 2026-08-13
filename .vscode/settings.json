@@ -3,105 +3,88 @@
 	// PACKAGE MANAGER
 	// ========================================
 	"npm.packageManager": "pnpm",
-
 	// ========================================
 	// EDITOR CONFIGURATION
 	// ========================================
 	"editor.formatOnSave": true,
 	"editor.formatOnPaste": true,
 	"editor.codeActionsOnSave": {
-		"source.organizeImports.biome": "always",
-		"source.addMissingImports": "always",
-		"source.fixAll.biome": "explicit",
+		"source.organizeImports.oxc": "always",
+		"source.addMissingImports.oxc": "explicit",
+		"source.fixAll.oxc": "explicit",
 		"source.organizeImports": "never"
 	},
 	"editor.bracketPairColorization.enabled": true,
 	"editor.guides.bracketPairs": "active",
 	"editor.inlayHints.enabled": "onUnlessPressed",
-
 	// ========================================
 	// TYPESCRIPT CONFIGURATION
 	// ========================================
 	"js/ts.tsdk.promptToUseWorkspaceVersion": true,
-	"typescript.preferences.importModuleSpecifier": "non-relative",
-	"typescript.suggest.autoImports": true,
-	"typescript.suggest.includeAutomaticOptionalChainCompletions": true,
-	"typescript.updateImportsOnFileMove.enabled": "always",
-	"typescript.preferences.includePackageJsonAutoImports": "off",
-	"typescript.preferences.preferTypeOnlyAutoImports": true,
-	"typescript.preferences.importModuleSpecifierEnding": "minimal",
-	"typescript.suggest.completeFunctionCalls": true,
-	"typescript.inlayHints.parameterNames.enabled": "literals",
-	"typescript.inlayHints.functionLikeReturnTypes.enabled": true,
-	"typescript.inlayHints.variableTypes.enabled": true,
-	"typescript.inlayHints.propertyDeclarationTypes.enabled": true,
-	"typescript.inlayHints.parameterTypes.enabled": true,
-	"typescript.inlayHints.enumMemberValues.enabled": true,
-	"typescript.preferences.quoteStyle": "single",
-	"typescript.preferences.jsxAttributeCompletionStyle": "auto",
-	"typescript.tsdk": "./node_modules/typescript/lib",
-
-	// ========================================
-	// JAVASCRIPT CONFIGURATION
-	// ========================================
-	"javascript.preferences.quoteStyle": "single",
-	"javascript.preferences.importModuleSpecifier": "non-relative",
-	"javascript.preferences.importModuleSpecifierEnding": "minimal",
-	"javascript.suggest.autoImports": true,
-	"javascript.updateImportsOnFileMove.enabled": "always",
-
-	// ========================================
+	"js/ts.preferences.importModuleSpecifier": "non-relative",
+	"js/ts.suggest.autoImports": true,
+	"js/ts.suggest.includeAutomaticOptionalChainCompletions": true,
+	"js/ts.updateImportsOnFileMove.enabled": "always",
+	"js/ts.preferences.includePackageJsonAutoImports": "off",
+	"js/ts.preferences.preferTypeOnlyAutoImports": true,
+	"js/ts.preferences.importModuleSpecifierEnding": "minimal",
+	"js/ts.suggest.completeFunctionCalls": true,
+	"js/ts.inlayHints.parameterNames.enabled": "literals",
+	"js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
+	"js/ts.inlayHints.variableTypes.enabled": true,
+	"js/ts.inlayHints.propertyDeclarationTypes.enabled": true,
+	"js/ts.inlayHints.parameterTypes.enabled": true,
+	"js/ts.inlayHints.enumMemberValues.enabled": true,
+	"js/ts.preferences.quoteStyle": "single",
+	"js/ts.preferences.jsxAttributeCompletionStyle": "auto",
 	// LANGUAGE FORMATTERS
 	// ========================================
 	"[markdown]": {
 		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
 	},
 	"[javascript]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "oxc.oxc-vscode"
 	},
 	"[javascriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "oxc.oxc-vscode"
 	},
 	"[typescript]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "oxc.oxc-vscode"
 	},
 	"[typescriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "oxc.oxc-vscode"
 	},
 	"[json]": {
 		"editor.defaultFormatter": "vscode.json-language-features"
 	},
 	"[jsonc]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "vscode.json-language-features"
 	},
 	"[css]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "vscode.css-language-features"
 	},
-
 	// ========================================
-	// BIOME CONFIGURATION
+	// OXC CONFIGURATION
 	// ========================================
-	"biome.lsp.bin": "./node_modules/@biomejs/cli-darwin-arm64/biome",
-
+	"oxc.fmt.configPath": ".oxfmtrc.json",
+	"oxc.lint.configPath": ".oxlintrc.json",
 	// ========================================
 	// CSS
 	// ========================================
 	"css.lint.unknownAtRules": "ignore",
-
 	// ========================================
 	// SPELL CHECKER
 	// ========================================
 	"cSpell.words": [
 		"animejs",
-		"biomejs",
+		"oxfmt",
+		"oxlint",
 		"Cocogitto",
-		"deckid",
 		"Dexie",
 		"gsap",
 		"Highcharts",
 		"HREFS",
 		"inlinesvg",
-		"jost",
 		"Leitner",
 		"Nuqs",
 		"opsi",
@@ -115,7 +98,6 @@
 		"verno",
 		"yeap"
 	],
-
 	// ========================================
 	// FILE EXPLORER
 	// ========================================
@@ -129,14 +111,12 @@
 		".env": ".env*, .envrc, .env.example",
 		"Dockerfile": "docker-compose*.yml, .dockerignore",
 		"README.md": "CHANGELOG.md, CONTRIBUTING.md, LICENSE, CODE_OF_CONDUCT.md, CLAUDE.md, AGENTS.md",
-		"biome.json": ".biomeignore",
 		"next.config.js": "next-env.d.ts, next-sitemap.config.cjs",
 		"payload.config.ts": "payload-types.ts",
 		"vitest.config.mts": "vitest.setup.ts"
 	},
 	"explorer.confirmDelete": false,
 	"explorer.confirmDragAndDrop": false,
-
 	// ========================================
 	// FILES & SEARCH CONFIGURATION
 	// ========================================
@@ -172,7 +152,6 @@
 	"files.trimTrailingWhitespace": true,
 	"files.insertFinalNewline": true,
 	"files.trimFinalNewlines": true,
-
 	// ========================================
 	// GIT INTEGRATION
 	// ========================================

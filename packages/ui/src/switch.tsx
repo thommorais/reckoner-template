@@ -63,8 +63,8 @@ const switchClasses = tv({
 		'transition duration-0 ease-in-out data-changing:duration-200',
 		'forced-colors:outline forced-colors:[--switch-bg:Highlight]',
 		'data-checked:bg-(--switch-bg) data-checked:ring-(--switch-bg-ring)',
-		'focus:outline-hidden data-focus:outline data-focus:outline-blue-500 data-focus:outline-offset-2',
-		'data-hover:data-checked:ring-(--switch-bg-ring) data-hover:ring-black/15',
+		'focus:outline-hidden data-focus:outline data-focus:outline-offset-2 data-focus:outline-blue-500',
+		'data-hover:ring-black/15 data-hover:data-checked:ring-(--switch-bg-ring)',
 		'rounded-4xl',
 		'bg-(--switch-bg)/20',
 	],
@@ -86,7 +86,7 @@ const switchClasses = tv({
 const switchThumbClasses = tv({
 	base: [
 		'pointer-events-none relative inline-block size-[1.125rem] sm:size-3.5',
-		'translate-x-0 transition duration-200 ease-move',
+		'ease-move translate-x-0 transition duration-200',
 		'border border-transparent',
 		'bg-white',
 		'group-data-checked:bg-(--switch) group-data-checked:shadow-(--switch-shadow) group-data-checked:ring-(--switch-ring)',

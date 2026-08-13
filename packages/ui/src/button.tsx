@@ -38,7 +38,7 @@ const buttonClasses = tv({
 				'after:absolute after:inset-0 after:-z-10 after:rounded-[calc(var(--radius-4xl)-1px)]',
 				'after:shadow-[inset_0_1px_--theme(--color-white/45%)]',
 				'data-active:after:bg-(--btn-hover-overlay) data-hover:after:bg-(--btn-hover-overlay)',
-				'data-disabled:after:shadow-none data-disabled:before:shadow-none',
+				'data-disabled:before:shadow-none data-disabled:after:shadow-none',
 			],
 			outline: [
 				'border-2',
@@ -281,7 +281,7 @@ type ButtonProps = Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'
 	ComponentPropsWithRef<'button'> &
 	VariantProps<typeof buttonClasses> &
 	ButtonBaseProps & {
-		// biome-ignore lint/suspicious/noExplicitAny: yeap
+		// oxlint-disable-next-line typescript/no-explicit-any -- yeap
 		LinkComponent?: React.ComponentType<any>
 	}
 
@@ -341,7 +341,7 @@ export const TouchTarget = ({ children }: TouchTargetProps) => {
 	return (
 		<>
 			<span
-				className='absolute top-1/2 left-1/2 pointer-fine:hidden size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2'
+				className='absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 pointer-fine:hidden'
 				aria-hidden='true'
 			/>
 			{children}

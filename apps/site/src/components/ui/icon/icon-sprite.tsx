@@ -4,5 +4,5 @@ export function IconSprites() {
 	return <SVG src={'icons/sprite.svg'} />
 }
 
-// biome-ignore lint/style/noDefaultExport: needed
+// oxlint-disable-next-line import/no-default-export -- needed
 export default IconSprites

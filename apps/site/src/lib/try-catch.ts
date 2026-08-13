@@ -1,4 +1,4 @@
-// biome-ignore lint/suspicious/noExplicitAny: for Errors that may not have a specific type
+// oxlint-disable-next-line typescript/no-explicit-any -- for Errors that may not have a specific type
 type ANYTHING = any
 
 /**

@@ -2,7 +2,6 @@ import { IconSprites } from '@thom/ui/icon'
 import { LocaleProviders } from '_/components/providers/locale-providers'
 import { HTML } from '_/components/ui/html'
 import { AuthProvider } from '_/features/auth/ui/contexts/auth-provider'
-import { ServiceWorkerRegistrar } from '_/features/sw/service-worker'
 import { defaultLocale, locales } from '_/i18n/dictionaries/locales'
 import type { Locale } from '_/i18n/dictionaries/types'
 import type { LayoutProps } from '_/types/pages-layouts'
@@ -19,7 +18,6 @@ const LocaleLayout = async ({ children, params }: LayoutProps) => {
 				<AuthProvider>
 					<body className='relative min-h-dvh w-full overflow-x-hidden'>
 						{children}
-						<ServiceWorkerRegistrar />
 						<IconSprites />
 					</body>
 				</AuthProvider>
@@ -27,5 +25,5 @@ const LocaleLayout = async ({ children, params }: LayoutProps) => {
 		</HTML>
 	)
 }
-// biome-ignore lint/style/noDefaultExport: layout
+// oxlint-disable-next-line import/no-default-export -- layout
 export default LocaleLayout

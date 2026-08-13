@@ -107,8 +107,8 @@ const DesktopUser = () => {
 				alt={user?.name || 'User'}
 			/>
 			<span className='min-w-0'>
-				<span className='block truncate font-medium text-primary-900 text-sm/5'>{user?.name || 'User'}</span>
-				<span className='block truncate font-normal text-primary-700 text-xs/5'>
+				<span className='text-primary-900 block truncate text-sm/5 font-medium'>{user?.name || 'User'}</span>
+				<span className='text-primary-700 block truncate text-xs/5 font-normal'>
 					{user?.email || 'user@example.com'}
 				</span>
 			</span>

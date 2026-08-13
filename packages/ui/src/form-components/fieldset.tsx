@@ -24,7 +24,7 @@ const Fieldset = ({ className, ...props }: FieldsetProps) => {
 }
 
 const legendClasses = tv({
-	base: 'font-semibold text-base/6 text-zinc-950 data-[disabled]:opacity-50 sm:text-sm/6',
+	base: 'text-base/6 font-semibold text-zinc-950 data-[disabled]:opacity-50 sm:text-sm/6',
 })
 
 type LegendProps = React.KeygenHTMLAttributes<HTMLLegendElement>
@@ -83,7 +83,7 @@ const Field = ({ className, ...props }: FieldProps) => {
 }
 
 const labelClasses = tv({
-	base: ['select-none text-base/6 text-zinc-950 data-[disabled]:opacity-50 sm:text-sm/6'],
+	base: ['text-base/6 text-zinc-950 select-none data-[disabled]:opacity-50 sm:text-sm/6'],
 })
 
 type LabelProps = React.ComponentPropsWithoutRef<'label'>
@@ -102,7 +102,6 @@ const Label = ({ className, ...props }: LabelProps) => {
 	}
 
 	return (
-		// biome-ignore lint/a11y/noLabelWithoutControl: it would be when rendered
 		<label
 			data-slot='label'
 			{...labelProps}

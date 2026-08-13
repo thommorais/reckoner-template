@@ -18,28 +18,28 @@ const createLogger = (): Logger => {
 
 	const error: LogMethod = (...args) => {
 		if (shouldLog('error')) {
-			// biome-ignore lint/suspicious/noConsole: Centralized logging utility - all console usage goes through here
+			// oxlint-disable-next-line no-console -- Centralized logging utility - all console usage goes through here
 			console.error(...args)
 		}
 	}
 
 	const warn: LogMethod = (...args) => {
 		if (shouldLog('warn')) {
-			// biome-ignore lint/suspicious/noConsole: Centralized logging utility - all console usage goes through here
+			// oxlint-disable-next-line no-console -- Centralized logging utility - all console usage goes through here
 			console.warn(...args)
 		}
 	}
 
 	const info: LogMethod = (...args) => {
 		if (shouldLog('info')) {
-			// biome-ignore lint/suspicious/noConsole: Centralized logging utility - all console usage goes through here
+			// oxlint-disable-next-line no-console -- Centralized logging utility - all console usage goes through here
 			console.info(...args)
 		}
 	}
 
 	const log: LogMethod = (...args) => {
 		if (shouldLog('log')) {
-			// biome-ignore lint/suspicious/noConsole: Centralized logging utility - all console usage goes through here
+			// oxlint-disable-next-line no-console -- Centralized logging utility - all console usage goes through here
 			console.log(...args)
 		}
 	}

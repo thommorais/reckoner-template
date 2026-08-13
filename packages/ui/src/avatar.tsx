@@ -29,14 +29,14 @@ export function Avatar({
 				className,
 				// Basic layout
 				'inline-grid shrink-0 align-middle [--avatar-radius:20%] *:col-start-1 *:row-start-1',
-				'outline outline-primary-200 -outline-offset-1',
+				'outline-primary-200 outline -outline-offset-1',
 				// Border radius
 				square ? 'rounded-(--avatar-radius) *:rounded-(--avatar-radius)' : 'rounded-full *:rounded-full',
 			)}
 		>
 			{initials && (
 				<svg
-					className='size-full select-none fill-current p-[5%] font-medium text-[48px] uppercase'
+					className='size-full fill-current p-[5%] text-[48px] font-medium uppercase select-none'
 					viewBox='0 0 100 100'
 					aria-hidden={alt ? undefined : 'true'}
 				>
@@ -69,7 +69,7 @@ export const AvatarButton = forwardRef(function AvatarButton(
 	const classes = clsx(
 		className,
 		square ? 'rounded-[20%]' : 'rounded-full',
-		'relative inline-grid focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-primary-500 data-focus:outline-offset-2',
+		'data-focus:outline-primary-500 relative inline-grid focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2',
 	)
 
 	return typeof props.href === 'string' ? (

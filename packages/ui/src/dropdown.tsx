@@ -40,11 +40,11 @@ export function DropdownMenu({
 				// Popover background
 				'bg-white/95 backdrop-blur-xl',
 				// Shadows
-				'shadow-popover ring-1 ring-primary-200/50',
+				'shadow-popover ring-primary-200/50 ring-1',
 				// Define grid at the menu level if subgrid is supported
 				'supports-[grid-template-columns:subgrid]:grid supports-[grid-template-columns:subgrid]:grid-cols-[auto_1fr_1.5rem_0.5rem_auto]',
 				// Transitions
-				'transition data-closed:data-leave:opacity-0 data-leave:duration-100 data-leave:ease-in',
+				'transition data-leave:duration-100 data-leave:ease-in data-closed:data-leave:opacity-0',
 			)}
 		/>
 	)
@@ -62,7 +62,7 @@ export function DropdownItem({
 		// Base styles
 		'group cursor-default rounded-lg px-3.5 py-2.5 focus:outline-hidden sm:px-3 sm:py-1.5',
 		// Text styles
-		'text-left text-base/6 text-primary-900 sm:text-sm/6 forced-colors:text-[CanvasText]',
+		'text-primary-900 text-left text-base/6 sm:text-sm/6 forced-colors:text-[CanvasText]',
 		// Focus
 		'data-focus:bg-primary-500 data-focus:text-white',
 		// Disabled state
@@ -73,7 +73,7 @@ export function DropdownItem({
 		'col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] items-center supports-[grid-template-columns:subgrid]:grid-cols-subgrid',
 		// Icons
 		'*:data-[slot=icon]:col-start-1 *:data-[slot=icon]:row-start-1 *:data-[slot=icon]:mr-2.5 *:data-[slot=icon]:-ml-0.5 *:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:mr-2 sm:*:data-[slot=icon]:size-4',
-		'data-focus:*:data-[slot=icon]:stroke-white *:data-[slot=icon]:stroke-primary-600',
+		'*:data-[slot=icon]:stroke-primary-600 data-focus:*:data-[slot=icon]:stroke-white',
 		// Avatar
 		'*:data-[slot=avatar]:mr-2.5 *:data-[slot=avatar]:-ml-1 *:data-[slot=avatar]:size-6 sm:*:data-[slot=avatar]:mr-2 sm:*:data-[slot=avatar]:size-5',
 	)
@@ -114,7 +114,7 @@ export function DropdownHeading({
 			{...props}
 			className={clsx(
 				className,
-				'col-span-full grid grid-cols-[1fr_auto] gap-x-12 px-3.5 pt-2 pb-1 font-medium text-primary-700 text-sm/5 sm:px-3 sm:text-xs/5',
+				'text-primary-700 col-span-full grid grid-cols-[1fr_auto] gap-x-12 px-3.5 pt-2 pb-1 text-sm/5 font-medium sm:px-3 sm:text-xs/5',
 			)}
 		/>
 	)
@@ -129,7 +129,7 @@ export function DropdownDivider({
 			{...props}
 			className={clsx(
 				className,
-				'col-span-full mx-3.5 my-1 h-px border-0 bg-primary-200/50 sm:mx-3 forced-colors:bg-[CanvasText]',
+				'bg-primary-200/50 col-span-full mx-3.5 my-1 h-px border-0 sm:mx-3 forced-colors:bg-[CanvasText]',
 			)}
 		/>
 	)
@@ -149,7 +149,7 @@ export function DropdownDescription({
 			{...props}
 			className={clsx(
 				className,
-				'col-span-2 col-start-2 row-start-2 text-primary-700 text-sm/5 group-data-focus:text-white sm:text-xs/5 forced-colors:group-data-focus:text-[HighlightText]',
+				'text-primary-700 col-span-2 col-start-2 row-start-2 text-sm/5 group-data-focus:text-white sm:text-xs/5 forced-colors:group-data-focus:text-[HighlightText]',
 			)}
 		/>
 	)
@@ -170,7 +170,7 @@ export function DropdownShortcut({
 				<kbd
 					key={char}
 					className={clsx([
-						'min-w-[2ch] text-center font-sans text-primary-600 capitalize group-data-focus:text-white forced-colors:group-data-focus:text-[HighlightText]',
+						'text-primary-600 min-w-[2ch] text-center font-sans capitalize group-data-focus:text-white forced-colors:group-data-focus:text-[HighlightText]',
 						// Make sure key names that are longer than one character (like "Tab") have extra space
 						index > 0 && char.length > 1 && 'pl-1',
 					])}

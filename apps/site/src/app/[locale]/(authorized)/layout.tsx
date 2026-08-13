@@ -8,5 +8,5 @@ const AuthorizedLayout = ({ children }: AuthorizedLayoutProps) => {
 	return <SidebarLayoutWithAuth>{children}</SidebarLayoutWithAuth>
 }
 
-// biome-ignore lint/style/noDefaultExport: Next.js layout requirement
+// oxlint-disable-next-line import/no-default-export -- Next.js layout requirement
 export default AuthorizedLayout

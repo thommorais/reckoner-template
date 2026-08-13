@@ -27,13 +27,13 @@ function MobileSidebar({ open, close, children }: React.PropsWithChildren<{ open
 		<Headless.Dialog open={open} onClose={close} className='lg:hidden'>
 			<Headless.DialogBackdrop
 				transition
-				className='fixed inset-0 bg-black/30 transition data-closed:opacity-0 data-enter:duration-300 data-leave:duration-200 data-enter:ease-out data-leave:ease-in'
+				className='fixed inset-0 bg-black/30 transition data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in'
 			/>
 			<Headless.DialogPanel
 				transition
 				className='fixed inset-y-0 w-full max-w-80 p-2 transition duration-300 ease-in-out data-closed:-translate-x-full'
 			>
-				<div className='flex h-full flex-col rounded-lg bg-white shadow-card ring-1 ring-primary-200/50'>
+				<div className='shadow-card ring-primary-200/50 flex h-full flex-col rounded-lg bg-white ring-1'>
 					<div className='-mb-3 px-4 pt-3'>
 						<Headless.CloseButton as={NavbarItem} aria-label='Close navigation'>
 							<CloseMenuIcon />
@@ -56,7 +56,7 @@ export function SidebarLayout({
 	return (
 		<div className='relative isolate flex min-h-svh w-full bg-white max-lg:flex-col'>
 			{/* Sidebar on desktop */}
-			<motion.div layoutScroll className='fixed inset-y-0 left-0 z-20 w-64 border-black/10 border-r max-lg:hidden'>
+			<motion.div layoutScroll className='fixed inset-y-0 left-0 z-20 w-64 border-r border-black/10 max-lg:hidden'>
 				{sidebar}
 			</motion.div>
 
@@ -66,7 +66,7 @@ export function SidebarLayout({
 			</MobileSidebar>
 
 			{/* Navbar on mobile */}
-			<header className='relative z-20 flex items-center border-black/10 border-b px-4 lg:hidden'>
+			<header className='relative z-20 flex items-center border-b border-black/10 px-4 lg:hidden'>
 				<div className='py-2.5'>
 					<NavbarItem onClick={() => setShowSidebar(true)} aria-label='Open navigation'>
 						<OpenMenuIcon />
@@ -76,7 +76,7 @@ export function SidebarLayout({
 			</header>
 
 			{/* Content */}
-			<main className='z-10 flex flex-1 flex-col bg-porcelain pb-2 lg:min-w-0 lg:pr-2 lg:pl-64'>
+			<main className='bg-porcelain z-10 flex flex-1 flex-col pb-2 lg:min-w-0 lg:pr-2 lg:pl-64'>
 				<div className='grow lg:rounded-lg'>{children}</div>
 			</main>
 		</div>

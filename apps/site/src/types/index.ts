@@ -3,7 +3,7 @@ type RecordIdString = string
 type HTMLString = string
 type DateType = string | null | Date
 
-// biome-ignore lint/suspicious/noExplicitAny: to avoid breaking changes
+// oxlint-disable-next-line typescript/no-explicit-any -- to avoid breaking changes
 type ANY = any
 interface BaseModel {
 	[key: string]: ANY

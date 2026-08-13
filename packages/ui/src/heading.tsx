@@ -5,7 +5,7 @@ type HeadingProps = { level?: 1 | 2 | 3 | 4 | 5 | 6 } & React.ComponentPropsWith
 >
 
 const headingClasses = tv({
-	base: ['font-semibold text-2xl/8 text-black sm:text-xl/8'],
+	base: ['text-2xl/8 font-semibold text-black sm:text-xl/8'],
 })
 
 export function Heading({ className, level = 1, ...props }: HeadingProps) {
@@ -15,7 +15,7 @@ export function Heading({ className, level = 1, ...props }: HeadingProps) {
 }
 
 const subHeadingClasses = tv({
-	base: ['font-semibold text-base/7 text-black sm:text-sm/6'],
+	base: ['text-base/7 font-semibold text-black sm:text-sm/6'],
 })
 
 export function Subheading({ className, level = 2, ...props }: HeadingProps) {

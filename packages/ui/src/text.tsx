@@ -32,7 +32,7 @@ export function Code({ className, ...props }: React.ComponentPropsWithoutRef<'co
 			{...props}
 			className={clsx(
 				className,
-				'rounded-sm border border-black/10 bg-black/2.5 px-0.5 font-medium text-black text-sm sm:text-[0.8125rem]',
+				'rounded-sm border border-black/10 bg-black/2.5 px-0.5 text-sm font-medium text-black sm:text-[0.8125rem]',
 			)}
 			data-id='thom-ui'
 		/>

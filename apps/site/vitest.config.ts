@@ -2,7 +2,7 @@ import path from 'node:path'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vitest/config'
 
-// biome-ignore lint/style/noDefaultExport: config
+// oxlint-disable-next-line import/no-default-export -- config
 export default defineConfig({
 	plugins: [react()],
 	test: {

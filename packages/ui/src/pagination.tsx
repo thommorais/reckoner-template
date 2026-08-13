@@ -67,7 +67,7 @@ export const PaginationList = ({ className, ...props }: ComponentProps<'span'>) 
 			{...props}
 			className={clsx(
 				className,
-				'hidden w-full auto-cols-min grid-flow-col grid-cols-min place-content-center gap-x-2 place-self-center sm:grid',
+				'grid-cols-min hidden w-full auto-cols-min grid-flow-col place-content-center gap-x-2 place-self-center sm:grid',
 			)}
 		/>
 	)
@@ -98,7 +98,7 @@ export const PaginationGap = ({ className, children = <>&hellip;</>, ...props }:
 		<span
 			aria-hidden='true'
 			{...props}
-			className={clsx(className, 'w-[2.25rem] select-none text-center font-semibold text-black text-sm/6')}
+			className={clsx(className, 'w-[2.25rem] text-center text-sm/6 font-semibold text-black select-none')}
 		>
 			{children}
 		</span>

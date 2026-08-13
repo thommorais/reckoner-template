@@ -57,7 +57,7 @@ export function Listbox<T>({
 						// Background color
 						'bg-transparent',
 						// Invalid state
-						'group-data-hover:group-data-invalid:border-red-500 group-data-invalid:border-red-500',
+						'group-data-invalid:border-red-500 group-data-hover:group-data-invalid:border-red-500',
 						// Disabled state
 						'group-data-disabled:border-black/20 group-data-disabled:opacity-100',
 					])}
@@ -81,7 +81,7 @@ export function Listbox<T>({
 					// Anchor positioning
 					'[--anchor-offset:-1.625rem] [--anchor-padding:calc(var(--spacing)*4)] sm:[--anchor-offset:-1.375rem]',
 					// Base styles
-					'isolate w-max min-w-[calc(var(--button-width)+1.75rem)] select-none scroll-py-1 rounded-xl p-1',
+					'isolate w-max min-w-[calc(var(--button-width)+1.75rem)] scroll-py-1 rounded-xl p-1 select-none',
 					// Invisible border that is only visible in `forced-colors` mode for accessibility purposes
 					'outline-1 outline-transparent focus:outline-hidden',
 					// Handle scrolling when menu won't fit in viewport
@@ -167,7 +167,7 @@ export function ListboxDescription({ className, children, ...props }: React.Comp
 			{...props}
 			className={clsx(
 				className,
-				'flex flex-1 overflow-hidden text-zinc-500 before:w-2 before:min-w-0 before:shrink group-data-focus/option:text-white',
+				'flex flex-1 overflow-hidden text-zinc-500 group-data-focus/option:text-white before:w-2 before:min-w-0 before:shrink',
 			)}
 			data-id='thom-ui'
 		>

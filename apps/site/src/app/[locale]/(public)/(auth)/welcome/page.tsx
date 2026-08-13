@@ -13,5 +13,5 @@ const Welcome = async ({ params }: PageProps) => {
 	return <SignupPage />
 }
 
-// biome-ignore lint/style/noDefaultExport: page
+// oxlint-disable-next-line import/no-default-export -- page
 export default Welcome

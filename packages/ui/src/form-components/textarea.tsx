@@ -5,9 +5,9 @@ import { inputControlClasses } from './input'
 const textareaClasses = tv({
 	base: [
 		'relative block w-full appearance-none rounded-md px-[calc(calc(var(--spacing)*3.5)-1px)] py-[calc(calc(var(--spacing)*2.5)-1px)]',
-		'text-base/6 text-info-700 placeholder:text-info-500 sm:text-base',
+		'text-info-700 placeholder:text-info-500 text-base/6 sm:text-base',
 		'focus:outline-none',
-		'data-[invalid]:data-[hover]:border-red-500 data-[invalid]:border-red-500',
+		'data-[invalid]:border-red-500 data-[invalid]:data-[hover]:border-red-500',
 	],
 })
 

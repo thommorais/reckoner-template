@@ -18,5 +18,5 @@ const Home = async ({ params }: HomeProps): Promise<React.ReactNode> => {
 	)
 }
 
-// biome-ignore lint/style/noDefaultExport: page
+// oxlint-disable-next-line import/no-default-export -- page
 export default Home

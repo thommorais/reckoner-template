@@ -6,5 +6,5 @@ const DashboardLayout = async ({ children }: LocaleLayoutProps) => {
 	return <>{children}</>
 }
 
-// biome-ignore lint/style/noDefaultExport: layout
+// oxlint-disable-next-line import/no-default-export -- layout
 export default DashboardLayout

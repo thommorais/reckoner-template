@@ -12,5 +12,5 @@ const Recovery = async ({ params }: LoginProps) => {
 	return <h1>Recovery Page</h1>
 }
 
-// biome-ignore lint/style/noDefaultExport: page
+// oxlint-disable-next-line import/no-default-export -- page
 export default Recovery

@@ -1,5 +1,4 @@
 import type { locales } from './locales'
-// biome-ignore lint/style/useImportType: not a type
 import { pt } from './pt'
 
 type Locale = (typeof locales)[number]

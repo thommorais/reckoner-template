@@ -1,40 +1,44 @@
 {
-  "name": "thom",
-  "private": true,
-  "scripts": {
-    "build": "nx run-many -t build",
-    "dev": "nx run-many -t dev",
-    "clean": "git clean -xdf node_modules",
-    "clean:workspaces": "nx run-many -t clean",
-    "lint": "nx run-many -t lint",
-    "typecheck": "nx run-many -t typecheck",
-    "build:icons": "node ./packages/ui/scripts/build-icons.mjs",
-    "web:dev": "nx dev @thom/site",
-    "web:build": "nx build @thom/site",
-    "web:icons": "node ./apps/site/src/scripts/build-icons.mjs",
-    "web:start": "nx start @thom/site",
-    "ui:build": "nx build @thom/ui"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^2.3.13",
-    "@nx/devkit": "23.1.1",
-    "nx": "23.1.1",
-    "typescript": "5.5.4"
-  },
-  "packageManager": "pnpm@10.28.0",
-  "engines": {
-    "node": ">=18"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.2.6",
-      "@types/react-dom": "19.2.3"
-    },
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "core-js-pure",
-      "esbuild",
-      "sharp"
-    ]
-  }
+	"name": "thom",
+	"private": true,
+	"scripts": {
+		"build": "nx run-many -t build",
+		"dev": "nx run-many -t dev",
+		"clean": "git clean -xdf node_modules",
+		"clean:workspaces": "nx run-many -t clean",
+		"lint": "oxlint .",
+		"typecheck": "nx run-many -t typecheck",
+		"build:icons": "node ./packages/ui/scripts/build-icons.mjs",
+		"web:dev": "nx dev @thom/site",
+		"web:build": "nx build @thom/site",
+		"web:icons": "node ./apps/site/src/scripts/build-icons.mjs",
+		"web:start": "nx start @thom/site",
+		"ui:build": "nx build @thom/ui",
+		"lint:fix": "oxlint --fix .",
+		"format": "oxfmt .",
+		"format:check": "oxfmt --check ."
+	},
+	"devDependencies": {
+		"@nx/devkit": "23.1.1",
+		"nx": "23.1.1",
+		"oxfmt": "0.63.0",
+		"oxlint": "1.78.0",
+		"typescript": "5.5.4"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"packageManager": "pnpm@10.28.0",
+	"pnpm": {
+		"overrides": {
+			"@types/react": "19.2.6",
+			"@types/react-dom": "19.2.3"
+		},
+		"onlyBuiltDependencies": [
+			"@parcel/watcher",
+			"core-js-pure",
+			"esbuild",
+			"sharp"
+		]
+	}
 }

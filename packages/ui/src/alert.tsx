@@ -39,7 +39,7 @@ export function Alert({
 							className,
 							sizes[size],
 							'row-start-2 w-full rounded-2xl p-8 shadow-lg ring-1 ring-black/10 sm:rounded-2xl sm:p-6 forced-colors:outline',
-							'transition duration-100 will-change-transform data-closed:data-enter:scale-95 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in',
+							'transition duration-100 will-change-transform data-closed:opacity-0 data-enter:ease-out data-closed:data-enter:scale-95 data-leave:ease-in',
 						)}
 					>
 						{children}
@@ -59,7 +59,7 @@ export function AlertTitle({
 			{...props}
 			className={clsx(
 				className,
-				'text-balance text-center font-semibold text-base/6 text-black sm:text-wrap sm:text-left sm:text-sm/6',
+				'text-center text-base/6 font-semibold text-balance text-black sm:text-left sm:text-sm/6 sm:text-wrap',
 			)}
 		/>
 	)
@@ -73,7 +73,7 @@ export function AlertDescription({
 		<Headless.Description
 			as={Text}
 			{...props}
-			className={clsx(className, 'mt-2 text-pretty text-center sm:text-left')}
+			className={clsx(className, 'mt-2 text-center text-pretty sm:text-left')}
 		/>
 	)
 }

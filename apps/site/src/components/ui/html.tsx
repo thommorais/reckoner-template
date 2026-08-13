@@ -18,7 +18,7 @@ export const htmlClasses = tv({
 	base: [
 		// cascadiaMono.variable,
 		jost.variable,
-		'min-h-dvh w-full max-w-screen overscroll-none bg-porcelain font-default text-primary-900 antialiased antialiased accent-accent transition-colors transition-discrete duration-200 ease-enter selection:bg-primary-400',
+		'bg-porcelain font-default text-primary-900 accent-accent ease-enter selection:bg-primary-400 min-h-dvh w-full max-w-screen overscroll-none antialiased transition-colors transition-discrete duration-200',
 	],
 })
 

@@ -1,7 +1,7 @@
 import { createIdleQueue, type IdleQueue } from '_/lib/idle-queue'
 import { useEffect, useRef } from 'react'
 
-// biome-ignore lint/suspicious/noExplicitAny: Just a placeholder type for now
+// oxlint-disable-next-line typescript/no-explicit-any -- Just a placeholder type for now
 type ANYTHING = any
 interface UseIdleQueueOptions {
 	ensureTasksRun?: boolean

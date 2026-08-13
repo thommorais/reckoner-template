@@ -18,7 +18,7 @@ export function SidebarHeader({ className, ...props }: React.ComponentPropsWitho
 			{...props}
 			className={clsx(
 				className,
-				'flex flex-col border-primary-200/50 border-b p-4 [&>[data-slot=section]+[data-slot=section]]:mt-2.5',
+				'border-primary-200/50 flex flex-col border-b p-4 [&>[data-slot=section]+[data-slot=section]]:mt-2.5',
 			)}
 		/>
 	)
@@ -42,7 +42,7 @@ export function SidebarFooter({ className, ...props }: React.ComponentPropsWitho
 			{...props}
 			className={clsx(
 				className,
-				'flex flex-col border-primary-200/50 border-t p-4 [&>[data-slot=section]+[data-slot=section]]:mt-2.5',
+				'border-primary-200/50 flex flex-col border-t p-4 [&>[data-slot=section]+[data-slot=section]]:mt-2.5',
 			)}
 		/>
 	)
@@ -59,7 +59,7 @@ export function SidebarSection({ className, ...props }: React.ComponentPropsWith
 }
 
 export function SidebarDivider({ className, ...props }: React.ComponentPropsWithoutRef<'hr'>) {
-	return <hr {...props} className={clsx(className, 'my-4 border-primary-200/50 border-t lg:-mx-4')} />
+	return <hr {...props} className={clsx(className, 'border-primary-200/50 my-4 border-t lg:-mx-4')} />
 }
 
 export function SidebarSpacer({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
@@ -70,7 +70,7 @@ export function SidebarHeading({ className, ...props }: React.ComponentPropsWith
 	return (
 		<h3
 			{...props}
-			className={clsx(className, 'mb-1 px-2 font-medium text-primary-700 text-xs/6 uppercase tracking-wider')}
+			className={clsx(className, 'text-primary-700 mb-1 px-2 text-xs/6 font-medium tracking-wider uppercase')}
 		/>
 	)
 }
@@ -86,7 +86,7 @@ export const SidebarItem = ({
 	current?: boolean
 	className?: string
 	children: React.ReactNode
-	// biome-ignore lint/suspicious/noExplicitAny: yeap
+	// oxlint-disable-next-line typescript/no-explicit-any -- yeap
 	LinkComponent?: React.ComponentType<any>
 	ref?: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>
 } & (
@@ -95,9 +95,9 @@ export const SidebarItem = ({
 )) => {
 	const classes = clsx(
 		// Base
-		'flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left font-medium text-base/6 text-primary-900 lowercase sm:py-2 sm:text-sm/5',
+		'text-primary-900 flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-base/6 font-medium lowercase sm:py-2 sm:text-sm/5',
 		// Leading icon/icon-only
-		'*:data-[slot=icon]:size-6 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:stroke-primary-600 sm:*:data-[slot=icon]:size-5',
+		'*:data-[slot=icon]:stroke-primary-600 *:data-[slot=icon]:size-6 *:data-[slot=icon]:shrink-0 sm:*:data-[slot=icon]:size-5',
 		// Trailing icon (down chevron or similar)
 		'*:last:data-[slot=icon]:ml-auto *:last:data-[slot=icon]:size-5 sm:*:last:data-[slot=icon]:size-4',
 		// Avatar
@@ -115,7 +115,7 @@ export const SidebarItem = ({
 			{current && (
 				<motion.span
 					layoutId='current-indicator'
-					className='absolute inset-y-2 -left-4 w-0.5 rounded-full bg-primary-600'
+					className='bg-primary-600 absolute inset-y-2 -left-4 w-0.5 rounded-full'
 				/>
 			)}
 			{typeof props.href === 'string' ? (

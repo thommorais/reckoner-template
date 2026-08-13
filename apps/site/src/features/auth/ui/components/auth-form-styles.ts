@@ -2,15 +2,15 @@ import { tv } from '_/lib/third-party/tv'
 
 export const authFormStyles = tv({
 	slots: {
-		heading: 'mb-8 text-center font-bold text-3xl text-info-700',
+		heading: 'text-info-700 mb-8 text-center text-3xl font-bold',
 		form: 'w-full space-y-6 px-4',
 		field: '',
-		label: 'mb-2 block font-medium text-info-700 text-sm',
+		label: 'text-info-700 mb-2 block text-sm font-medium',
 		required: 'text-red-500',
 		input: 'w-full rounded-sm',
-		error: 'mt-1 text-red-500 text-sm',
+		error: 'mt-1 text-sm text-red-500',
 		submitError: 'rounded-md bg-red-50 p-4',
-		submitErrorText: 'text-red-800 text-sm',
+		submitErrorText: 'text-sm text-red-800',
 		button: 'w-full',
 	},
 	variants: {

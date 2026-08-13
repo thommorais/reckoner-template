@@ -43,14 +43,14 @@ const checkboxClasses = tv({
 		// Background color when checked
 		'group-data-checked:before:bg-(--checkbox-checked-bg)',
 		// Border
-		'border border-black/15 group-data-hover:group-data-checked:border-transparent group-data-checked:border-transparent group-data-hover:border-black/30 group-data-checked:bg-(--checkbox-checked-border)',
+		'border border-black/15 group-data-checked:border-transparent group-data-checked:bg-(--checkbox-checked-border) group-data-hover:border-black/30 group-data-hover:group-data-checked:border-transparent',
 		// Inner highlight shadow
 		'after:absolute after:inset-0 after:rounded-[calc(0.3125rem-1px)] after:shadow-[inset_0_1px_theme(--color-white/15%)]',
 		// Focus ring
-		'group-data-focus:outline group-data-focus:outline-2 group-data-focus:outline-blue-500 group-data-focus:outline-offset-2',
+		'group-data-focus:outline group-data-focus:outline-2 group-data-focus:outline-offset-2 group-data-focus:outline-blue-500',
 		// Disabled state
 		'group-data-disabled:opacity-50',
-		'group-data-disabled:border-black/25 group-data-disabled:bg-black/5 group-data-disabled:before:bg-transparent group-data-disabled:[--checkbox-check:var(--color-black)]/50',
+		'group-data-disabled:border-black/25 group-data-disabled:bg-black/5 group-data-disabled:[--checkbox-check:var(--color-black)]/50 group-data-disabled:before:bg-transparent',
 		// Forced colors mode
 		'forced-colors:[--checkbox-check:HighlightText] forced-colors:[--checkbox-checked-bg:Highlight] forced-colors:group-data-disabled:[--checkbox-check:Highlight]',
 	],
