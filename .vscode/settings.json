@@ -104,7 +104,7 @@
 	"explorer.sortOrder": "filesFirst",
 	"explorer.fileNesting.enabled": true,
 	"explorer.fileNesting.patterns": {
-		"package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, .nvmrc, .node-version, .yarnrc, .npmrc",
+		"package.json": "package-lock.json, pnpm-workspace.yaml, pnpm-lock.yaml, .nvmrc, .node-version, cog.toml, .oxlintrc.json, nx.json, .oxfmtrc.json, .npmrc",
 		"tsconfig.json": "tsconfig*.json",
 		"*.ts": "${capture}.test.ts, ${capture}.spec.ts, ${capture}.int.spec.ts",
 		"*.tsx": "${capture}.test.tsx, ${capture}.spec.tsx, ${capture}.module.css, ${capture}.stories.tsx",
