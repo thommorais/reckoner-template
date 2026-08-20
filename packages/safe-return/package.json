@@ -4,8 +4,7 @@
 	"private": true,
 	"sideEffects": false,
 	"exports": {
-		".": "./src/safe-return.ts",
-		"./http": "./src/http.ts"
+		".": "./src/safe-return.ts"
 	},
 	"scripts": {
 		"check-types": "tsc --noEmit",
@@ -17,7 +16,7 @@
 	},
 	"devDependencies": {
 		"@thom/typescript-config": "workspace:*",
-		"typescript": "5.5.4",
+		"typescript": "7.0.2",
 		"vitest": "^3.2.4"
 	}
 }

@@ -9,13 +9,17 @@
 	"scripts": {
 		"check-types": "tsc --noEmit",
 		"lint": "oxlint ./src",
-		"format": "oxfmt ./src"
+		"format": "oxfmt ./src",
+		"test": "vitest",
+		"test:run": "vitest run",
+		"test:watch": "vitest --watch"
 	},
 	"dependencies": {
 		"@thom/safe-return": "workspace:*"
 	},
 	"devDependencies": {
 		"@thom/typescript-config": "workspace:*",
-		"typescript": "5.5.4"
+		"typescript": "7.0.2",
+		"vitest": "^3.2.4"
 	}
 }

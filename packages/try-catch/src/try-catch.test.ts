@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { errorToResponse, tryCatch, tryCatchSync } from './http'
+import { errorToResponse, tryCatch, tryCatchSync } from './try-catch'
 
 describe('errorToResponse', () => {
 	it('preserves an Error message rather than replacing it with status text', () => {
