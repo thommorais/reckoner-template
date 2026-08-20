@@ -1,4 +1,4 @@
-import { createIdleQueue, type IdleQueue } from '_/lib/idle-queue'
+import { createIdleQueue, type IdleQueue } from '@thom/idle-queue'
 import { useEffect, useRef } from 'react'
 
 // oxlint-disable-next-line typescript/no-explicit-any -- Just a placeholder type for now
@@ -13,11 +13,18 @@ const useIdleQueue = (options: UseIdleQueueOptions = {}) => {
 	const queueRef = useRef<IdleQueue | null>(null)
 	const { ensureTasksRun = true, defaultMinTaskTime = 0, onError } = options
 
+	// Held in a ref so a new onError identity does not tear down the queue.
+	const onErrorRef = useRef(onError)
+	onErrorRef.current = onError
+
 	useEffect(() => {
 		// Create the queue when the component mounts
 		queueRef.current = createIdleQueue({
 			ensureTasksRun,
-			defaultMinTaskTime,
+			minTaskTime: defaultMinTaskTime,
+			onError: error => {
+				onErrorRef.current?.(error instanceof Error ? error : new Error('Unknown error'))
+			},
 		})
 
 		// Cleanup when component unmounts
