@@ -1,7 +1,7 @@
 'use client'
 import type { ComponentPropsWithRef } from 'react'
 import type { Link } from './link'
-import { tv, type VariantProps } from './tv'
+import { tv, type VariantProps } from '@thom/libs/tv'
 
 // buttonClasses with extended variant names
 const buttonClasses = tv({

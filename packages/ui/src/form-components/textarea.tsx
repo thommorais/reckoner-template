@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { tv } from '../tv'
+import { tv } from '@thom/libs/tv'
 import { inputControlClasses } from './input'
 
 const textareaClasses = tv({

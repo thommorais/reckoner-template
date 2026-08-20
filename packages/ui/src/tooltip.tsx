@@ -3,7 +3,7 @@
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 import type { ComponentPropsWithoutRef, ElementRef } from 'react'
 import { forwardRef } from 'react'
-import { tv } from './tv'
+import { tv } from '@thom/libs/tv'
 
 const tooltipContentClasses = tv({
 	base: [

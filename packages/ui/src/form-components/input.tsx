@@ -1,6 +1,6 @@
 'use client'
 import { type ComponentProps, useId } from 'react'
-import { tv } from '../tv'
+import { tv } from '@thom/libs/tv'
 import { useDisabled, useProvidedId, useProvidedLabel } from './fieldset.context'
 
 const dateTypes = ['date', 'datetime-local', 'month', 'time', 'week']

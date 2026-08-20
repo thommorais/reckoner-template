@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from './tv'
+import { tv, type VariantProps } from '@thom/libs/tv'
 
 const dividerClasses = tv({
 	base: ['w-full border-t'],

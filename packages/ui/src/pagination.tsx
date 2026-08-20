@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react'
 import { Button } from './button'
-import { clsx } from './clsx'
-import { tv } from './tv'
+import { clsx } from '@thom/libs/clsx'
+import { tv } from '@thom/libs/tv'
 
 const paginationStyles = tv({
 	base: 'place-items-["auto center"] grid grid-cols-2 sm:grid-cols-3',

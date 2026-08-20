@@ -1,7 +1,7 @@
 'use client'
 import type React from 'react'
 import { useId } from 'react'
-import { tv } from '../tv'
+import { tv } from '@thom/libs/tv'
 import {
 	DisabledProvider,
 	IdProvider,

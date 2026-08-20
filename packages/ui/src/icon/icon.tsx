@@ -1,5 +1,5 @@
 import type { SVGProps } from 'react'
-import { tv } from '../tv'
+import { tv } from '@thom/libs/tv'
 import type { IconName } from './icon-names'
 
 const iconClasses = tv({

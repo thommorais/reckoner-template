@@ -1,6 +1,6 @@
 import * as Headless from '@headlessui/react'
 import type React from 'react'
-import { tv, type VariantProps } from './tv'
+import { tv, type VariantProps } from '@thom/libs/tv'
 
 const checkboxGroupClasses = tv({
 	base: [

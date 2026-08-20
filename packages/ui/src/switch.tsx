@@ -1,6 +1,6 @@
 import * as Headless from '@headlessui/react'
 import type React from 'react'
-import { tv } from './tv'
+import { tv } from '@thom/libs/tv'
 
 const switchGroupClasses = tv({
 	base: [

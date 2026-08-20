@@ -1,6 +1,6 @@
 import { Slot } from '@radix-ui/react-slot'
 import type React from 'react'
-import { tv, type VariantProps } from './tv'
+import { tv, type VariantProps } from '@thom/libs/tv'
 
 const cardClasses = tv({
 	base: [
