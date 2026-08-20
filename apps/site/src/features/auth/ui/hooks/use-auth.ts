@@ -4,7 +4,7 @@ import { createInitialAuthState, reduceAuthState } from '_/features/auth/domain/
 import * as selectors from '_/features/auth/domain/selectors/auth-selectors'
 import type { Credentials, SignupData, User } from '_/features/auth/domain/types'
 import { useAuthRepository } from '_/features/auth/ui/contexts/auth-context'
-import type { Result } from '_/lib/result'
+import { ok, type Result } from '_/lib/result'
 import { useCallback, useEffect, useReducer } from 'react'
 
 export type UseAuthReturn = {
@@ -43,8 +43,8 @@ export const useAuth = (): UseAuthReturn => {
 				return
 			}
 
-			if (result.value) {
-				dispatch({ type: 'USER_LOADED', user: result.value })
+			if (result.data) {
+				dispatch({ type: 'USER_LOADED', user: result.data })
 			} else {
 				dispatch({ type: 'SIGN_OUT_SUCCEEDED' })
 			}
@@ -73,8 +73,8 @@ export const useAuth = (): UseAuthReturn => {
 			const result = await authRepository.signIn(credentials)
 
 			if (result.success) {
-				dispatch({ type: 'SIGN_IN_SUCCEEDED', user: result.value.user })
-				return { success: true, value: undefined }
+				dispatch({ type: 'SIGN_IN_SUCCEEDED', user: result.data.user })
+				return ok(undefined)
 			}
 
 			dispatch({ type: 'SIGN_IN_FAILED', error: result.error.message })
@@ -90,8 +90,8 @@ export const useAuth = (): UseAuthReturn => {
 			const result = await authRepository.signUp(data)
 
 			if (result.success) {
-				dispatch({ type: 'SIGN_IN_SUCCEEDED', user: result.value.user })
-				return { success: true, value: undefined }
+				dispatch({ type: 'SIGN_IN_SUCCEEDED', user: result.data.user })
+				return ok(undefined)
 			}
 
 			dispatch({ type: 'SIGN_IN_FAILED', error: result.error.message })
@@ -107,7 +107,7 @@ export const useAuth = (): UseAuthReturn => {
 
 		if (result.success) {
 			dispatch({ type: 'SIGN_OUT_SUCCEEDED' })
-			return { success: true, value: undefined }
+			return ok(undefined)
 		}
 
 		dispatch({ type: 'SIGN_OUT_FAILED', error: result.error.message })

@@ -1,11 +1,11 @@
-export type Result<T, E = Error> = { success: true; value: T } | { success: false; error: E }
+/**
+ * @deprecated Import from `@thom/safe-return` instead.
+ *
+ * The result shape changed: a success carries `data`, not `value`. The error
+ * type still defaults to `Error` here, whereas `Safe` defaults to `string`.
+ */
+import type { Safe } from '@thom/safe-return'
 
-export const ok = <T>(value: T): Result<T> => ({
-	success: true,
-	value,
-})
+export { err, ok } from '@thom/safe-return'
 
-export const err = <E = Error>(error: E): Result<never, E> => ({
-	success: false,
-	error,
-})
+export type Result<T, E = Error> = Safe<T, E>

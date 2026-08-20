@@ -1,0 +1,23 @@
+{
+	"name": "@thom/safe-return",
+	"version": "0.1.0",
+	"private": true,
+	"sideEffects": false,
+	"exports": {
+		".": "./src/safe-return.ts",
+		"./http": "./src/http.ts"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit",
+		"lint": "oxlint ./src",
+		"format": "oxfmt ./src",
+		"test": "vitest",
+		"test:run": "vitest run",
+		"test:watch": "vitest --watch"
+	},
+	"devDependencies": {
+		"@thom/typescript-config": "workspace:*",
+		"typescript": "5.5.4",
+		"vitest": "^3.2.4"
+	}
+}
