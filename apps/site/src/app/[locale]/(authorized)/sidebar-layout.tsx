@@ -51,7 +51,7 @@ const AccountDropdownMenu = ({ anchor }: { anchor: 'top start' | 'bottom end' })
 	)
 }
 
-const SideBarLink = ({ label, link }: { label: string; link: string }) => {
+const _SideBarLink = ({ label, link }: { label: string; link: string }) => {
 	const pathname = usePathname()
 
 	return (
