@@ -4,10 +4,10 @@
 	"private": true,
 	"sideEffects": false,
 	"exports": {
+		"./cn": "./src/cn.ts",
 		"./date": "./src/date.ts",
 		"./logger": "./src/logger.ts",
 		"./tv": "./src/tv.ts",
-		"./clsx": "./src/clsx.ts",
 		"./types": "./src/types.ts"
 	},
 	"scripts": {

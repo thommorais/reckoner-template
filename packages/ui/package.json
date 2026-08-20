@@ -44,7 +44,6 @@
 		"@radix-ui/react-tooltip": "^1.2.8",
 		"@tailwindcss/postcss": "^4.0.3",
 		"@thom/libs": "workspace:*",
-		"clsx": "^2.1.1",
 		"fast-glob": "^3.3.2",
 		"fs-extra": "^11.2.0",
 		"lucide-static": "^0.469.0",

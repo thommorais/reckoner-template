@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cn } from '@thom/libs/cn'
 import type React from 'react'
 
 const colors = {
@@ -18,7 +18,7 @@ export function Badge({ color = 'zinc', className, ...props }: BadgeProps & Reac
 	return (
 		<span
 			{...props}
-			className={clsx(
+			className={cn(
 				className,
 				'inline-flex items-center gap-x-1.5 rounded-md px-1.5 py-0.5 text-sm/5 font-medium sm:text-xs/5 forced-colors:outline',
 				colors[color],

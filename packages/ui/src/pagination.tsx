@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react'
 import { Button } from './button'
-import { clsx } from '@thom/libs/clsx'
+import { cn } from '@thom/libs/cn'
 import { tv } from '@thom/libs/tv'
 
 const paginationStyles = tv({
@@ -25,7 +25,7 @@ export const Pagination = ({
 
 export const PaginationPrevious = ({ className, children = 'Previous', ...props }: ComponentProps<typeof Button>) => {
 	return (
-		<span className={clsx(className, 'grow basis-0')}>
+		<span className={cn(className, 'grow basis-0')}>
 			<Button variant='outline' color='secondary' aria-label='Previous page' {...props}>
 				<svg data-slot='icon' viewBox='0 0 16 16' aria-hidden='true'>
 					<path
@@ -44,7 +44,7 @@ export const PaginationPrevious = ({ className, children = 'Previous', ...props 
 
 export const PaginationNext = ({ className, children = 'Next', ...props }: ComponentProps<typeof Button>) => {
 	return (
-		<span className={clsx(className, 'flex grow basis-0 justify-end')}>
+		<span className={cn(className, 'flex grow basis-0 justify-end')}>
 			<Button variant='outline' color='secondary' aria-label='Next page' {...props}>
 				{children}
 				<svg data-slot='icon' viewBox='0 0 16 16' aria-hidden='true'>
@@ -65,7 +65,7 @@ export const PaginationList = ({ className, ...props }: ComponentProps<'span'>) 
 	return (
 		<span
 			{...props}
-			className={clsx(
+			className={cn(
 				className,
 				'grid-cols-min hidden w-full auto-cols-min grid-flow-col place-content-center gap-x-2 place-self-center sm:grid',
 			)}
@@ -98,7 +98,7 @@ export const PaginationGap = ({ className, children = <>&hellip;</>, ...props }:
 		<span
 			aria-hidden='true'
 			{...props}
-			className={clsx(className, 'w-[2.25rem] text-center text-sm/6 font-semibold text-black select-none')}
+			className={cn(className, 'w-[2.25rem] text-center text-sm/6 font-semibold text-black select-none')}
 		>
 			{children}
 		</span>

@@ -1,5 +1,5 @@
+import { cn } from '@thom/libs/cn'
 import * as Headless from '@headlessui/react'
-import clsx from 'clsx'
 import type React from 'react'
 import { forwardRef } from 'react'
 
@@ -10,7 +10,7 @@ export const Select = forwardRef(function Select(
 	return (
 		<span
 			data-slot='control'
-			className={clsx([
+			className={cn([
 				className,
 				// Basic layout
 				'group relative block w-full',
@@ -28,7 +28,7 @@ export const Select = forwardRef(function Select(
 				ref={ref}
 				multiple={multiple}
 				{...props}
-				className={clsx([
+				className={cn([
 					// Basic layout
 					'relative block w-full appearance-none rounded-lg py-[calc(calc(var(--spacing)*2.5)-1px)] sm:py-[calc(calc(var(--spacing)*1.5)-1px)]',
 					// Horizontal padding
