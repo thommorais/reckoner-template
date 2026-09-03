@@ -23,22 +23,10 @@
 		"nx": "23.1.1",
 		"oxfmt": "0.63.0",
 		"oxlint": "1.78.0",
-		"typescript": "5.5.4"
+		"typescript": "6.0.3"
 	},
 	"engines": {
 		"node": ">=18"
 	},
-	"packageManager": "pnpm@10.28.0",
-	"pnpm": {
-		"overrides": {
-			"@types/react": "19.2.6",
-			"@types/react-dom": "19.2.3"
-		},
-		"onlyBuiltDependencies": [
-			"@parcel/watcher",
-			"core-js-pure",
-			"esbuild",
-			"sharp"
-		]
-	}
+	"packageManager": "pnpm@10.28.0"
 }

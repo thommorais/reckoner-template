@@ -11,3 +11,11 @@ catalog:
   'tailwindcss': '^4.2.1'
   'vite': '^8.0.10'
   'zustand': '^5.0.11'
+overrides:
+  '@types/react': '19.2.6'
+  '@types/react-dom': '19.2.3'
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - 'core-js-pure'
+  - 'esbuild'
+  - 'sharp'
