@@ -21,6 +21,9 @@ importers:
       '@nx/devkit':
         specifier: 23.1.1
         version: 23.1.1(nx@23.1.1)
+      '@thom/workspace-tools':
+        specifier: workspace:*
+        version: link:packages/workspace-tools
       nx:
         specifier: 23.1.1
         version: 23.1.1
@@ -330,6 +333,21 @@ importers:
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@20.19.30)(happy-dom@18.0.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.9.0)
+
+  packages/workspace-tools:
+    devDependencies:
+      '@nx/devkit':
+        specifier: 23.1.1
+        version: 23.1.1(nx@23.1.1)
+      '@thom/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^20
+        version: 20.19.30
+      typescript:
+        specifier: 6.0.3
+        version: 6.0.3
 
 packages:
 

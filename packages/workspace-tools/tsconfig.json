@@ -1,0 +1,10 @@
+{
+	"extends": "@thom/typescript-config/base.json",
+	"compilerOptions": {
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"target": "ESNext"
+	},
+	"include": ["generators/**/*.ts"],
+	"exclude": ["node_modules", "dist"]
+}
