@@ -1,4 +1,4 @@
-import { formatFiles, type Tree } from '@nx/devkit'
+import { formatFiles, installPackagesTask, type Tree } from '@nx/devkit'
 
 interface RenameScopeGeneratorSchema {
 	name: string
@@ -121,8 +121,14 @@ export default async function renameScopeGenerator(tree: Tree, options: RenameSc
 	await formatFiles(tree)
 
 	console.info(`\nRenamed @${from} to @${to} across ${changed.length} files.`)
-	console.info('Run `pnpm install` now: the lockfile and the node_modules links')
-	console.info(`still point at @${from}, and nx cannot resolve its plugins until they do.\n`)
+
+	// The lockfile and the node_modules links still point at the old scope, and
+	// nx cannot resolve its own plugins until pnpm has relinked them. The
+	// install is forced because it is otherwise skipped unless the root
+	// package.json itself changed.
+	return () => {
+		installPackagesTask(tree, true)
+	}
 }
 
 /** The root package name is a bare string, not a scoped one, so it needs an exact match. */

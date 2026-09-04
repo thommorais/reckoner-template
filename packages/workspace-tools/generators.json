@@ -7,6 +7,11 @@
 			"factory": "./generators/rename-scope/generator",
 			"schema": "./generators/rename-scope/schema.json",
 			"description": "Renames the workspace scope when using this repo as a template"
+		},
+		"package": {
+			"factory": "./generators/package/generator",
+			"schema": "./generators/package/schema.json",
+			"description": "Adds a new workspace library under packages/"
 		}
 	}
 }

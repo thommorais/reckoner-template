@@ -17,7 +17,8 @@
 		"lint:fix": "oxlint --fix .",
 		"format": "oxfmt .",
 		"format:check": "oxfmt --check .",
-		"rename": "nx g @thom/workspace-tools:rename-scope"
+		"rename": "nx g @thom/workspace-tools:rename-scope",
+		"new:package": "nx g @thom/workspace-tools:package"
 	},
 	"devDependencies": {
 		"@nx/devkit": "23.1.1",
