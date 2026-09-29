@@ -69,7 +69,7 @@ type PROCESS_ENV = Record<
 
 // Don't touch
 // --------------------------
-type MergedSafeParseReturn = z.SafeParseReturnType<z.input<typeof serverSchema>, ServerEnvs>
+type MergedSafeParseReturn = z.ZodSafeParseResult<ServerEnvs>
 
 const parseEnvs = (
 	processEnv: PROCESS_ENV,
@@ -77,7 +77,7 @@ const parseEnvs = (
 	serverSchema: z.ZodSchema,
 ): MergedSafeParseReturn => {
 	const schema = isServerSide() ? serverSchema : clientSchema
-	return schema.safeParse(processEnv)
+	return schema.safeParse(processEnv) as MergedSafeParseReturn
 }
 
 const processEnv: PROCESS_ENV = {
