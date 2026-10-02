@@ -1,11 +1,13 @@
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 
-const Spinner = ({ className, ...props }: ComponentPropsWithRef<'svg'>) => (
+/** Announces itself as "Loading" unless `aria-hidden` says another element already does. */
+const Spinner = ({ className, 'aria-hidden': hidden, ...props }: ComponentPropsWithRef<'svg'>) => (
 	<svg
 		data-slot='spinner'
-		role='status'
-		aria-label='Loading'
+		role={hidden ? undefined : 'status'}
+		aria-label={hidden ? undefined : 'Loading'}
+		aria-hidden={hidden}
 		viewBox='0 0 24 24'
 		fill='none'
 		stroke='currentColor'

@@ -1,11 +1,12 @@
 'use client'
 
-import { ChevronLeft, ChevronRight, type LucideIcon } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { type ComponentPropsWithRef } from 'react'
-import { IconButton } from './icon-button'
+import type { IconButton } from './icon-button'
 import { cn } from './lib/cn'
 import { addMonths, formatMonthYear, startOfMonth } from './lib/month'
 import { useControllableState } from './lib/use-controllable-state'
+import { StepButton } from './step-button'
 import { createRequiredContext } from './lib/required-context'
 import { displayHeading } from './lib/text-styles'
 
@@ -46,28 +47,31 @@ const Root = ({ value, defaultValue, onValueChange, locale = 'en', className, ..
 	)
 }
 
-type StepButtonProps = ComponentPropsWithRef<typeof IconButton> & {
-	direction: -1 | 1
-	icon: LucideIcon
-}
-
-const StepButton = ({ direction, icon: Icon, children, ...props }: StepButtonProps) => {
+const Previous = (props: ComponentPropsWithRef<typeof IconButton>) => {
 	const { step } = useMonthStepper()
-
 	return (
-		<IconButton data-slot='month-stepper-step' tone='ghost' size='sm' {...props} onClick={() => step(direction)}>
-			{children ?? <Icon />}
-		</IconButton>
+		<StepButton
+			data-slot='month-stepper-previous'
+			icon={ChevronLeft}
+			aria-label='Previous month'
+			{...props}
+			onStep={() => step(-1)}
+		/>
 	)
 }
 
-const Previous = (props: ComponentPropsWithRef<typeof IconButton>) => (
-	<StepButton direction={-1} icon={ChevronLeft} aria-label='Previous month' {...props} />
-)
-
-const Next = (props: ComponentPropsWithRef<typeof IconButton>) => (
-	<StepButton direction={1} icon={ChevronRight} aria-label='Next month' {...props} />
-)
+const Next = (props: ComponentPropsWithRef<typeof IconButton>) => {
+	const { step } = useMonthStepper()
+	return (
+		<StepButton
+			data-slot='month-stepper-next'
+			icon={ChevronRight}
+			aria-label='Next month'
+			{...props}
+			onStep={() => step(1)}
+		/>
+	)
+}
 
 const Label = ({ className, ...props }: ComponentPropsWithRef<'span'>) => {
 	const { month, locale } = useMonthStepper()

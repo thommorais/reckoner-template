@@ -2,6 +2,7 @@
 
 import { useState, type ComponentPropsWithRef } from 'react'
 import { Input } from './input'
+import { commitOn } from './lib/commit-on'
 import { formatDate, datePlaceholder, parseDate } from './lib/parse-date'
 import { useControllableState } from './lib/use-controllable-state'
 import { createRequiredContext } from './lib/required-context'
@@ -61,14 +62,7 @@ const Field = ({ onBlur, onKeyDown, ...props }: ComponentPropsWithRef<typeof Inp
 			{...props}
 			value={text}
 			onChange={event => setText(event.target.value)}
-			onBlur={event => {
-				onBlur?.(event)
-				commit()
-			}}
-			onKeyDown={event => {
-				onKeyDown?.(event)
-				if (event.key === 'Enter') commit()
-			}}
+			{...commitOn(commit, { onBlur, onKeyDown })}
 		/>
 	)
 }

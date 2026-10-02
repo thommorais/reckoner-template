@@ -21,10 +21,15 @@ const usePopEnter = (duration = 200) =>
 	useEnter<HTMLDivElement>({ opacity: [0, 1], scale: [0.96, 1], duration, ease: 'outQuad' })
 
 /** Overlay fade plus a panel that scales in from 0.85, for dialogs and alert dialogs. */
-const useModalEnter = () => ({
-	overlay: useEnter<HTMLDivElement>({ opacity: [0, 1], duration: 200, ease: 'outQuad' }),
-	panel: useEnter<HTMLDivElement>({ opacity: [0, 1], scale: [0.85, 1], duration: 200, ease: 'outExpo' }),
-})
+const useOverlayEnter = () => useEnter<HTMLDivElement>({ opacity: [0, 1], duration: 200, ease: 'outQuad' })
+
+/** A dialog panel scales in from 0.85. */
+const modalPanelEnter = {
+	opacity: [0, 1],
+	scale: [0.85, 1],
+	duration: 200,
+	ease: 'outExpo',
+} as const satisfies Parameters<typeof animate>[1]
 
 /** Animates an element from zero height to its natural height when it mounts. */
 const useExpand = <T extends HTMLElement>() => {
@@ -47,4 +52,4 @@ const useExpand = <T extends HTMLElement>() => {
 	return element
 }
 
-export { prefersReducedMotion, useEnter, useExpand, useModalEnter, usePopEnter }
+export { modalPanelEnter, prefersReducedMotion, useEnter, useExpand, useOverlayEnter, usePopEnter }

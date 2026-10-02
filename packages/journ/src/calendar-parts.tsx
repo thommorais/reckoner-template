@@ -2,11 +2,12 @@
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useState, useSyncExternalStore, type ComponentPropsWithRef, type ReactNode } from 'react'
-import { IconButton, type IconButtonProps } from './icon-button'
+import type { IconButtonProps } from './icon-button'
 import { cn } from './lib/cn'
 import { interactive } from './lib/interactive'
 import { tv } from './lib/tv'
 import { useControllableState } from './lib/use-controllable-state'
+import { StepButton } from './step-button'
 import { createRequiredContext } from './lib/required-context'
 import { addMonths, formatMonthYear, startOfMonth } from './lib/month'
 import { displayHeading } from './lib/text-styles'
@@ -176,42 +177,22 @@ const Heading = ({ className, onClick, ...props }: Omit<ComponentPropsWithRef<'b
 	)
 }
 
-const Previous = ({ children, onClick, ...props }: IconButtonProps) => {
+const Previous = (props: IconButtonProps) => {
 	const { actions } = useCalendar()
 	return (
-		<IconButton
+		<StepButton
 			data-slot='calendar-previous'
-			tone='ghost'
-			size='sm'
+			icon={ChevronLeft}
 			aria-label='Previous'
 			{...props}
-			onClick={event => {
-				onClick?.(event)
-				actions.previous()
-			}}
-		>
-			{children ?? <ChevronLeft />}
-		</IconButton>
+			onStep={actions.previous}
+		/>
 	)
 }
 
-const Next = ({ children, onClick, ...props }: IconButtonProps) => {
+const Next = (props: IconButtonProps) => {
 	const { actions } = useCalendar()
-	return (
-		<IconButton
-			data-slot='calendar-next'
-			tone='ghost'
-			size='sm'
-			aria-label='Next'
-			{...props}
-			onClick={event => {
-				onClick?.(event)
-				actions.next()
-			}}
-		>
-			{children ?? <ChevronRight />}
-		</IconButton>
-	)
+	return <StepButton data-slot='calendar-next' icon={ChevronRight} aria-label='Next' {...props} onStep={actions.next} />
 }
 
 const cell = tv({

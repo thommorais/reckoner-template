@@ -1,6 +1,8 @@
 import type { ComponentPropsWithRef } from 'react'
+import { cn } from './lib/cn'
 import { interactive } from './lib/interactive'
 import { tv, type VariantProps } from './lib/tv'
+import { Spinner } from './spinner'
 import { TouchTarget } from './touch-target'
 import { controlSize } from './lib/text-styles'
 import { control } from './lib/theme'
@@ -27,19 +29,38 @@ const button = tv({
 	defaultVariants: { tone: 'neutral' },
 })
 
-type ButtonProps = VariantProps<typeof button> &
-	(({ href?: never } & ComponentPropsWithRef<'button'>) | ({ href: string } & ComponentPropsWithRef<'a'>))
+type ButtonProps = VariantProps<typeof button> & {
+	/** Shows a spinner and ignores presses until the work is done. */
+	pending?: boolean
+} & (({ href?: never } & ComponentPropsWithRef<'button'>) | ({ href: string } & ComponentPropsWithRef<'a'>))
 
-const Button = ({ tone, className, children, ...props }: ButtonProps) => {
-	const classes = button({ tone, class: className })
+const Button = ({ tone, pending = false, className, children, ...props }: ButtonProps) => {
+	const classes = button({ tone, class: cn(pending && 'aria-busy:pointer-events-none', className) })
+	const busy = {
+		'aria-busy': pending || undefined,
+		'data-pending': pending || undefined,
+		onClick: pending ? (event: React.MouseEvent) => event.preventDefault() : props.onClick,
+	}
+	const content = (
+		<TouchTarget>
+			{pending && <Spinner aria-hidden />}
+			{children}
+		</TouchTarget>
+	)
 
 	return typeof props.href === 'string' ? (
-		<a data-slot='button' {...(props as ComponentPropsWithRef<'a'>)} className={classes}>
-			<TouchTarget>{children}</TouchTarget>
+		<a data-slot='button' {...(props as ComponentPropsWithRef<'a'>)} {...(busy as object)} className={classes}>
+			{content}
 		</a>
 	) : (
-		<button data-slot='button' type='button' {...(props as ComponentPropsWithRef<'button'>)} className={classes}>
-			<TouchTarget>{children}</TouchTarget>
+		<button
+			data-slot='button'
+			type='button'
+			{...(props as ComponentPropsWithRef<'button'>)}
+			{...(busy as object)}
+			className={classes}
+		>
+			{content}
 		</button>
 	)
 }

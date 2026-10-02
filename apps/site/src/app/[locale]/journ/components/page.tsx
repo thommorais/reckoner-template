@@ -20,6 +20,7 @@ import { ScrollArea } from 'journ/scroll-area'
 import { Markdown } from 'journ/markdown'
 import { MonthStepper } from 'journ/month-stepper'
 import { Select } from 'journ/select'
+import { Sheet } from 'journ/sheet'
 import { Slider } from 'journ/slider'
 import { Stepper } from 'journ/stepper'
 import { Switch } from 'journ/switch'
@@ -28,6 +29,7 @@ import { ToggleGroup } from 'journ/toggle-group'
 import { Tooltip } from 'journ/tooltip'
 import { ArrowLeft, CalendarDays, ChevronDown, Ellipsis, Info, List } from 'lucide-react'
 import { BottomNav } from '../_components/bottom-nav'
+import { PendingButtonDemo, QuantityDemo } from '../_components/action-demos'
 import { BulkDemo } from '../_components/bulk-demo'
 import { ConfirmDemo } from '../_components/confirm-demo'
 import { DateInputDemo, DropzoneDemo, OtpDemo } from '../_components/form-demos'
@@ -494,6 +496,43 @@ const ComponentsPage = async ({ params }: { params: Promise<{ locale: string }> 
 				<Card.Root>
 					<Card.Title>Month picker</Card.Title>
 					<MonthPickerDemo locale={locale} />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Sheet</Card.Title>
+					<Card.Content className='flex-row flex-wrap gap-2'>
+						{(['right', 'left', 'top', 'bottom'] as const).map(side => (
+							<Sheet.Root key={side}>
+								<Sheet.Trigger asChild>
+									<Button tone='outline' className='capitalize'>
+										{side}
+									</Button>
+								</Sheet.Trigger>
+								<Sheet.Content side={side}>
+									<Sheet.Title>Filters</Sheet.Title>
+									<Sheet.Description>Slides in from the {side} edge.</Sheet.Description>
+									<Sheet.Body>
+										<Card.Description>Venue, period and currency filters live here.</Card.Description>
+									</Sheet.Body>
+									<Sheet.Actions>
+										<Sheet.Close asChild>
+											<Button>Done</Button>
+										</Sheet.Close>
+									</Sheet.Actions>
+								</Sheet.Content>
+							</Sheet.Root>
+						))}
+					</Card.Content>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Pending button</Card.Title>
+					<PendingButtonDemo />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Quantity input</Card.Title>
+					<QuantityDemo />
 				</Card.Root>
 
 				<PickerDemo locale={locale} />

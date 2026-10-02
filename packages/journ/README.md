@@ -94,6 +94,9 @@ Before writing a class string or an animation, look in `src/lib` first:
 - `tones.ts`: `fills`, `solidTones`, `inkTone`, `surfaceTones`. Every tone map is built from these.
 - `text-styles.ts`: `displayTitle`, `displayHeading`, `displayLabel`, `mutedText`, `controlSize`, `fieldText`, `fieldRing` and the `selectedWhen*` pill classes.
 - `overlay.ts`: floating surface/item/card styles, the modal overlay and the centered panel (Dialog, AlertDialog).
+- `modal-content.tsx`: `ModalContent` gives Dialog, AlertDialog and Sheet their portal, fading overlay and animated panel.
+- `step-button.tsx`: `StepButton`, the ghost icon button behind previous, next, minus and plus (Calendar, MonthStepper, QuantityInput).
+- `lib/commit-on.ts`: `commitOn(commit, handlers)` commits typed text on blur and Enter (DateInput, QuantityInput).
 - `modal-parts.tsx`: `Body` and `Actions`, shared by Dialog, AlertDialog and Drawer.
 - `menu-parts.tsx`: `createMenuParts(primitive, slot)` builds the styled `Content`, `Item`, `Label` and `Separator` for a Radix menu. Used by DropdownMenu, ContextMenu and Select.
 - `required-context.ts`: `createRequiredContext(owner)` for parts that must live inside a root. Do not hand-write the `use` and throw pair.
@@ -177,7 +180,7 @@ Import from `journ` or per file (`journ/card`).
 | `Badge`                         | single element, `tone`                                                                                                                                                                |
 | `Breadcrumbs`                   | `Root`, `List`, `Item`, `Link`, `Page`, `Separator`                                                                                                                                   |
 | `BulkBar`                       | `Root`, `Count`, `Actions`                                                                                                                                                            |
-| `Button`                        | single element, `tone`, renders `<a>` with `href`                                                                                                                                     |
+| `Button`                        | single element, `tone`, `pending`, renders `<a>` with `href`                                                                                                                          |
 | `Calendar`                      | `Provider`, `Root`, `Frame`, `Header`, `Heading`, `Previous`, `Next`, `Weekdays`, `Days`, `Months`, `Years`, `useCalendar`                                                            |
 | `Card`                          | `Root` (`tone`), `Icon`, `Header`, `Title`, `Description`, `Content`, `Footer`                                                                                                        |
 | `Checkbox` (Radix)              | `Root` (supports `checked="indeterminate"`), `Indicator`                                                                                                                              |
@@ -224,14 +227,17 @@ Import from `journ` or per file (`journ/card`).
 | `Pagination`                    | `Root`, `Previous`, `List`, `Page`, `Gap`, `Next`                                                                                                                                     |
 | `PillSelect`                    | single element, native `<select>`                                                                                                                                                     |
 | `Popover` (Radix)               | `Root`, `Trigger`, `Content`, `Close`                                                                                                                                                 |
+| `Portal`                        | single element, `container`. Renders children outside the tree (copied from midday). Radix overlays already portal themselves                                                         |
 | `Progress` (Radix)              | `Root` (`value`, `max`), `Indicator` (`tone`)                                                                                                                                         |
 | `Radio` (Radix)                 | `Group`, `Item`                                                                                                                                                                       |
 | `ScrollArea` (Radix)            | `Root` (`type`), `Viewport`, `Scrollbar` (`orientation`), `Corner`                                                                                                                    |
+| `QuantityInput`                 | `Root` (`value`, `min`, `max`, `step`), `Decrement`, `Field`, `Increment`                                                                                                             |
 | `Select` (Radix)                | `Root`, `Trigger`, `Value`, `Content`, `Group`, `Label`, `Item`, `Separator`                                                                                                          |
 | `Sidebar`                       | `Layout`, `Root`, `Header`, `Body`, `Section`, `Heading`, `Item`, `Footer`, `Content` (desktop only)                                                                                  |
 | `Skeleton`                      | single element                                                                                                                                                                        |
 | `Spinner`                       | single element                                                                                                                                                                        |
 | `Stepper`                       | `Root` (`value`), `Item` (`step`), `Indicator`, `Label`, `Description`                                                                                                                |
+| `Sheet` (Radix)                 | `Root`, `Trigger`, `Close`, `Content` (`side`: right, left, top, bottom), `Title`, `Description`, `Body`, `Actions`                                                                   |
 | `Slider` (Radix)                | `Root`, `Track`, `Range`, `Thumb` (one per value)                                                                                                                                     |
 | `Stack` (animejs)               | `Root` (`defaultValue`), `Item` (`value`, `tone`), `Trigger`, `Content`                                                                                                               |
 | `Stat`                          | `Root`, `Label`, `Value`, `Hint`                                                                                                                                                      |
