@@ -1,0 +1,18 @@
+/*
+ * Default design tokens. Override any variable in your own @theme block
+ * (imported after this file) to restyle journ components.
+ */
+@theme {
+	--color-journ-ink: oklch(22% 0.005 270);
+	--color-journ-surface: oklch(28% 0.005 270);
+	--color-journ-paper: oklch(98% 0.004 100);
+	--color-journ-coral: oklch(68% 0.19 30);
+	--color-journ-yellow: oklch(86% 0.15 88);
+	--color-journ-indigo: oklch(62% 0.2 275);
+	--color-journ-mint: oklch(82% 0.05 165);
+	--color-journ-sky: oklch(88% 0.08 205);
+
+	--font-journ-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+
+	--radius-journ: 1.75rem;
+}
