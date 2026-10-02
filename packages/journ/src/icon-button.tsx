@@ -1,8 +1,10 @@
 import type { ComponentPropsWithRef } from 'react'
+import { interactive } from './lib/interactive'
 import { tv, type VariantProps } from './lib/tv'
+import { TouchTarget } from './touch-target'
 
 const iconButton = tv({
-	base: 'focus-visible:ring-journ-sky grid shrink-0 place-items-center rounded-full outline-none focus-visible:ring-2',
+	base: [interactive, 'grid shrink-0 place-items-center rounded-full'],
 	variants: {
 		tone: {
 			paper: 'bg-journ-paper text-journ-ink',
@@ -20,8 +22,10 @@ const iconButton = tv({
 
 type IconButtonProps = ComponentPropsWithRef<'button'> & VariantProps<typeof iconButton>
 
-const IconButton = ({ tone, size, className, type = 'button', ...props }: IconButtonProps) => (
-	<button data-slot='icon-button' type={type} {...props} className={iconButton({ tone, size, class: className })} />
+const IconButton = ({ tone, size, className, children, type = 'button', ...props }: IconButtonProps) => (
+	<button data-slot='icon-button' type={type} {...props} className={iconButton({ tone, size, class: className })}>
+		<TouchTarget>{children}</TouchTarget>
+	</button>
 )
 
 export { IconButton }

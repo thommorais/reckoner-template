@@ -3,6 +3,7 @@
 import type { ComponentPropsWithRef } from 'react'
 import { Toaster, toast } from 'sonner'
 import { cn } from './lib/cn'
+import { interactive } from './lib/interactive'
 
 const Provider = (props: React.ComponentProps<typeof Toaster>) => (
 	<Toaster

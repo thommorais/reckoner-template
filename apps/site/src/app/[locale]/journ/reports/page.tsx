@@ -1,3 +1,4 @@
+import { Button } from 'journ/button'
 import { Card } from 'journ/card'
 import { Chip } from 'journ/chip'
 import { Composer } from 'journ/composer'
@@ -77,8 +78,8 @@ const ReportsPage = (): React.ReactNode => (
 								</div>
 							</Drawer.Body>
 							<Drawer.Actions>
-								<Drawer.Close className='bg-journ-paper text-journ-ink rounded-full px-5 py-2 text-sm'>
-									Close
+								<Drawer.Close asChild>
+									<Button>Close</Button>
 								</Drawer.Close>
 							</Drawer.Actions>
 						</Drawer.Content>
