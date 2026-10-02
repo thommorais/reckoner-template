@@ -1,4 +1,5 @@
 import { Avatar } from 'journ/avatar'
+import { Button } from 'journ/button'
 import { Card } from 'journ/card'
 import { Chip } from 'journ/chip'
 import { Composer } from 'journ/composer'
@@ -86,7 +87,12 @@ const JournHome = (): React.ReactNode => (
 				</Composer.Root>
 			</Card.Root>
 
-			<ToastDemo />
+			<div className='flex gap-2'>
+				<ToastDemo />
+				<Button href='/journ/components' tone='ghost'>
+					Components
+				</Button>
+			</div>
 			<BottomNav current='/journ' />
 		</Page.Content>
 	</Page.Root>
