@@ -14,7 +14,11 @@ const Label = ({ className, ...props }: ComponentPropsWithRef<'p'>) => (
 )
 
 const Value = ({ className, ...props }: ComponentPropsWithRef<'p'>) => (
-	<p data-slot='stat-value' {...props} className={cn('font-journ-display text-5xl/none font-semibold', className)} />
+	<p
+		data-slot='stat-value'
+		{...props}
+		className={cn('font-journ-display text-5xl/none font-semibold tabular-nums', className)}
+	/>
 )
 
 const Hint = ({ className, ...props }: ComponentPropsWithRef<'p'>) => (

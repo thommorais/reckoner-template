@@ -62,6 +62,18 @@ Every pressable thing shares `src/lib/interactive.ts`, ported from Catalyst:
 
 Use `Button`, `IconButton` or `NavBar.Item` for anything pressable. Do not hand-roll pressable elements.
 
+### Motion and touch
+
+Rules from the design style guide, applied across the package:
+
+- Interactions stay at or under 200ms. Frequent surfaces (menus, popovers, tooltips) are quiet: small scale, short fade.
+- Dialogs scale in from 0.85, pressed controls scale to 0.96. Never animate from 0.
+- Animate `transform` and `opacity` only. Skip animation when `prefers-reduced-motion` is set.
+- Pressable controls share `interactive`/`pressReset` from `src/lib/interactive.ts`: no text selection, no iOS tap flash, press scale, keyboard-only focus ring.
+- Numbers that change or line up (stats, table cells, badges, pagination, calendar days) use `tabular-nums`.
+- Inputs are 16px on mobile. Hover styles come from Tailwind, which already gates them behind `(hover: hover)`.
+- Focus rings use `outline` with an offset. Modern browsers round it to the element radius, so we do not use `box-shadow` rings.
+
 ## Composition rules
 
 Follow the composable pattern (`folio kb get react-composition-patterns`).

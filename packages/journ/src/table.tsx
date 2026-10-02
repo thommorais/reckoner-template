@@ -30,7 +30,7 @@ const Header = ({ className, ...props }: ComponentPropsWithRef<'th'>) => (
 )
 
 const Cell = ({ className, ...props }: ComponentPropsWithRef<'td'>) => (
-	<td data-slot='table-cell' {...props} className={cn('px-3 py-3', className)} />
+	<td data-slot='table-cell' {...props} className={cn('px-3 py-3 tabular-nums', className)} />
 )
 
 const Table = { Root, Caption, Head, Body, Row, Header, Cell }

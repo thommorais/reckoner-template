@@ -4,6 +4,7 @@ import * as RadixSelect from '@radix-ui/react-select'
 import { Check, ChevronDown } from 'lucide-react'
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
+import { pressReset } from './lib/interactive'
 import { floatingItem, floatingLabel, floatingSeparator, floatingSurface } from './lib/overlay'
 import { useEnter } from './lib/use-enter'
 
@@ -16,6 +17,7 @@ const Trigger = ({ className, children, ...props }: ComponentPropsWithRef<typeof
 		data-slot='select-trigger'
 		{...props}
 		className={cn(
+			pressReset,
 			'inline-flex items-center justify-between gap-3 rounded-full bg-journ-paper py-2.5 pr-3 pl-4 text-base/6 text-journ-ink outline-none sm:py-1.5 sm:text-sm/6',
 			'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-journ-sky data-[disabled]:opacity-50 data-[placeholder]:opacity-60',
 			className,

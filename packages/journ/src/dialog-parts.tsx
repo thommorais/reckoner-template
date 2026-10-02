@@ -21,7 +21,7 @@ type ContentProps = ComponentPropsWithRef<typeof RadixDialog.Content> & VariantP
 
 const Content = ({ tone, className, ...props }: ContentProps) => {
 	const overlay = useEnter<HTMLDivElement>({ opacity: [0, 1], duration: 200, ease: 'outQuad' })
-	const panel = useEnter<HTMLDivElement>({ opacity: [0, 1], scale: [0.95, 1], duration: 300, ease: 'outExpo' })
+	const panel = useEnter<HTMLDivElement>({ opacity: [0, 1], scale: [0.85, 1], duration: 200, ease: 'outExpo' })
 
 	return (
 		<RadixDialog.Portal>

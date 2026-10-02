@@ -12,6 +12,7 @@ import {
 	type CSSProperties,
 } from 'react'
 import { cn } from './lib/cn'
+import { pressReset } from './lib/interactive'
 import { surfaceTones } from './lib/tones'
 import { tv, type VariantProps } from './lib/tv'
 
@@ -82,7 +83,7 @@ const Root = ({ defaultValue, onValueChange, className, ...props }: RootProps) =
 			const previous = first.get(value)
 			if (previous === undefined) continue
 			const delta = previous - element.getBoundingClientRect().top
-			if (delta !== 0) animate(element, { translateY: [delta, 0], duration: 500, ease: 'outExpo' })
+			if (delta !== 0) animate(element, { translateY: [delta, 0], duration: 300, ease: 'outExpo' })
 		}
 	}, [history])
 
@@ -142,6 +143,7 @@ const Trigger = ({ className, onClick, ...props }: ComponentPropsWithRef<'button
 				activate(value)
 			}}
 			className={cn(
+				pressReset,
 				'flex w-full cursor-pointer items-start justify-between gap-4 rounded-journ text-left font-journ-display text-3xl/[0.95] font-semibold uppercase outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-journ-sky',
 				className,
 			)}
@@ -162,7 +164,7 @@ const Content = ({ className, ...props }: ComponentPropsWithRef<'div'>) => {
 			return
 		}
 		if (!isActive || !element.current || prefersReducedMotion()) return
-		animate(element.current, { opacity: [0, 1], translateY: [12, 0], duration: 450, delay: 150, ease: 'outExpo' })
+		animate(element.current, { opacity: [0, 1], translateY: [12, 0], duration: 250, delay: 100, ease: 'outExpo' })
 	}, [isActive])
 
 	return (

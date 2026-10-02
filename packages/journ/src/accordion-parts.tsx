@@ -5,6 +5,7 @@ import { animate } from 'animejs'
 import { ChevronDown } from 'lucide-react'
 import { useLayoutEffect, useRef, type ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
+import { pressReset } from './lib/interactive'
 import { prefersReducedMotion } from './lib/use-enter'
 
 const Root = RadixAccordion.Root
@@ -23,6 +24,7 @@ const Trigger = ({ className, children, ...props }: ComponentPropsWithRef<typeof
 			data-slot='accordion-trigger'
 			{...props}
 			className={cn(
+				pressReset,
 				'group flex flex-1 cursor-default items-center justify-between gap-4 py-3 text-left font-journ-display text-2xl/none font-semibold uppercase outline-none',
 				'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-journ-sky disabled:opacity-50',
 				className,
@@ -44,7 +46,7 @@ const Content = ({ className, children, ...props }: ComponentPropsWithRef<typeof
 		animate(node, {
 			height: [0, height],
 			opacity: [0, 1],
-			duration: 300,
+			duration: 200,
 			ease: 'outQuad',
 			onComplete: () => {
 				node.style.height = ''

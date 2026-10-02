@@ -6,7 +6,7 @@ import { TouchTarget } from './touch-target'
 
 const control = cn(
 	interactive,
-	'inline-flex min-w-10 items-center justify-center gap-1.5 rounded-full px-3 py-2 text-sm/6 font-medium',
+	'inline-flex min-w-10 items-center justify-center gap-1.5 rounded-full px-3 py-2 text-sm/6 font-medium tabular-nums',
 )
 
 const Root = ({ className, ...props }: ComponentPropsWithRef<'nav'>) => (

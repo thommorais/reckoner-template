@@ -3,6 +3,7 @@
 import * as RadixRadio from '@radix-ui/react-radio-group'
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
+import { pressReset } from './lib/interactive'
 import { TouchTarget } from './touch-target'
 
 const Group = ({ className, ...props }: ComponentPropsWithRef<typeof RadixRadio.Root>) => (
@@ -14,6 +15,7 @@ const Item = ({ className, ...props }: ComponentPropsWithRef<typeof RadixRadio.I
 		data-slot='radio'
 		{...props}
 		className={cn(
+			pressReset,
 			'relative grid size-6 shrink-0 cursor-default place-items-center rounded-full border-2 border-current/30 outline-none transition-colors',
 			'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-journ-sky',
 			'data-[state=checked]:border-journ-coral disabled:pointer-events-none disabled:opacity-50',

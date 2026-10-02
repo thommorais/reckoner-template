@@ -4,6 +4,7 @@ import * as RadixCheckbox from '@radix-ui/react-checkbox'
 import { Check, Minus } from 'lucide-react'
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
+import { pressReset } from './lib/interactive'
 import { TouchTarget } from './touch-target'
 
 const Checkbox = ({ className, ...props }: ComponentPropsWithRef<typeof RadixCheckbox.Root>) => (
@@ -11,6 +12,7 @@ const Checkbox = ({ className, ...props }: ComponentPropsWithRef<typeof RadixChe
 		data-slot='checkbox'
 		{...props}
 		className={cn(
+			pressReset,
 			'relative grid size-6 shrink-0 cursor-default place-items-center rounded-lg border-2 border-current/30 outline-none transition-colors',
 			'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-journ-sky',
 			'data-[state=checked]:border-journ-coral data-[state=checked]:bg-journ-coral data-[state=checked]:text-journ-ink',
