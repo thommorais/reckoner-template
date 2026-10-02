@@ -1,17 +1,23 @@
+import { Accordion } from 'journ/accordion'
 import { Avatar } from 'journ/avatar'
+import { Button } from 'journ/button'
 import { Card } from 'journ/card'
 import { Checkbox } from 'journ/checkbox'
 import { Composer } from 'journ/composer'
 import { Divider } from 'journ/divider'
+import { DropdownMenu } from 'journ/dropdown-menu'
 import { Field } from 'journ/field'
 import { IconButton } from 'journ/icon-button'
 import { Page } from 'journ/page'
 import { PageHeader } from 'journ/page-header'
+import { Popover } from 'journ/popover'
 import { Progress } from 'journ/progress'
 import { Radio } from 'journ/radio'
+import { Select } from 'journ/select'
 import { Switch } from 'journ/switch'
 import { Tabs } from 'journ/tabs'
-import { ArrowLeft } from 'lucide-react'
+import { Tooltip } from 'journ/tooltip'
+import { ArrowLeft, Ellipsis, Info } from 'lucide-react'
 import { BottomNav } from '../_components/bottom-nav'
 import { DialogExample } from '../_components/dialog-example'
 
@@ -175,6 +181,89 @@ const ComponentsPage = (): React.ReactNode => (
 						<Card.Description>Revenue for the current month.</Card.Description>
 					</Tabs.Content>
 				</Tabs.Root>
+			</Card.Root>
+
+			<Card.Root>
+				<Card.Title>Select</Card.Title>
+				<Select.Root defaultValue='week'>
+					<Select.Trigger aria-label='Period' className='self-start'>
+						<Select.Value placeholder='Pick a period' />
+					</Select.Trigger>
+					<Select.Content>
+						<Select.Group>
+							<Select.Label>Period</Select.Label>
+							<Select.Item value='week'>This week</Select.Item>
+							<Select.Item value='month'>This month</Select.Item>
+						</Select.Group>
+						<Select.Separator />
+						<Select.Item value='year' disabled>
+							This year
+						</Select.Item>
+					</Select.Content>
+				</Select.Root>
+			</Card.Root>
+
+			<Card.Root>
+				<Card.Title>Dropdown menu</Card.Title>
+				<DropdownMenu.Root>
+					<DropdownMenu.Trigger asChild>
+						<Button className='self-start'>
+							<Ellipsis />
+							Actions
+						</Button>
+					</DropdownMenu.Trigger>
+					<DropdownMenu.Content align='start'>
+						<DropdownMenu.Label>Prime cost report</DropdownMenu.Label>
+						<DropdownMenu.Item>Rename</DropdownMenu.Item>
+						<DropdownMenu.Item>Duplicate</DropdownMenu.Item>
+						<DropdownMenu.Separator />
+						<DropdownMenu.Item disabled>Delete</DropdownMenu.Item>
+					</DropdownMenu.Content>
+				</DropdownMenu.Root>
+			</Card.Root>
+
+			<Card.Root>
+				<Card.Title>Tooltip and popover</Card.Title>
+				<Card.Content className='flex-row items-center gap-3'>
+					<Tooltip.Root>
+						<Tooltip.Trigger asChild>
+							<IconButton tone='ghost' aria-label='Info'>
+								<Info />
+							</IconButton>
+						</Tooltip.Trigger>
+						<Tooltip.Content>Cost of goods sold plus labor</Tooltip.Content>
+					</Tooltip.Root>
+					<Popover.Root>
+						<Popover.Trigger asChild>
+							<Button tone='outline'>Details</Button>
+						</Popover.Trigger>
+						<Popover.Content>
+							<p className='font-journ-display text-2xl/none font-semibold uppercase'>Prime cost</p>
+							<p className='text-sm/5 opacity-70'>Updated every night from your POS and payroll.</p>
+							<Popover.Close asChild>
+								<Button className='self-end'>Got it</Button>
+							</Popover.Close>
+						</Popover.Content>
+					</Popover.Root>
+				</Card.Content>
+			</Card.Root>
+
+			<Card.Root>
+				<Card.Title>Accordion</Card.Title>
+				<Accordion.Root type='single' collapsible defaultValue='labor'>
+					<Accordion.Item value='labor'>
+						<Accordion.Trigger>Labor cost</Accordion.Trigger>
+						<Accordion.Content>Labor is 28% of revenue this week, 3 points above target.</Accordion.Content>
+					</Accordion.Item>
+					<Accordion.Item value='aov'>
+						<Accordion.Trigger>Average order value</Accordion.Trigger>
+						<Accordion.Content>AOV is $18.50, up 2,4% versus last week.</Accordion.Content>
+					</Accordion.Item>
+					<Accordion.Item value='inventory'>
+						<Accordion.Trigger>Inventory risk</Accordion.Trigger>
+						<Accordion.Content>Two items will run out before the next delivery.</Accordion.Content>
+					</Accordion.Item>
+				</Accordion.Root>
 			</Card.Root>
 
 			<BottomNav current='/journ/components' />

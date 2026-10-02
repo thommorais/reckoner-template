@@ -107,31 +107,36 @@ The display font is `--font-journ-display`. Load Barlow Condensed (or your own f
 
 Import from `journ` or per file (`journ/card`).
 
-| Component          | Parts                                                                                     |
-| ------------------ | ----------------------------------------------------------------------------------------- |
-| `Avatar` (Radix)   | `Root`, `Image`, `Fallback`                                                               |
-| `Button`           | single element, `tone`, renders `<a>` with `href`                                         |
-| `Card`             | `Root` (`tone`), `Icon`, `Header`, `Title`, `Description`, `Content`, `Footer`            |
-| `Checkbox` (Radix) | single element, supports `checked="indeterminate"`                                        |
-| `Chip`             | `Root` (`tone`), `Dot`                                                                    |
-| `Composer`         | `Root`, `Input`                                                                           |
-| `Dialog` (Radix)   | `Root`, `Trigger`, `Close`, `Content` (`tone`), `Title`, `Description`, `Body`, `Actions` |
-| `Divider` (Radix)  | single element, `orientation`                                                             |
-| `Drawer` (vaul)    | `Root`, `Trigger`, `Close`, `Content`, `Title`, `Description`, `Body`, `Actions`          |
-| `Field` (Radix)    | `Root` (`invalid`), `Label`, `Control`, `Description`, `Error`                            |
-| `IconButton`       | single element, `tone`, `size`                                                            |
-| `Message`          | `Root` (`from`), `Bubble`, `Highlight`                                                    |
-| `NavBar`           | `Root`, `Item` (`aria-current="page"` marks active)                                       |
-| `Page`             | `Root` (`tone`), `Content`, `Footer`                                                      |
-| `PageHeader`       | `Root`, `Title`, `Actions`                                                                |
-| `PillSelect`       | single element, native `<select>`                                                         |
-| `Progress` (Radix) | single element, `value`, `tone`                                                           |
-| `Radio` (Radix)    | `Group`, `Item`                                                                           |
-| `Stack` (animejs)  | `Root` (`defaultValue`), `Item` (`value`, `tone`), `Trigger`, `Content`                   |
-| `Stat`             | `Root`, `Label`, `Value`, `Hint`                                                          |
-| `Switch` (Radix)   | single element                                                                            |
-| `Tabs` (Radix)     | `Root`, `List`, `Trigger`, `Content`                                                      |
-| `Toast` (sonner)   | `Provider`, `show`, `Root`, `Title`, `Description`, `Action`                              |
+| Component                    | Parts                                                                                     |
+| ---------------------------- | ----------------------------------------------------------------------------------------- |
+| `Accordion` (Radix, animejs) | `Root` (`type`), `Item`, `Trigger`, `Content`                                             |
+| `Avatar` (Radix)             | `Root`, `Image`, `Fallback`                                                               |
+| `Button`                     | single element, `tone`, renders `<a>` with `href`                                         |
+| `Card`                       | `Root` (`tone`), `Icon`, `Header`, `Title`, `Description`, `Content`, `Footer`            |
+| `Checkbox` (Radix)           | single element, supports `checked="indeterminate"`                                        |
+| `Chip`                       | `Root` (`tone`), `Dot`                                                                    |
+| `Composer`                   | `Root`, `Input`                                                                           |
+| `Dialog` (Radix)             | `Root`, `Trigger`, `Close`, `Content` (`tone`), `Title`, `Description`, `Body`, `Actions` |
+| `Divider` (Radix)            | single element, `orientation`                                                             |
+| `Drawer` (vaul)              | `Root`, `Trigger`, `Close`, `Content`, `Title`, `Description`, `Body`, `Actions`          |
+| `DropdownMenu` (Radix)       | `Root`, `Trigger`, `Content`, `Group`, `Label`, `Item`, `Separator`                       |
+| `Field` (Radix)              | `Root` (`invalid`), `Label`, `Control`, `Description`, `Error`                            |
+| `IconButton`                 | single element, `tone`, `size`                                                            |
+| `Message`                    | `Root` (`from`), `Bubble`, `Highlight`                                                    |
+| `NavBar`                     | `Root`, `Item` (`aria-current="page"` marks active)                                       |
+| `Page`                       | `Root` (`tone`), `Content`, `Footer`                                                      |
+| `PageHeader`                 | `Root`, `Title`, `Actions`                                                                |
+| `PillSelect`                 | single element, native `<select>`                                                         |
+| `Popover` (Radix)            | `Root`, `Trigger`, `Content`, `Close`                                                     |
+| `Progress` (Radix)           | single element, `value`, `tone`                                                           |
+| `Radio` (Radix)              | `Group`, `Item`                                                                           |
+| `Select` (Radix)             | `Root`, `Trigger`, `Value`, `Content`, `Group`, `Label`, `Item`, `Separator`              |
+| `Stack` (animejs)            | `Root` (`defaultValue`), `Item` (`value`, `tone`), `Trigger`, `Content`                   |
+| `Stat`                       | `Root`, `Label`, `Value`, `Hint`                                                          |
+| `Switch` (Radix)             | single element                                                                            |
+| `Tabs` (Radix)               | `Root`, `List`, `Trigger`, `Content`                                                      |
+| `Toast` (sonner)             | `Provider`, `show`, `Root`, `Title`, `Description`, `Action`                              |
+| `Tooltip` (Radix)            | `Root` (includes its provider), `Trigger`, `Content`, `Provider`                          |
 
 Card tones: `dark` (default), `coral`, `yellow`, `indigo`, `mint`, `sky`.
 

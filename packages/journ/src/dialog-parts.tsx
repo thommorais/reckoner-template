@@ -1,25 +1,11 @@
 'use client'
 
-import { animate } from 'animejs'
 import * as RadixDialog from '@radix-ui/react-dialog'
-import { useLayoutEffect, useRef, type ComponentPropsWithRef } from 'react'
+import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
+import { useEnter } from './lib/use-enter'
 import { surfaceTones } from './lib/tones'
 import { tv, type VariantProps } from './lib/tv'
-
-const prefersReducedMotion = () =>
-	typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-
-const useEnter = (keyframes: Parameters<typeof animate>[1]) => {
-	const element = useRef<HTMLDivElement>(null)
-
-	useLayoutEffect(() => {
-		if (!element.current || prefersReducedMotion()) return
-		animate(element.current, keyframes)
-	}, [])
-
-	return element
-}
 
 const Root = RadixDialog.Root
 const Trigger = RadixDialog.Trigger
@@ -34,8 +20,8 @@ const dialogContent = tv({
 type ContentProps = ComponentPropsWithRef<typeof RadixDialog.Content> & VariantProps<typeof dialogContent>
 
 const Content = ({ tone, className, ...props }: ContentProps) => {
-	const overlay = useEnter({ opacity: [0, 1], duration: 200, ease: 'outQuad' })
-	const panel = useEnter({ opacity: [0, 1], scale: [0.95, 1], duration: 300, ease: 'outExpo' })
+	const overlay = useEnter<HTMLDivElement>({ opacity: [0, 1], duration: 200, ease: 'outQuad' })
+	const panel = useEnter<HTMLDivElement>({ opacity: [0, 1], scale: [0.95, 1], duration: 300, ease: 'outExpo' })
 
 	return (
 		<RadixDialog.Portal>

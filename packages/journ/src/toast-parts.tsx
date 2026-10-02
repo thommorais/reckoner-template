@@ -12,7 +12,8 @@ const Provider = (props: React.ComponentProps<typeof Toaster>) => (
 		toastOptions={{
 			unstyled: true,
 			classNames: {
-				toast: 'flex w-full max-w-sm items-center gap-3 rounded-journ bg-journ-surface p-4 text-journ-paper shadow-lg',
+				toast:
+					'flex w-full max-w-sm items-center gap-3 rounded-journ bg-journ-surface p-4 text-journ-paper shadow-lg ring-1 ring-journ-paper/10',
 				title: 'font-journ-display text-xl/none font-medium uppercase',
 				description: 'text-sm/5 opacity-70',
 				actionButton:
@@ -30,7 +31,7 @@ const Root = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
 		data-slot='toast'
 		{...props}
 		className={cn(
-			'flex w-full max-w-sm items-center gap-3 rounded-journ bg-journ-surface p-4 text-journ-paper shadow-lg',
+			'flex w-full max-w-sm items-center gap-3 rounded-journ bg-journ-surface p-4 text-journ-paper shadow-lg ring-1 ring-journ-paper/10',
 			className,
 		)}
 	/>
