@@ -78,6 +78,9 @@ const Provider = ({ state, actions, meta, children }: ProviderProps) => (
 	<CalendarContext value={{ state, actions, meta }}>{children}</CalendarContext>
 )
 
+/** A fixed default keeps server and client output identical; pass `locale` to localize. */
+const DEFAULT_LOCALE = 'en'
+
 type RootProps = {
 	value?: Date | null
 	defaultValue?: Date | null
@@ -93,7 +96,7 @@ const Root = ({
 	defaultValue = null,
 	onValueChange,
 	defaultMonth,
-	locale,
+	locale = DEFAULT_LOCALE,
 	weekStartsOn = 0,
 	children,
 }: RootProps) => {

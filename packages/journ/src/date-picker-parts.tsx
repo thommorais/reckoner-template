@@ -53,7 +53,7 @@ type RootProps = {
 	children?: ReactNode
 }
 
-const Root = ({ value, defaultValue = null, onValueChange, locale, children }: RootProps) => {
+const Root = ({ value, defaultValue = null, onValueChange, locale = 'en', children }: RootProps) => {
 	const [current, setCurrent] = useControllableState(value, defaultValue, onValueChange)
 	const [open, setOpen] = useState(false)
 

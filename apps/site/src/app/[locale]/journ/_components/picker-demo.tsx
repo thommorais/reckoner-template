@@ -33,7 +33,7 @@ const MonthCalendar = () => (
 	</Calendar.Frame>
 )
 
-const PickerDemo = () => {
+const PickerDemo = ({ locale }: { locale: string }) => {
 	const [reportId, setReportId] = useState<string | null>(null)
 	const report = reports.find(candidate => candidate.id === reportId)
 
@@ -70,7 +70,7 @@ const PickerDemo = () => {
 						</Combobox.Content>
 					</Combobox.Root>
 
-					<DatePicker.Root>
+					<DatePicker.Root locale={locale}>
 						<DatePicker.Trigger className='w-full'>
 							<CalendarDays />
 							<DatePicker.Value placeholder='First run' />
@@ -86,7 +86,7 @@ const PickerDemo = () => {
 			</Card.Root>
 
 			<Card.Root tone='yellow'>
-				<Calendar.Root weekStartsOn={1}>
+				<Calendar.Root weekStartsOn={1} locale={locale}>
 					<MonthCalendar />
 				</Calendar.Root>
 			</Card.Root>
