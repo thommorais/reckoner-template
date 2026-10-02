@@ -112,7 +112,10 @@ Import from `journ` or per file (`journ/card`).
 | Component                    | Parts                                                                                                                                                         |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Accordion` (Radix, animejs) | `Root` (`type`), `Item`, `Trigger`, `Content`                                                                                                                 |
+| `Alert`                      | `Root` (`tone`), `Icon`, `Body`, `Title`, `Description`, `Actions`                                                                                            |
 | `Avatar` (Radix)             | `Root`, `Image`, `Fallback`                                                                                                                                   |
+| `Badge`                      | single element, `tone`                                                                                                                                        |
+| `Breadcrumbs`                | `Root`, `List`, `Item`, `Link`, `Page`, `Separator`                                                                                                           |
 | `Button`                     | single element, `tone`, renders `<a>` with `href`                                                                                                             |
 | `Calendar`                   | `Provider`, `Root`, `Frame`, `Header`, `Heading`, `Previous`, `Next`, `Weekdays`, `Days`, `Months`, `Years`, `useCalendar`                                    |
 | `Card`                       | `Root` (`tone`), `Icon`, `Header`, `Title`, `Description`, `Content`, `Footer`                                                                                |
@@ -121,25 +124,46 @@ Import from `journ` or per file (`journ/card`).
 | `Combobox` (cmdk)            | `Provider`, `Root`, `Trigger`, `Value`, `Content`, `Title`, `Description`, `Frame`, `Input`, `List`, `Empty`, `Group`, `Item`, `ItemIndicator`, `useCombobox` |
 | `Composer`                   | `Root`, `Input`                                                                                                                                               |
 | `DatePicker`                 | `Provider`, `Root`, `Trigger`, `Value`, `Content`, `Title`, `Description`, `Calendar` (wraps `Calendar.Root`), `useDatePicker`                                |
+| `DescriptionList`            | `Root`, `Term`, `Details`                                                                                                                                     |
 | `Dialog` (Radix)             | `Root`, `Trigger`, `Close`, `Content` (`tone`), `Title`, `Description`, `Body`, `Actions`                                                                     |
 | `Divider` (Radix)            | single element, `orientation`                                                                                                                                 |
 | `Drawer` (vaul)              | `Root`, `Trigger`, `Close`, `Content`, `Title`, `Description`, `Body`, `Actions`                                                                              |
 | `DropdownMenu` (Radix)       | `Root`, `Trigger`, `Content`, `Group`, `Label`, `Item`, `Separator`                                                                                           |
+| `EmptyState`                 | `Root`, `Icon`, `Title`, `Description`, `Actions`                                                                                                             |
 | `Field` (Radix)              | `Root` (`invalid`), `Label`, `Control`, `Description`, `Error`                                                                                                |
+| `Heading`                    | single element, `level` (outline) and `size` (look)                                                                                                           |
+| `Icon`                       | sizes any svg child, `size`                                                                                                                                   |
 | `IconButton`                 | single element, `tone`, `size`                                                                                                                                |
+| `Input`                      | single element, native `<input>`                                                                                                                              |
+| `journ-coral`                | Primary accent, key actions, warm blocks                                                                                                                      |
+| `journ-indigo`               | Secondary block color                                                                                                                                         |
+| `journ-ink`                  | Page canvas, text on colored surfaces, dark chips                                                                                                             |
+| `journ-mint`                 | Calm block color, positive emphasis                                                                                                                           |
+| `journ-paper`                | Text on dark surfaces, light buttons, selects                                                                                                                 |
+| `journ-sky`                  | Active state (nav item), user message bubbles                                                                                                                 |
+| `journ-surface`              | Default card surface, drawers, toasts                                                                                                                         |
+| `journ-yellow`               | Highlights, alerts, tags on dark                                                                                                                              |
+| `Link`                       | single element, `asChild` styles a router link                                                                                                                |
 | `Message`                    | `Root` (`from`), `Bubble`, `Highlight`                                                                                                                        |
 | `NavBar`                     | `Root`, `Item` (`aria-current="page"` marks active)                                                                                                           |
 | `Page`                       | `Root` (`tone`), `Content`, `Footer`                                                                                                                          |
 | `PageHeader`                 | `Root`, `Title`, `Actions`                                                                                                                                    |
+| `Pagination`                 | `Root`, `Previous`, `List`, `Page`, `Gap`, `Next`                                                                                                             |
 | `PillSelect`                 | single element, native `<select>`                                                                                                                             |
 | `Popover` (Radix)            | `Root`, `Trigger`, `Content`, `Close`                                                                                                                         |
 | `Progress` (Radix)           | single element, `value`, `tone`                                                                                                                               |
 | `Radio` (Radix)              | `Group`, `Item`                                                                                                                                               |
 | `Select` (Radix)             | `Root`, `Trigger`, `Value`, `Content`, `Group`, `Label`, `Item`, `Separator`                                                                                  |
+| `Sidebar`                    | `Layout`, `Root`, `Header`, `Body`, `Section`, `Heading`, `Item`, `Footer`, `Content` (desktop only)                                                          |
+| `Skeleton`                   | single element                                                                                                                                                |
+| `Spinner`                    | single element                                                                                                                                                |
 | `Stack` (animejs)            | `Root` (`defaultValue`), `Item` (`value`, `tone`), `Trigger`, `Content`                                                                                       |
 | `Stat`                       | `Root`, `Label`, `Value`, `Hint`                                                                                                                              |
 | `Switch` (Radix)             | single element                                                                                                                                                |
+| `Table`                      | `Root`, `Caption`, `Head`, `Body`, `Row`, `Header`, `Cell`                                                                                                    |
 | `Tabs` (Radix)               | `Root`, `List`, `Trigger`, `Content`                                                                                                                          |
+| `Text`                       | single element, `size`, `tone`                                                                                                                                |
+| `Textarea`                   | single element, native `<textarea>`                                                                                                                           |
 | `Toast` (sonner)             | `Provider`, `show`, `Root`, `Title`, `Description`, `Action`                                                                                                  |
 | `Tooltip` (Radix)            | `Root` (includes its provider), `Trigger`, `Content`, `Provider`                                                                                              |
 

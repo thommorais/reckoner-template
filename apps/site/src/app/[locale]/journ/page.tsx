@@ -92,6 +92,9 @@ const JournHome = (): React.ReactNode => (
 				<Button href='/journ/components' tone='ghost'>
 					Components
 				</Button>
+				<Button href='/journ/web' tone='ghost'>
+					Web
+				</Button>
 			</div>
 			<BottomNav current='/journ' />
 		</Page.Content>
