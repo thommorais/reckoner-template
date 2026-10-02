@@ -4,7 +4,7 @@ import type { ComponentPropsWithRef } from 'react'
 import { Toaster, toast } from 'sonner'
 import { cn } from './lib/cn'
 import { interactive } from './lib/interactive'
-import { mutedText } from './lib/text-styles'
+import { displayLabel, mutedText } from './lib/text-styles'
 
 const Provider = (props: React.ComponentProps<typeof Toaster>) => (
 	<Toaster
@@ -15,7 +15,7 @@ const Provider = (props: React.ComponentProps<typeof Toaster>) => (
 			classNames: {
 				toast:
 					'flex w-full max-w-sm items-center gap-3 rounded-journ bg-journ-surface p-4 text-journ-paper shadow-lg ring-1 ring-journ-paper/10',
-				title: 'font-journ-display text-xl/none font-medium uppercase',
+				title: displayLabel,
 				description: mutedText,
 				actionButton:
 					'ml-auto shrink-0 rounded-full bg-journ-paper px-3 py-1.5 text-xs whitespace-nowrap text-journ-ink',
@@ -39,11 +39,7 @@ const Root = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
 )
 
 const Title = ({ className, ...props }: ComponentPropsWithRef<'p'>) => (
-	<p
-		data-slot='toast-title'
-		{...props}
-		className={cn('font-journ-display text-xl/none font-medium uppercase', className)}
-	/>
+	<p data-slot='toast-title' {...props} className={cn(displayLabel, className)} />
 )
 
 const Description = ({ className, ...props }: ComponentPropsWithRef<'p'>) => (

@@ -1,5 +1,6 @@
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
+import { fieldText } from './lib/text-styles'
 
 const Root = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
 	<div
@@ -17,7 +18,8 @@ const Input = ({ className, ...props }: ComponentPropsWithRef<'input'>) => (
 		data-slot='composer-input'
 		{...props}
 		className={cn(
-			'min-w-0 flex-1 scheme-dark bg-transparent px-3 py-1.5 text-base/6 outline-none placeholder:text-current/50 aria-invalid:text-journ-coral sm:text-sm/6',
+			fieldText,
+			'min-w-0 flex-1 bg-transparent px-3 py-1.5 text-base/6 outline-none aria-invalid:text-journ-coral sm:text-sm/6',
 			className,
 		)}
 	/>

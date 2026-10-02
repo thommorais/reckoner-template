@@ -67,9 +67,13 @@ Use `Button`, `IconButton` or `NavBar.Item` for anything pressable. Do not hand-
 Before writing a class string or an animation, look in `src/lib` first:
 
 - `tones.ts`: `fills`, `solidTones`, `inkTone`, `surfaceTones`. Every tone map is built from these.
-- `text-styles.ts`: `displayTitle`, `mutedText`, `controlSize` and the `selectedWhen*` pill classes.
+- `text-styles.ts`: `displayTitle`, `displayHeading`, `displayLabel`, `mutedText`, `controlSize`, `fieldText`, `fieldRing` and the `selectedWhen*` pill classes.
 - `overlay.ts`: floating surface/item/card styles, the modal overlay and the centered panel (Dialog, AlertDialog).
 - `modal-parts.tsx`: `Body` and `Actions`, shared by Dialog, AlertDialog and Drawer.
+- `menu-parts.tsx`: `createMenuParts(primitive, slot)` builds the styled `Content`, `Item`, `Label` and `Separator` for a Radix menu. Used by DropdownMenu, ContextMenu and Select.
+- `required-context.ts`: `createRequiredContext(owner)` for parts that must live inside a root. Do not hand-write the `use` and throw pair.
+- `month.ts`: `startOfMonth`, `addMonths`, `formatMonthYear`.
+- `icon-tile.ts`: the rounded icon square used by Card.Icon, EmptyState.Icon and FileDropzone.Icon.
 - `interactive.ts`: `interactive` and `pressReset` for anything pressable.
 - `use-enter.ts`: `useEnter`, `usePopEnter`, `useModalEnter`, `useExpand` and `prefersReducedMotion`.
 - `touch-target.tsx`: the 44px touch area, never re-implement it with classes.
@@ -153,11 +157,14 @@ Import from `journ` or per file (`journ/card`).
 | `Checkbox` (Radix)             | `Root` (supports `checked="indeterminate"`), `Indicator`                                                                                                      |
 | `Chip`                         | `Root` (`tone`), `Dot`                                                                                                                                        |
 | `Collapsible` (Radix, animejs) | `Root`, `Trigger`, `Content`                                                                                                                                  |
+| `ContextMenu` (Radix)          | `Root`, `Trigger`, `Content`, `Group`, `Label`, `Item`, `Separator`                                                                                           |
 | `Combobox` (cmdk)              | `Provider`, `Root`, `Trigger`, `Value`, `Content`, `Title`, `Description`, `Frame`, `Input`, `List`, `Empty`, `Group`, `Item`, `ItemIndicator`, `useCombobox` |
 | `Composer`                     | `Root`, `Input`                                                                                                                                               |
 | `DatePicker`                   | `Provider`, `Root`, `Trigger`, `Value`, `Content`, `Title`, `Description`, `Calendar` (wraps `Calendar.Root`), `useDatePicker`                                |
 | `DescriptionList`              | `Root`, `Term`, `Details`                                                                                                                                     |
+| `DateInput`                    | `Root` (`value`, `locale`), `Field`. Parses typed dates in the locale's order                                                                                 |
 | `Dialog` (Radix)               | `Root`, `Trigger`, `Close`, `Content` (`tone`), `Title`, `Description`, `Body`, `Actions`                                                                     |
+| `FileDropzone`                 | `Root` (`accept`, `maxSize`, `multiple`, `onFilesAccepted`, `onFilesRejected`), `Icon`, `Title`, `Description`                                                |
 | `Divider` (Radix)              | single element, `orientation`                                                                                                                                 |
 | `Drawer` (vaul)                | `Root`, `Trigger`, `Close`, `Content`, `Title`, `Description`, `Body`, `Actions`                                                                              |
 | `DropdownMenu` (Radix)         | `Root`, `Trigger`, `Content`, `Group`, `Label`, `Item`, `Separator`                                                                                           |
@@ -177,8 +184,11 @@ Import from `journ` or per file (`journ/card`).
 | `journ-surface`                | Default card surface, drawers, toasts                                                                                                                         |
 | `journ-yellow`                 | Highlights, alerts, tags on dark                                                                                                                              |
 | `Link`                         | single element, `asChild` styles a router link                                                                                                                |
+| `Markdown` (react-markdown)    | single element, `components` overrides                                                                                                                        |
+| `MonthStepper`                 | `Root` (`value`, `locale`), `Previous`, `Label`, `Next`                                                                                                       |
 | `Message`                      | `Root` (`from`), `Bubble`, `Highlight`                                                                                                                        |
 | `NavBar`                       | `Root`, `Item` (`aria-current="page"` marks active)                                                                                                           |
+| `OtpInput` (Radix)             | `Root`, `Slot` (one per character), `Hidden`                                                                                                                  |
 | `Page`                         | `Root` (`tone`), `Content`, `Footer`                                                                                                                          |
 | `PageHeader`                   | `Root`, `Title`, `Actions`                                                                                                                                    |
 | `Pagination`                   | `Root`, `Previous`, `List`, `Page`, `Gap`, `Next`                                                                                                             |
@@ -191,6 +201,7 @@ Import from `journ` or per file (`journ/card`).
 | `Sidebar`                      | `Layout`, `Root`, `Header`, `Body`, `Section`, `Heading`, `Item`, `Footer`, `Content` (desktop only)                                                          |
 | `Skeleton`                     | single element                                                                                                                                                |
 | `Spinner`                      | single element                                                                                                                                                |
+| `Stepper`                      | `Root` (`value`), `Item` (`step`), `Indicator`, `Label`, `Description`                                                                                        |
 | `Slider` (Radix)               | `Root`, `Track`, `Range`, `Thumb` (one per value)                                                                                                             |
 | `Stack` (animejs)              | `Root` (`defaultValue`), `Item` (`value`, `tone`), `Trigger`, `Content`                                                                                       |
 | `Stat`                         | `Root`, `Label`, `Value`, `Hint`                                                                                                                              |

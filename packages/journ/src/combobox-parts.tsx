@@ -2,12 +2,13 @@
 
 import { Command } from 'cmdk'
 import { Check, Search } from 'lucide-react'
-import { createContext, use, useState, type ComponentPropsWithRef, type ReactNode } from 'react'
+import { useState, type ComponentPropsWithRef, type ReactNode } from 'react'
 import { Button, type ButtonProps } from './button'
 import { Root as DrawerRoot, Trigger as DrawerTrigger } from './drawer-parts'
 import { cn } from './lib/cn'
 import { useControllableState } from './lib/use-controllable-state'
 import { controlSize, mutedText } from './lib/text-styles'
+import { createRequiredContext } from './lib/required-context'
 
 type ComboboxState = {
 	value: string | null
@@ -24,14 +25,8 @@ type ComboboxContextValue = {
 	actions: ComboboxActions
 }
 
-const ComboboxContext = createContext<ComboboxContextValue | null>(null)
-const ItemContext = createContext<{ checked: boolean } | null>(null)
-
-const useCombobox = (): ComboboxContextValue => {
-	const context = use(ComboboxContext)
-	if (!context) throw new Error('Combobox parts must be rendered inside Combobox.Provider or Combobox.Root')
-	return context
-}
+const [ComboboxContext, useCombobox] = createRequiredContext<ComboboxContextValue>('Combobox.Provider or Combobox.Root')
+const [ItemContext, useComboboxItem] = createRequiredContext<{ checked: boolean }>('Combobox.Item')
 
 const normalize = (text: string) =>
 	text
@@ -186,8 +181,7 @@ const Item = ({ value, onSelect, className, ...props }: ItemProps) => {
 }
 
 const ItemIndicator = ({ className, children, ...props }: ComponentPropsWithRef<'span'>) => {
-	const item = use(ItemContext)
-	if (!item) throw new Error('Combobox.ItemIndicator must be rendered inside Combobox.Item')
+	const item = useComboboxItem()
 	if (!item.checked) return null
 
 	return (

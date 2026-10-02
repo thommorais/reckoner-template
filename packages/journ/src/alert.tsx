@@ -2,6 +2,7 @@ import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { surfaceTones } from './lib/tones'
 import { tv, type VariantProps } from './lib/tv'
+import { displayLabel } from './lib/text-styles'
 
 const alertRoot = tv({
 	base: 'rounded-journ flex items-start gap-3 p-4',
@@ -24,11 +25,7 @@ const Body = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
 )
 
 const Title = ({ className, ...props }: ComponentPropsWithRef<'p'>) => (
-	<p
-		data-slot='alert-title'
-		{...props}
-		className={cn('font-journ-display text-xl/none font-semibold uppercase', className)}
-	/>
+	<p data-slot='alert-title' {...props} className={cn(displayLabel, className)} />
 )
 
 const Description = ({ className, ...props }: ComponentPropsWithRef<'p'>) => (

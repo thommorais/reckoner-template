@@ -2,9 +2,10 @@
 
 import * as RadixLabel from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
-import { createContext, use, useId, type ComponentPropsWithRef } from 'react'
+import { useId, type ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { mutedText } from './lib/text-styles'
+import { createRequiredContext } from './lib/required-context'
 
 type FieldContextValue = {
 	id: string
@@ -13,13 +14,7 @@ type FieldContextValue = {
 	invalid: boolean
 }
 
-const FieldContext = createContext<FieldContextValue | null>(null)
-
-const useField = (): FieldContextValue => {
-	const context = use(FieldContext)
-	if (!context) throw new Error('Field parts must be rendered inside Field.Root')
-	return context
-}
+const [FieldContext, useField] = createRequiredContext<FieldContextValue>('Field.Root')
 
 type RootProps = ComponentPropsWithRef<'div'> & { invalid?: boolean }
 

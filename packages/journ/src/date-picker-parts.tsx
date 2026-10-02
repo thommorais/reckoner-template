@@ -1,11 +1,12 @@
 'use client'
 
-import { createContext, use, useState, type ComponentPropsWithRef, type ReactNode } from 'react'
+import { useState, type ComponentPropsWithRef, type ReactNode } from 'react'
 import { Button, type ButtonProps } from './button'
 import { Root as CalendarRoot, type RootProps as CalendarRootProps } from './calendar-parts'
 import { Root as DrawerRoot, Trigger as DrawerTrigger } from './drawer-parts'
 import { cn } from './lib/cn'
 import { useControllableState } from './lib/use-controllable-state'
+import { createRequiredContext } from './lib/required-context'
 
 type DatePickerState = {
 	value: Date | null
@@ -27,13 +28,9 @@ type DatePickerContextValue = {
 	meta: DatePickerMeta
 }
 
-const DatePickerContext = createContext<DatePickerContextValue | null>(null)
-
-const useDatePicker = (): DatePickerContextValue => {
-	const context = use(DatePickerContext)
-	if (!context) throw new Error('DatePicker parts must be rendered inside DatePicker.Provider or DatePicker.Root')
-	return context
-}
+const [DatePickerContext, useDatePicker] = createRequiredContext<DatePickerContextValue>(
+	'DatePicker.Provider or DatePicker.Root',
+)
 
 type ProviderProps = DatePickerContextValue & { children?: ReactNode }
 

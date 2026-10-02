@@ -5,8 +5,9 @@ import { Check, ChevronDown } from 'lucide-react'
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { pressReset } from './lib/interactive'
-import { floatingItem, floatingLabel, floatingSeparator, floatingSurface } from './lib/overlay'
+import { floatingItem, floatingSurface } from './lib/overlay'
 import { usePopEnter } from './lib/use-enter'
+import { createMenuParts } from './lib/menu-parts'
 
 const Root = RadixSelect.Root
 const Group = RadixSelect.Group
@@ -65,12 +66,6 @@ const Item = ({ className, children, ...props }: ComponentPropsWithRef<typeof Ra
 	</RadixSelect.Item>
 )
 
-const Label = ({ className, ...props }: ComponentPropsWithRef<typeof RadixSelect.Label>) => (
-	<RadixSelect.Label data-slot='select-label' {...props} className={cn(floatingLabel, className)} />
-)
-
-const Separator = ({ className, ...props }: ComponentPropsWithRef<typeof RadixSelect.Separator>) => (
-	<RadixSelect.Separator data-slot='select-separator' {...props} className={cn(floatingSeparator, className)} />
-)
+const { Label, Separator } = createMenuParts(RadixSelect, 'select')
 
 export { Root, Group, Value, Trigger, Content, Item, Label, Separator }

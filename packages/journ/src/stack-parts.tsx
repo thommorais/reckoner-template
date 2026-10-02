@@ -1,22 +1,14 @@
 'use client'
 
 import { animate } from 'animejs'
-import {
-	createContext,
-	use,
-	useCallback,
-	useLayoutEffect,
-	useRef,
-	useState,
-	type ComponentPropsWithRef,
-	type CSSProperties,
-} from 'react'
+import { useCallback, useLayoutEffect, useRef, useState, type ComponentPropsWithRef, type CSSProperties } from 'react'
 import { cn } from './lib/cn'
 import { pressReset } from './lib/interactive'
 import { surfaceTones } from './lib/tones'
 import { tv, type VariantProps } from './lib/tv'
 import { prefersReducedMotion } from './lib/use-enter'
 import { displayTitle } from './lib/text-styles'
+import { createRequiredContext } from './lib/required-context'
 
 type StackContextValue = {
 	active: string
@@ -25,20 +17,8 @@ type StackContextValue = {
 	register: (value: string, element: HTMLElement | null) => void
 }
 
-const StackContext = createContext<StackContextValue | null>(null)
-const ItemContext = createContext<string | null>(null)
-
-const useStack = (): StackContextValue => {
-	const context = use(StackContext)
-	if (!context) throw new Error('Stack parts must be rendered inside Stack.Root')
-	return context
-}
-
-const useItemValue = (): string => {
-	const value = use(ItemContext)
-	if (value === null) throw new Error('Stack.Trigger and Stack.Content must be rendered inside Stack.Item')
-	return value
-}
+const [StackContext, useStack] = createRequiredContext<StackContextValue>('Stack.Root')
+const [ItemContext, useItemValue] = createRequiredContext<string>('Stack.Item')
 
 type RootProps = Omit<ComponentPropsWithRef<'div'>, 'defaultValue'> & {
 	defaultValue: string

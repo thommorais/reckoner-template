@@ -1,12 +1,13 @@
 'use client'
 
 import * as RadixProgress from '@radix-ui/react-progress'
-import { createContext, use, type ComponentPropsWithRef } from 'react'
+import { type ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { tv, type VariantProps } from './lib/tv'
 import { fills } from './lib/tones'
+import { createRequiredContext } from './lib/required-context'
 
-const PercentageContext = createContext<number | null>(null)
+const [PercentageContext, usePercentage] = createRequiredContext<number>('Progress.Root')
 
 type RootProps = Omit<ComponentPropsWithRef<typeof RadixProgress.Root>, 'value'> & { value: number }
 
@@ -37,8 +38,7 @@ const indicator = tv({
 type IndicatorProps = ComponentPropsWithRef<typeof RadixProgress.Indicator> & VariantProps<typeof indicator>
 
 const Indicator = ({ tone, className, style, ...props }: IndicatorProps) => {
-	const percentage = use(PercentageContext)
-	if (percentage === null) throw new Error('Progress.Indicator must be rendered inside Progress.Root')
+	const percentage = usePercentage()
 
 	return (
 		<RadixProgress.Indicator

@@ -3,6 +3,7 @@ import { Avatar } from 'journ/avatar'
 import { Button } from 'journ/button'
 import { Card } from 'journ/card'
 import { Collapsible } from 'journ/collapsible'
+import { ContextMenu } from 'journ/context-menu'
 import { Checkbox } from 'journ/checkbox'
 import { Composer } from 'journ/composer'
 import { Divider } from 'journ/divider'
@@ -16,8 +17,11 @@ import { Popover } from 'journ/popover'
 import { Progress } from 'journ/progress'
 import { Radio } from 'journ/radio'
 import { ScrollArea } from 'journ/scroll-area'
+import { Markdown } from 'journ/markdown'
+import { MonthStepper } from 'journ/month-stepper'
 import { Select } from 'journ/select'
 import { Slider } from 'journ/slider'
+import { Stepper } from 'journ/stepper'
 import { Switch } from 'journ/switch'
 import { Tabs } from 'journ/tabs'
 import { ToggleGroup } from 'journ/toggle-group'
@@ -26,8 +30,20 @@ import { ArrowLeft, CalendarDays, ChevronDown, Ellipsis, Info, List } from 'luci
 import { BottomNav } from '../_components/bottom-nav'
 import { BulkDemo } from '../_components/bulk-demo'
 import { ConfirmDemo } from '../_components/confirm-demo'
+import { DateInputDemo, DropzoneDemo, OtpDemo } from '../_components/form-demos'
 import { DialogExample } from '../_components/dialog-example'
 import { PickerDemo } from '../_components/picker-demo'
+
+const notes = `## Prime cost
+
+Labor is **28%** of revenue, 3 points above target.
+
+- Approve the open alerts
+- Check inventory risk
+
+> Shift ends in 2:59:12 hours.
+
+Read the [component guide](/journ/components) or run \`pnpm dev\`.`
 
 const avatarImage =
 	"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' fill='%23f2705a'/><circle cx='20' cy='16' r='7' fill='%23fff3d6'/><rect x='8' y='26' width='24' height='14' rx='7' fill='%23fff3d6'/></svg>"
@@ -388,6 +404,80 @@ const ComponentsPage = async ({ params }: { params: Promise<{ locale: string }> 
 				<Card.Root>
 					<Card.Title>Bulk bar</Card.Title>
 					<BulkDemo />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Context menu</Card.Title>
+					<ContextMenu.Root>
+						<ContextMenu.Trigger asChild>
+							<div className='grid h-24 place-items-center rounded-2xl border border-dashed border-current/25 text-sm opacity-80 select-none'>
+								Right click or long press here
+							</div>
+						</ContextMenu.Trigger>
+						<ContextMenu.Content>
+							<ContextMenu.Label>Prime cost report</ContextMenu.Label>
+							<ContextMenu.Item>Rename</ContextMenu.Item>
+							<ContextMenu.Item>Duplicate</ContextMenu.Item>
+							<ContextMenu.Separator />
+							<ContextMenu.Item disabled>Delete</ContextMenu.Item>
+						</ContextMenu.Content>
+					</ContextMenu.Root>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Month stepper</Card.Title>
+					<MonthStepper.Root defaultValue={new Date(2026, 9, 1)} locale={locale} className='self-start'>
+						<MonthStepper.Previous />
+						<MonthStepper.Label />
+						<MonthStepper.Next />
+					</MonthStepper.Root>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Date input</Card.Title>
+					<DateInputDemo locale={locale} />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>OTP input</Card.Title>
+					<OtpDemo />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Stepper</Card.Title>
+					<Stepper.Root value={2} aria-label='Connect a bank'>
+						<Stepper.Item step={1}>
+							<Stepper.Indicator />
+							<div>
+								<Stepper.Label>Choose bank</Stepper.Label>
+								<Stepper.Description>Nubank</Stepper.Description>
+							</div>
+						</Stepper.Item>
+						<Stepper.Item step={2}>
+							<Stepper.Indicator />
+							<div>
+								<Stepper.Label>Authorize</Stepper.Label>
+								<Stepper.Description>Approve in your app</Stepper.Description>
+							</div>
+						</Stepper.Item>
+						<Stepper.Item step={3}>
+							<Stepper.Indicator />
+							<div>
+								<Stepper.Label>Import</Stepper.Label>
+								<Stepper.Description>Last 90 days</Stepper.Description>
+							</div>
+						</Stepper.Item>
+					</Stepper.Root>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>File dropzone</Card.Title>
+					<DropzoneDemo />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Markdown</Card.Title>
+					<Markdown>{notes}</Markdown>
 				</Card.Root>
 
 				<PickerDemo locale={locale} />

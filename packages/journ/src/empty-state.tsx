@@ -1,6 +1,7 @@
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { displayTitle, mutedText } from './lib/text-styles'
+import { iconTile } from './lib/icon-tile'
 
 const Root = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
 	<div
@@ -15,10 +16,7 @@ const Icon = ({ className, ...props }: ComponentPropsWithRef<'span'>) => (
 		data-slot='empty-state-icon'
 		aria-hidden
 		{...props}
-		className={cn(
-			'grid size-14 place-items-center rounded-3xl bg-journ-yellow text-journ-ink [&>svg]:size-6',
-			className,
-		)}
+		className={iconTile({ size: 'lg', tone: 'yellow', class: className })}
 	/>
 )
 

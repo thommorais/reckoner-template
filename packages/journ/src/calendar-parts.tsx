@@ -1,12 +1,15 @@
 'use client'
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { createContext, use, useState, useSyncExternalStore, type ComponentPropsWithRef, type ReactNode } from 'react'
+import { useState, useSyncExternalStore, type ComponentPropsWithRef, type ReactNode } from 'react'
 import { IconButton, type IconButtonProps } from './icon-button'
 import { cn } from './lib/cn'
 import { interactive } from './lib/interactive'
 import { tv } from './lib/tv'
 import { useControllableState } from './lib/use-controllable-state'
+import { createRequiredContext } from './lib/required-context'
+import { addMonths, formatMonthYear, startOfMonth } from './lib/month'
+import { displayHeading } from './lib/text-styles'
 
 type CalendarView = 'days' | 'months' | 'years'
 type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6
@@ -38,8 +41,6 @@ type CalendarContextValue = {
 
 const YEAR_PAGE_SIZE = 12
 
-const startOfMonth = (date: Date) => new Date(date.getFullYear(), date.getMonth(), 1)
-const addMonths = (date: Date, amount: number) => new Date(date.getFullYear(), date.getMonth() + amount, 1)
 const dayKey = (date: Date) => `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
 const isSameDay = (a: Date, b: Date | null) => b !== null && dayKey(a) === dayKey(b)
 const isSameMonth = (a: Date, b: Date | null) =>
@@ -64,13 +65,7 @@ const useToday = (): Date | null => {
 	return new Date(year ?? 0, month ?? 0, date ?? 1)
 }
 
-const CalendarContext = createContext<CalendarContextValue | null>(null)
-
-const useCalendar = (): CalendarContextValue => {
-	const context = use(CalendarContext)
-	if (!context) throw new Error('Calendar parts must be rendered inside Calendar.Provider or Calendar.Root')
-	return context
-}
+const [CalendarContext, useCalendar] = createRequiredContext<CalendarContextValue>('Calendar.Provider or Calendar.Root')
 
 type ProviderProps = CalendarContextValue & { children?: ReactNode }
 
@@ -137,7 +132,7 @@ const Heading = ({ className, onClick, ...props }: Omit<ComponentPropsWithRef<'b
 
 	const label =
 		state.view === 'days'
-			? new Intl.DateTimeFormat(meta.locale, { month: 'long', year: 'numeric' }).format(state.month)
+			? formatMonthYear(state.month, meta.locale)
 			: state.view === 'months'
 				? String(state.month.getFullYear())
 				: `${start} – ${start + YEAR_PAGE_SIZE - 1}`
@@ -155,7 +150,8 @@ const Heading = ({ className, onClick, ...props }: Omit<ComponentPropsWithRef<'b
 			}}
 			className={cn(
 				interactive,
-				'mr-auto -ml-3 rounded-full px-3 py-1 font-journ-display text-2xl/none font-semibold uppercase disabled:opacity-100',
+				displayHeading,
+				'mr-auto -ml-3 rounded-full px-3 py-1 disabled:opacity-100',
 				className,
 			)}
 		>

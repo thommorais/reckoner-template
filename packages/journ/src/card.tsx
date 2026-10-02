@@ -2,6 +2,7 @@ import type { ComponentPropsWithRef } from 'react'
 import { surfaceTones } from './lib/tones'
 import { tv, type VariantProps } from './lib/tv'
 import { displayTitle, mutedText } from './lib/text-styles'
+import { iconTile } from './lib/icon-tile'
 
 const cardRoot = tv({
 	base: 'rounded-journ flex flex-col gap-3 p-5',
@@ -15,9 +16,6 @@ const cardHeader = tv({ base: 'flex items-start justify-between gap-4' })
 const cardTitle = tv({ base: displayTitle })
 const cardDescription = tv({ base: mutedText })
 const cardContent = tv({ base: 'flex flex-col gap-2' })
-const cardIcon = tv({
-	base: 'bg-journ-yellow text-journ-ink grid size-11 shrink-0 place-items-center rounded-2xl [&>svg]:size-5',
-})
 const cardFooter = tv({ base: 'flex flex-wrap items-center gap-2' })
 
 type RootProps = ComponentPropsWithRef<'div'> & VariantProps<typeof cardRoot>
@@ -47,7 +45,7 @@ const Footer = ({ className, ...props }: ComponentPropsWithRef<'footer'>) => (
 )
 
 const Icon = ({ className, ...props }: ComponentPropsWithRef<'span'>) => (
-	<span data-slot='card-icon' {...props} className={cardIcon({ class: className })} />
+	<span data-slot='card-icon' {...props} className={iconTile({ size: 'md', tone: 'yellow', class: className })} />
 )
 
 const Card = { Root, Icon, Header, Title, Description, Content, Footer }

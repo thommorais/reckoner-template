@@ -1,16 +1,13 @@
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
+import { displayLabel } from './lib/text-styles'
 
 const Root = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
 	<div data-slot='stat' {...props} className={cn('flex flex-col gap-1', className)} />
 )
 
 const Label = ({ className, ...props }: ComponentPropsWithRef<'p'>) => (
-	<p
-		data-slot='stat-label'
-		{...props}
-		className={cn('font-journ-display text-xl/none font-medium uppercase', className)}
-	/>
+	<p data-slot='stat-label' {...props} className={cn(displayLabel, className)} />
 )
 
 const Value = ({ className, ...props }: ComponentPropsWithRef<'p'>) => (
