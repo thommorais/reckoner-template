@@ -7,7 +7,7 @@ const Root = ({ className, ...props }: ComponentPropsWithRef<'nav'>) => (
 	<nav
 		data-slot='nav-bar'
 		{...props}
-		className={cn('flex items-center justify-between rounded-full bg-journ-ink p-1.5', className)}
+		className={cn('flex items-center justify-between rounded-full bg-journ-surface p-1.5', className)}
 	/>
 )
 

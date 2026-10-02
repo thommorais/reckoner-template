@@ -1,17 +1,11 @@
 import type { ComponentPropsWithRef } from 'react'
+import { surfaceTones } from './lib/tones'
 import { tv, type VariantProps } from './lib/tv'
 
 const cardRoot = tv({
 	base: 'rounded-journ flex flex-col gap-3 p-5',
 	variants: {
-		tone: {
-			dark: 'bg-journ-surface text-journ-paper',
-			coral: 'bg-journ-coral text-journ-ink',
-			yellow: 'bg-journ-yellow text-journ-ink',
-			indigo: 'bg-journ-indigo text-journ-ink',
-			mint: 'bg-journ-mint text-journ-ink',
-			sky: 'bg-journ-sky text-journ-ink',
-		},
+		tone: surfaceTones,
 	},
 	defaultVariants: { tone: 'dark' },
 })

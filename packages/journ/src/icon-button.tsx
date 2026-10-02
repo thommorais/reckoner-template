@@ -10,7 +10,7 @@ const iconButton = tv({
 			paper: 'bg-journ-paper text-journ-ink',
 			ink: 'bg-journ-ink text-journ-paper',
 			coral: 'bg-journ-coral text-journ-ink',
-			ghost: 'bg-journ-paper/10 text-journ-paper',
+			ghost: 'bg-current/10 text-inherit',
 		},
 		size: {
 			sm: 'size-8 [&>svg]:size-4',

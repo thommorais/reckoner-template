@@ -1,4 +1,5 @@
 import { NavBar } from 'journ/nav-bar'
+import { Page } from 'journ/page'
 import { Home, LineChart, Settings, Wallet } from 'lucide-react'
 
 const items = [
@@ -9,13 +10,15 @@ const items = [
 ] as const
 
 const BottomNav = ({ current }: { current: string }) => (
-	<NavBar.Root className='sticky bottom-4 mt-auto'>
-		{items.map(({ href, label, icon: Icon }) => (
-			<NavBar.Item key={href} href={href} aria-label={label} aria-current={href === current ? 'page' : undefined}>
-				<Icon />
-			</NavBar.Item>
-		))}
-	</NavBar.Root>
+	<Page.Footer>
+		<NavBar.Root>
+			{items.map(({ href, label, icon: Icon }) => (
+				<NavBar.Item key={href} href={href} aria-label={label} aria-current={href === current ? 'page' : undefined}>
+					<Icon />
+				</NavBar.Item>
+			))}
+		</NavBar.Root>
+	</Page.Footer>
 )
 
 export { BottomNav }

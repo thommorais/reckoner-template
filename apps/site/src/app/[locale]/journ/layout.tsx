@@ -9,8 +9,8 @@ const barlowCondensed = Barlow_Condensed({
 })
 
 const JournLayout = ({ children }: { children: React.ReactNode }): React.ReactNode => (
-	<div className={`${barlowCondensed.variable} bg-journ-ink text-journ-paper min-h-dvh`}>
-		<main className='mx-auto flex min-h-dvh w-full max-w-sm flex-col gap-4 px-4 pt-8 pb-4'>{children}</main>
+	<div className={barlowCondensed.variable}>
+		{children}
 		<Toast.Provider />
 	</div>
 )
