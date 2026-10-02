@@ -112,6 +112,7 @@ Import from `journ` or per file (`journ/card`).
 | `Avatar` (Radix)   | `Root`, `Image`, `Fallback`                                                               |
 | `Button`           | single element, `tone`, renders `<a>` with `href`                                         |
 | `Card`             | `Root` (`tone`), `Icon`, `Header`, `Title`, `Description`, `Content`, `Footer`            |
+| `Checkbox` (Radix) | single element, supports `checked="indeterminate"`                                        |
 | `Chip`             | `Root` (`tone`), `Dot`                                                                    |
 | `Composer`         | `Root`, `Input`                                                                           |
 | `Dialog` (Radix)   | `Root`, `Trigger`, `Close`, `Content` (`tone`), `Title`, `Description`, `Body`, `Actions` |
@@ -125,8 +126,11 @@ Import from `journ` or per file (`journ/card`).
 | `PageHeader`       | `Root`, `Title`, `Actions`                                                                |
 | `PillSelect`       | single element, native `<select>`                                                         |
 | `Progress` (Radix) | single element, `value`, `tone`                                                           |
+| `Radio` (Radix)    | `Group`, `Item`                                                                           |
 | `Stack` (animejs)  | `Root` (`defaultValue`), `Item` (`value`, `tone`), `Trigger`, `Content`                   |
 | `Stat`             | `Root`, `Label`, `Value`, `Hint`                                                          |
+| `Switch` (Radix)   | single element                                                                            |
+| `Tabs` (Radix)     | `Root`, `List`, `Trigger`, `Content`                                                      |
 | `Toast` (sonner)   | `Provider`, `show`, `Root`, `Title`, `Description`, `Action`                              |
 
 Card tones: `dark` (default), `coral`, `yellow`, `indigo`, `mint`, `sky`.

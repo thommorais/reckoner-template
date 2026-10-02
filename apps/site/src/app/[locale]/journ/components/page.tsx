@@ -1,5 +1,6 @@
 import { Avatar } from 'journ/avatar'
 import { Card } from 'journ/card'
+import { Checkbox } from 'journ/checkbox'
 import { Composer } from 'journ/composer'
 import { Divider } from 'journ/divider'
 import { Field } from 'journ/field'
@@ -7,6 +8,9 @@ import { IconButton } from 'journ/icon-button'
 import { Page } from 'journ/page'
 import { PageHeader } from 'journ/page-header'
 import { Progress } from 'journ/progress'
+import { Radio } from 'journ/radio'
+import { Switch } from 'journ/switch'
+import { Tabs } from 'journ/tabs'
 import { ArrowLeft } from 'lucide-react'
 import { BottomNav } from '../_components/bottom-nav'
 import { DialogExample } from '../_components/dialog-example'
@@ -97,6 +101,80 @@ const ComponentsPage = (): React.ReactNode => (
 				<Card.Content>
 					<DialogExample />
 				</Card.Content>
+			</Card.Root>
+
+			<Card.Root>
+				<Card.Title>Switch</Card.Title>
+				<Card.Content className='gap-3'>
+					<label className='flex items-center justify-between gap-3 text-sm'>
+						Labor cost alerts
+						<Switch defaultChecked />
+					</label>
+					<label className='flex items-center justify-between gap-3 text-sm'>
+						Weekly digest
+						<Switch />
+					</label>
+					<label className='flex items-center justify-between gap-3 text-sm opacity-60'>
+						Beta features (disabled)
+						<Switch disabled />
+					</label>
+				</Card.Content>
+			</Card.Root>
+
+			<Card.Root>
+				<Card.Title>Checkbox</Card.Title>
+				<Card.Content className='gap-3'>
+					<label className='flex items-center gap-3 text-sm'>
+						<Checkbox defaultChecked />
+						P&amp;L statement
+					</label>
+					<label className='flex items-center gap-3 text-sm'>
+						<Checkbox />
+						Management
+					</label>
+					<label className='flex items-center gap-3 text-sm'>
+						<Checkbox checked='indeterminate' />
+						Some venues
+					</label>
+				</Card.Content>
+			</Card.Root>
+
+			<Card.Root>
+				<Card.Title>Radio</Card.Title>
+				<Radio.Group defaultValue='week' aria-label='Period'>
+					<label className='flex items-center gap-3 text-sm'>
+						<Radio.Item value='week' />
+						This week
+					</label>
+					<label className='flex items-center gap-3 text-sm'>
+						<Radio.Item value='month' />
+						This month
+					</label>
+					<label className='flex items-center gap-3 text-sm opacity-60'>
+						<Radio.Item value='year' disabled />
+						This year (disabled)
+					</label>
+				</Radio.Group>
+			</Card.Root>
+
+			<Card.Root>
+				<Card.Title>Tabs</Card.Title>
+				<Tabs.Root defaultValue='day'>
+					<Tabs.List>
+						<Tabs.Trigger value='day'>Day</Tabs.Trigger>
+						<Tabs.Trigger value='week'>Week</Tabs.Trigger>
+						<Tabs.Trigger value='month'>Month</Tabs.Trigger>
+					</Tabs.List>
+					<Tabs.Content value='day'>
+						<Card.Description>Revenue so far today.</Card.Description>
+					</Tabs.Content>
+					<Tabs.Content value='week'>
+						<Card.Description>Revenue for the current week.</Card.Description>
+					</Tabs.Content>
+					<Tabs.Content value='month'>
+						<Card.Description>Revenue for the current month.</Card.Description>
+					</Tabs.Content>
+				</Tabs.Root>
 			</Card.Root>
 
 			<BottomNav current='/journ/components' />
