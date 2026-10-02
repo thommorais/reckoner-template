@@ -1,8 +1,12 @@
 import { Card } from 'journ/card'
-import { FileText } from 'lucide-react'
-import { ArrowButton } from '../_components/arrow-button'
-import { Chip } from '../_components/chip'
-import { PageTitle } from '../_components/page-title'
+import { Chip } from 'journ/chip'
+import { Composer } from 'journ/composer'
+import { Drawer } from 'journ/drawer'
+import { IconButton } from 'journ/icon-button'
+import { PageHeader } from 'journ/page-header'
+import { PillSelect } from 'journ/pill-select'
+import { ArrowLeft, ArrowUpRight, FileText, Search } from 'lucide-react'
+import { BottomNav } from '../_components/bottom-nav'
 
 const reports = [
 	{
@@ -27,31 +31,73 @@ const reports = [
 
 const ReportsPage = (): React.ReactNode => (
 	<>
-		<PageTitle>Reports</PageTitle>
+		<PageHeader.Root>
+			<IconButton tone='ghost' aria-label='Back'>
+				<ArrowLeft />
+			</IconButton>
+			<PageHeader.Title>Reports</PageHeader.Title>
+			<PillSelect aria-label='Filter'>
+				<option>all</option>
+				<option>finance</option>
+			</PillSelect>
+		</PageHeader.Root>
+
+		<Composer.Root>
+			<Search className='ml-3 size-4 opacity-60' />
+			<Composer.Input placeholder='Search by name or type' />
+		</Composer.Root>
+
 		<p className='font-mono text-xs opacity-60'>{reports.length} reports found</p>
+
 		{reports.map(report => (
-			<Card.Root key={report.id} tone='dark' className='bg-journ-paper/10'>
+			<Card.Root key={report.id}>
 				<Card.Header>
 					<div className='flex items-start gap-3'>
-						<span className='bg-journ-coral text-journ-ink grid size-11 shrink-0 place-items-center rounded-2xl'>
-							<FileText className='size-5' />
-						</span>
+						<Card.Icon className='bg-journ-coral'>
+							<FileText />
+						</Card.Icon>
 						<Card.Title>{report.title}</Card.Title>
 					</div>
-					<ArrowButton />
+					<Drawer.Root>
+						<Drawer.Trigger asChild>
+							<IconButton aria-label='Open' size='sm'>
+								<ArrowUpRight />
+							</IconButton>
+						</Drawer.Trigger>
+						<Drawer.Content>
+							<Drawer.Title>{report.title}</Drawer.Title>
+							<Drawer.Description>{report.description}</Drawer.Description>
+							<Drawer.Body>
+								<div className='flex flex-wrap gap-2'>
+									{report.tags.map(tag => (
+										<Chip.Root key={tag} tone='dim'>
+											{tag}
+										</Chip.Root>
+									))}
+								</div>
+							</Drawer.Body>
+							<Drawer.Actions>
+								<Drawer.Close className='bg-journ-paper text-journ-ink rounded-full px-5 py-2 text-sm'>
+									Close
+								</Drawer.Close>
+							</Drawer.Actions>
+						</Drawer.Content>
+					</Drawer.Root>
 				</Card.Header>
 				<Card.Content>
 					<Card.Description>{report.description}</Card.Description>
 				</Card.Content>
 				<Card.Footer>
 					{report.tags.map(tag => (
-						<Chip key={tag} className='bg-journ-paper/10 text-journ-yellow'>
+						<Chip.Root key={tag} tone='dim'>
 							{tag}
-						</Chip>
+						</Chip.Root>
 					))}
 				</Card.Footer>
 			</Card.Root>
 		))}
+
+		<BottomNav current='/journ/reports' />
 	</>
 )
 

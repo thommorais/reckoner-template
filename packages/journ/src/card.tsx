@@ -20,6 +20,9 @@ const cardHeader = tv({ base: 'flex items-start justify-between gap-4' })
 const cardTitle = tv({ base: 'font-journ-display text-3xl/[0.95] font-semibold uppercase' })
 const cardDescription = tv({ base: 'text-sm/5 opacity-70' })
 const cardContent = tv({ base: 'flex flex-col gap-2' })
+const cardIcon = tv({
+	base: 'bg-journ-yellow text-journ-ink grid size-11 shrink-0 place-items-center rounded-2xl [&>svg]:size-5',
+})
 const cardFooter = tv({ base: 'flex flex-wrap items-center gap-2' })
 
 type RootProps = ComponentPropsWithRef<'div'> & VariantProps<typeof cardRoot>
@@ -48,7 +51,11 @@ const Footer = ({ className, ...props }: ComponentPropsWithRef<'footer'>) => (
 	<footer data-slot='card-footer' {...props} className={cardFooter({ class: className })} />
 )
 
-const Card = { Root, Header, Title, Description, Content, Footer }
+const Icon = ({ className, ...props }: ComponentPropsWithRef<'span'>) => (
+	<span data-slot='card-icon' {...props} className={cardIcon({ class: className })} />
+)
+
+const Card = { Root, Icon, Header, Title, Description, Content, Footer }
 type CardProps = RootProps
 
 export { Card }

@@ -1,52 +1,56 @@
 import { Card } from 'journ/card'
-import { Chip } from '../_components/chip'
-import { PageTitle } from '../_components/page-title'
-
-const days = [
-	{ day: 'Mon', value: 48 },
-	{ day: 'Tue', value: 100 },
-	{ day: 'Wen', value: 62 },
-	{ day: 'Thu', value: 70 },
-	{ day: 'Fri', value: 44 },
-	{ day: 'Sat', value: 58 },
-	{ day: 'Sun', value: 64 },
-] as const
+import { Chip } from 'journ/chip'
+import { IconButton } from 'journ/icon-button'
+import { PageHeader } from 'journ/page-header'
+import { PillSelect } from 'journ/pill-select'
+import { Stat } from 'journ/stat'
+import { ArrowLeft } from 'lucide-react'
+import { BottomNav } from '../_components/bottom-nav'
 
 const RevenuePage = (): React.ReactNode => (
 	<>
-		<PageTitle>Revenue</PageTitle>
+		<PageHeader.Root>
+			<IconButton tone='ghost' aria-label='Back'>
+				<ArrowLeft />
+			</IconButton>
+			<PageHeader.Title>Revenue</PageHeader.Title>
+		</PageHeader.Root>
+
+		<div className='flex gap-2'>
+			<PillSelect aria-label='Period' className='w-full'>
+				<option>this week</option>
+				<option>last week</option>
+			</PillSelect>
+			<PillSelect aria-label='Currency' className='w-full'>
+				<option>USD, $</option>
+				<option>BRL, R$</option>
+			</PillSelect>
+		</div>
+
 		<Card.Root tone='coral'>
-			<Card.Header>
-				<Card.Title>Gross revenue</Card.Title>
-				<Chip className='bg-journ-ink text-journ-paper'>+7,5%</Chip>
-			</Card.Header>
-			<Card.Content>
-				<p className='font-journ-display text-5xl/none font-semibold'>$156,900.67</p>
-			</Card.Content>
+			<Stat.Root>
+				<div className='flex items-start justify-between'>
+					<Stat.Label>Gross revenue</Stat.Label>
+					<Chip.Root tone='ink'>+7,5%</Chip.Root>
+				</div>
+				<Stat.Value>$156,900.67</Stat.Value>
+			</Stat.Root>
 		</Card.Root>
+
 		<Card.Root tone='coral'>
-			<Card.Header>
-				<Card.Title>Avg. order value</Card.Title>
-				<Chip className='bg-journ-ink text-journ-paper'>+2,4%</Chip>
-			</Card.Header>
-			<Card.Content className='flex-row items-end justify-between'>
-				<p className='font-journ-display text-5xl/none font-semibold'>$18.50</p>
-				<Card.Description>Growth vs. last week</Card.Description>
-			</Card.Content>
+			<Stat.Root>
+				<div className='flex items-start justify-between'>
+					<Stat.Label>Avg. order value</Stat.Label>
+					<Chip.Root tone='ink'>+2,4%</Chip.Root>
+				</div>
+				<div className='flex items-end justify-between'>
+					<Stat.Value>$18.50</Stat.Value>
+					<Stat.Hint>Growth vs. last week</Stat.Hint>
+				</div>
+			</Stat.Root>
 		</Card.Root>
-		<Card.Root tone='coral'>
-			<Card.Content className='h-48 flex-row items-end gap-2'>
-				{days.map(({ day, value }) => (
-					<div key={day} className='flex h-full flex-1 flex-col items-center justify-end gap-2'>
-						<div
-							className={`w-full rounded-full ${value === 100 ? 'bg-journ-mint' : 'bg-journ-paper/40'}`}
-							style={{ height: `${value}%` }}
-						/>
-						<span className='font-mono text-xs'>{day}</span>
-					</div>
-				))}
-			</Card.Content>
-		</Card.Root>
+
+		<BottomNav current='/journ/revenue' />
 	</>
 )
 
