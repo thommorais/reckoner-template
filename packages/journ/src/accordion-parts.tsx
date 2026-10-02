@@ -1,12 +1,11 @@
 'use client'
 
 import * as RadixAccordion from '@radix-ui/react-accordion'
-import { animate } from 'animejs'
 import { ChevronDown } from 'lucide-react'
-import { useLayoutEffect, useRef, type ComponentPropsWithRef } from 'react'
+import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { pressReset } from './lib/interactive'
-import { prefersReducedMotion } from './lib/use-enter'
+import { useExpand } from './lib/use-enter'
 
 const Root = RadixAccordion.Root
 
@@ -37,22 +36,7 @@ const Trigger = ({ className, children, ...props }: ComponentPropsWithRef<typeof
 )
 
 const Content = ({ className, children, ...props }: ComponentPropsWithRef<typeof RadixAccordion.Content>) => {
-	const element = useRef<HTMLDivElement>(null)
-
-	useLayoutEffect(() => {
-		const node = element.current
-		if (!node || prefersReducedMotion()) return
-		const height = node.scrollHeight
-		animate(node, {
-			height: [0, height],
-			opacity: [0, 1],
-			duration: 200,
-			ease: 'outQuad',
-			onComplete: () => {
-				node.style.height = ''
-			},
-		})
-	}, [])
+	const element = useExpand<HTMLDivElement>()
 
 	return (
 		<RadixAccordion.Content ref={element} data-slot='accordion-content' {...props} className='overflow-hidden'>

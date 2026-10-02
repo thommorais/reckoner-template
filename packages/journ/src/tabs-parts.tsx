@@ -4,6 +4,7 @@ import * as RadixTabs from '@radix-ui/react-tabs'
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { pressReset } from './lib/interactive'
+import { controlSize, selectedWhenActive } from './lib/text-styles'
 
 const Root = ({ className, ...props }: ComponentPropsWithRef<typeof RadixTabs.Root>) => (
 	<RadixTabs.Root data-slot='tabs' {...props} className={cn('flex flex-col gap-4', className)} />
@@ -23,9 +24,11 @@ const Trigger = ({ className, ...props }: ComponentPropsWithRef<typeof RadixTabs
 		{...props}
 		className={cn(
 			pressReset,
-			'flex-1 cursor-default rounded-full px-4 py-2.5 text-base/6 font-medium outline-none transition-colors sm:py-1.5 sm:text-sm/6',
+			controlSize,
+			'flex-1 cursor-default rounded-full px-4 font-medium outline-none transition-colors',
 			'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-journ-sky',
-			'data-[state=active]:bg-journ-sky data-[state=active]:text-journ-ink disabled:pointer-events-none disabled:opacity-50',
+			selectedWhenActive,
+			'disabled:pointer-events-none disabled:opacity-50',
 			className,
 		)}
 	/>

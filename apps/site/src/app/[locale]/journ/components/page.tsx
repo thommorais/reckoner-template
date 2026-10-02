@@ -2,11 +2,13 @@ import { Accordion } from 'journ/accordion'
 import { Avatar } from 'journ/avatar'
 import { Button } from 'journ/button'
 import { Card } from 'journ/card'
+import { Collapsible } from 'journ/collapsible'
 import { Checkbox } from 'journ/checkbox'
 import { Composer } from 'journ/composer'
 import { Divider } from 'journ/divider'
 import { DropdownMenu } from 'journ/dropdown-menu'
 import { Field } from 'journ/field'
+import { HoverCard } from 'journ/hover-card'
 import { IconButton } from 'journ/icon-button'
 import { Page } from 'journ/page'
 import { PageHeader } from 'journ/page-header'
@@ -15,11 +17,15 @@ import { Progress } from 'journ/progress'
 import { Radio } from 'journ/radio'
 import { ScrollArea } from 'journ/scroll-area'
 import { Select } from 'journ/select'
+import { Slider } from 'journ/slider'
 import { Switch } from 'journ/switch'
 import { Tabs } from 'journ/tabs'
+import { ToggleGroup } from 'journ/toggle-group'
 import { Tooltip } from 'journ/tooltip'
-import { ArrowLeft, Ellipsis, Info } from 'lucide-react'
+import { ArrowLeft, CalendarDays, ChevronDown, Ellipsis, Info, List } from 'lucide-react'
 import { BottomNav } from '../_components/bottom-nav'
+import { BulkDemo } from '../_components/bulk-demo'
+import { ConfirmDemo } from '../_components/confirm-demo'
 import { DialogExample } from '../_components/dialog-example'
 import { PickerDemo } from '../_components/picker-demo'
 
@@ -59,10 +65,18 @@ const ComponentsPage = async ({ params }: { params: Promise<{ locale: string }> 
 				<Card.Root>
 					<Card.Title>Progress</Card.Title>
 					<Card.Content className='gap-4'>
-						<Progress value={72} aria-label='Coral' />
-						<Progress value={45} tone='yellow' aria-label='Yellow' />
-						<Progress value={90} tone='mint' aria-label='Mint' />
-						<Progress value={20} tone='sky' aria-label='Sky' />
+						<Progress.Root value={72} aria-label='Coral'>
+							<Progress.Indicator />
+						</Progress.Root>
+						<Progress.Root value={45} aria-label='Yellow'>
+							<Progress.Indicator tone='yellow' />
+						</Progress.Root>
+						<Progress.Root value={90} aria-label='Mint'>
+							<Progress.Indicator tone='mint' />
+						</Progress.Root>
+						<Progress.Root value={20} aria-label='Sky'>
+							<Progress.Indicator tone='sky' />
+						</Progress.Root>
 					</Card.Content>
 				</Card.Root>
 
@@ -119,15 +133,21 @@ const ComponentsPage = async ({ params }: { params: Promise<{ locale: string }> 
 					<Card.Content className='gap-3'>
 						<label className='flex items-center justify-between gap-3 text-sm'>
 							Labor cost alerts
-							<Switch defaultChecked />
+							<Switch.Root defaultChecked>
+								<Switch.Thumb />
+							</Switch.Root>
 						</label>
 						<label className='flex items-center justify-between gap-3 text-sm'>
 							Weekly digest
-							<Switch />
+							<Switch.Root>
+								<Switch.Thumb />
+							</Switch.Root>
 						</label>
 						<label className='flex items-center justify-between gap-3 text-sm opacity-60'>
 							Beta features (disabled)
-							<Switch disabled />
+							<Switch.Root disabled>
+								<Switch.Thumb />
+							</Switch.Root>
 						</label>
 					</Card.Content>
 				</Card.Root>
@@ -136,15 +156,21 @@ const ComponentsPage = async ({ params }: { params: Promise<{ locale: string }> 
 					<Card.Title>Checkbox</Card.Title>
 					<Card.Content className='gap-3'>
 						<label className='flex items-center gap-3 text-sm'>
-							<Checkbox defaultChecked />
+							<Checkbox.Root defaultChecked>
+								<Checkbox.Indicator />
+							</Checkbox.Root>
 							P&amp;L statement
 						</label>
 						<label className='flex items-center gap-3 text-sm'>
-							<Checkbox />
+							<Checkbox.Root>
+								<Checkbox.Indicator />
+							</Checkbox.Root>
 							Management
 						</label>
 						<label className='flex items-center gap-3 text-sm'>
-							<Checkbox checked='indeterminate' />
+							<Checkbox.Root checked='indeterminate'>
+								<Checkbox.Indicator />
+							</Checkbox.Root>
 							Some venues
 						</label>
 					</Card.Content>
@@ -293,6 +319,75 @@ const ComponentsPage = async ({ params }: { params: Promise<{ locale: string }> 
 							</li>
 						))}
 					</ul>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Alert dialog</Card.Title>
+					<ConfirmDemo />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Toggle group</Card.Title>
+					<ToggleGroup.Root type='single' defaultValue='list' aria-label='View' className='self-start'>
+						<ToggleGroup.Item value='list'>
+							<List />
+							List
+						</ToggleGroup.Item>
+						<ToggleGroup.Item value='calendar'>
+							<CalendarDays />
+							Calendar
+						</ToggleGroup.Item>
+					</ToggleGroup.Root>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Slider</Card.Title>
+					<Card.Content className='gap-4'>
+						<Slider.Root defaultValue={[40]}>
+							<Slider.Track>
+								<Slider.Range />
+							</Slider.Track>
+							<Slider.Thumb aria-label='Budget' />
+						</Slider.Root>
+						<Slider.Root defaultValue={[20, 75]}>
+							<Slider.Track>
+								<Slider.Range />
+							</Slider.Track>
+							<Slider.Thumb aria-label='Minimum price' />
+							<Slider.Thumb aria-label='Maximum price' />
+						</Slider.Root>
+					</Card.Content>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Collapsible and hover card</Card.Title>
+					<Collapsible.Root>
+						<Collapsible.Trigger className='flex w-full items-center justify-between gap-3 text-sm font-medium'>
+							Show filters
+							<ChevronDown className='size-4' />
+						</Collapsible.Trigger>
+						<Collapsible.Content>
+							<Card.Description>Venue, period and currency filters live here.</Card.Description>
+						</Collapsible.Content>
+					</Collapsible.Root>
+					<Divider />
+					<p className='text-sm'>
+						Owned by{' '}
+						<HoverCard.Root>
+							<HoverCard.Trigger href='#' className='underline underline-offset-4'>
+								Hanna
+							</HoverCard.Trigger>
+							<HoverCard.Content>
+								<p className='font-journ-display text-2xl/none font-semibold uppercase'>Hanna</p>
+								<p className='text-sm/5 opacity-70'>Revenue lead at The Daily Grind, NY.</p>
+							</HoverCard.Content>
+						</HoverCard.Root>
+					</p>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Bulk bar</Card.Title>
+					<BulkDemo />
 				</Card.Root>
 
 				<PickerDemo locale={locale} />

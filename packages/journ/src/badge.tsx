@@ -1,17 +1,13 @@
 import type { ComponentPropsWithRef } from 'react'
 import { tv, type VariantProps } from './lib/tv'
+import { inkTone, solidTones } from './lib/tones'
 
 const badge = tv({
 	base: 'inline-flex items-center rounded-full px-2 py-0.5 text-xs/5 font-semibold tabular-nums',
 	variants: {
 		tone: {
-			paper: 'bg-journ-paper text-journ-ink',
-			coral: 'bg-journ-coral text-journ-ink',
-			yellow: 'bg-journ-yellow text-journ-ink',
-			indigo: 'bg-journ-indigo text-journ-ink',
-			mint: 'bg-journ-mint text-journ-ink',
-			sky: 'bg-journ-sky text-journ-ink',
-			ink: 'bg-journ-ink text-journ-paper',
+			...solidTones,
+			ink: inkTone,
 		},
 	},
 	defaultVariants: { tone: 'paper' },

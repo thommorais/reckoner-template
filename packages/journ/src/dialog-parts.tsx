@@ -3,65 +3,40 @@
 import * as RadixDialog from '@radix-ui/react-dialog'
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
-import { useEnter } from './lib/use-enter'
-import { surfaceTones } from './lib/tones'
-import { tv, type VariantProps } from './lib/tv'
+import { Actions, Body } from './lib/modal-parts'
+import { centeredPanel, modalOverlay } from './lib/overlay'
+import { displayTitle, mutedText } from './lib/text-styles'
+import type { VariantProps } from './lib/tv'
+import { useModalEnter } from './lib/use-enter'
 
 const Root = RadixDialog.Root
 const Trigger = RadixDialog.Trigger
 const Close = RadixDialog.Close
 
-const dialogContent = tv({
-	base: 'rounded-journ fixed top-1/2 left-1/2 flex max-h-[85dvh] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 flex-col gap-4 p-5 outline-none',
-	variants: { tone: surfaceTones },
-	defaultVariants: { tone: 'dark' },
-})
-
-type ContentProps = ComponentPropsWithRef<typeof RadixDialog.Content> & VariantProps<typeof dialogContent>
+type ContentProps = ComponentPropsWithRef<typeof RadixDialog.Content> & VariantProps<typeof centeredPanel>
 
 const Content = ({ tone, className, ...props }: ContentProps) => {
-	const overlay = useEnter<HTMLDivElement>({ opacity: [0, 1], duration: 200, ease: 'outQuad' })
-	const panel = useEnter<HTMLDivElement>({ opacity: [0, 1], scale: [0.85, 1], duration: 200, ease: 'outExpo' })
+	const { overlay, panel } = useModalEnter()
 
 	return (
 		<RadixDialog.Portal>
-			<RadixDialog.Overlay ref={overlay} data-slot='dialog-overlay' className='bg-journ-ink/60 fixed inset-0' />
+			<RadixDialog.Overlay ref={overlay} data-slot='dialog-overlay' className={modalOverlay} />
 			<RadixDialog.Content
 				ref={panel}
 				data-slot='dialog'
 				{...props}
-				className={dialogContent({ tone, class: className })}
+				className={centeredPanel({ tone, class: cn('max-h-[85dvh]', className) })}
 			/>
 		</RadixDialog.Portal>
 	)
 }
 
 const Title = ({ className, ...props }: ComponentPropsWithRef<typeof RadixDialog.Title>) => (
-	<RadixDialog.Title
-		data-slot='dialog-title'
-		{...props}
-		className={cn('font-journ-display text-3xl/[0.95] font-semibold uppercase', className)}
-	/>
+	<RadixDialog.Title data-slot='dialog-title' {...props} className={cn(displayTitle, className)} />
 )
 
 const Description = ({ className, ...props }: ComponentPropsWithRef<typeof RadixDialog.Description>) => (
-	<RadixDialog.Description
-		data-slot='dialog-description'
-		{...props}
-		className={cn('text-sm/5 opacity-70', className)}
-	/>
-)
-
-const Body = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
-	<div
-		data-slot='dialog-body'
-		{...props}
-		className={cn('scrollbar-journ flex flex-col gap-3 overflow-y-auto', className)}
-	/>
-)
-
-const Actions = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
-	<div data-slot='dialog-actions' {...props} className={cn('flex items-center justify-end gap-2', className)} />
+	<RadixDialog.Description data-slot='dialog-description' {...props} className={cn(mutedText, className)} />
 )
 
 export { Root, Trigger, Close, Content, Title, Description, Body, Actions }

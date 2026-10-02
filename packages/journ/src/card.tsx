@@ -1,6 +1,7 @@
 import type { ComponentPropsWithRef } from 'react'
 import { surfaceTones } from './lib/tones'
 import { tv, type VariantProps } from './lib/tv'
+import { displayTitle, mutedText } from './lib/text-styles'
 
 const cardRoot = tv({
 	base: 'rounded-journ flex flex-col gap-3 p-5',
@@ -11,8 +12,8 @@ const cardRoot = tv({
 })
 
 const cardHeader = tv({ base: 'flex items-start justify-between gap-4' })
-const cardTitle = tv({ base: 'font-journ-display text-3xl/[0.95] font-semibold uppercase' })
-const cardDescription = tv({ base: 'text-sm/5 opacity-70' })
+const cardTitle = tv({ base: displayTitle })
+const cardDescription = tv({ base: mutedText })
 const cardContent = tv({ base: 'flex flex-col gap-2' })
 const cardIcon = tv({
 	base: 'bg-journ-yellow text-journ-ink grid size-11 shrink-0 place-items-center rounded-2xl [&>svg]:size-5',

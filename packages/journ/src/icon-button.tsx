@@ -2,14 +2,15 @@ import type { ComponentPropsWithRef } from 'react'
 import { interactive } from './lib/interactive'
 import { tv, type VariantProps } from './lib/tv'
 import { TouchTarget } from './touch-target'
+import { inkTone, solidTones } from './lib/tones'
 
 const iconButton = tv({
 	base: [interactive, 'grid shrink-0 place-items-center rounded-full'],
 	variants: {
 		tone: {
-			paper: 'bg-journ-paper text-journ-ink',
-			ink: 'bg-journ-ink text-journ-paper',
-			coral: 'bg-journ-coral text-journ-ink',
+			paper: solidTones.paper,
+			ink: inkTone,
+			coral: solidTones.coral,
 			ghost: 'bg-current/10 text-inherit',
 		},
 		size: {

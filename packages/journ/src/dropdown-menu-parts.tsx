@@ -4,14 +4,14 @@ import * as RadixMenu from '@radix-ui/react-dropdown-menu'
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { floatingItem, floatingLabel, floatingSeparator, floatingSurface } from './lib/overlay'
-import { useEnter } from './lib/use-enter'
+import { usePopEnter } from './lib/use-enter'
 
 const Root = RadixMenu.Root
 const Trigger = RadixMenu.Trigger
 const Group = RadixMenu.Group
 
 const Content = ({ className, ...props }: ComponentPropsWithRef<typeof RadixMenu.Content>) => {
-	const panel = useEnter<HTMLDivElement>({ opacity: [0, 1], scale: [0.96, 1], duration: 200, ease: 'outQuad' })
+	const panel = usePopEnter()
 
 	return (
 		<RadixMenu.Portal>

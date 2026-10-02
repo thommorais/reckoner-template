@@ -1,15 +1,16 @@
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { tv, type VariantProps } from './lib/tv'
+import { inkTone, solidTones } from './lib/tones'
 
 const chipRoot = tv({
 	base: 'inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-xs',
 	variants: {
 		tone: {
 			light: 'bg-journ-paper/60 text-journ-ink',
-			ink: 'bg-journ-ink text-journ-paper',
+			ink: inkTone,
 			dim: 'bg-journ-paper/10 text-journ-yellow',
-			sky: 'bg-journ-sky text-journ-ink',
+			sky: solidTones.sky,
 		},
 	},
 	defaultVariants: { tone: 'light' },

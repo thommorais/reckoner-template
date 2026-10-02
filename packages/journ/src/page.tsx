@@ -1,17 +1,18 @@
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { tv, type VariantProps } from './lib/tv'
+import { inkTone, solidTones } from './lib/tones'
 
 const pageRoot = tv({
 	base: 'min-h-dvh w-full',
 	variants: {
 		tone: {
-			ink: 'bg-journ-ink text-journ-paper',
-			indigo: 'bg-journ-indigo text-journ-ink',
-			mint: 'bg-journ-mint text-journ-ink',
-			sky: 'bg-journ-sky text-journ-ink',
-			yellow: 'bg-journ-yellow text-journ-ink',
-			coral: 'bg-journ-coral text-journ-ink',
+			ink: inkTone,
+			indigo: solidTones.indigo,
+			mint: solidTones.mint,
+			sky: solidTones.sky,
+			yellow: solidTones.yellow,
+			coral: solidTones.coral,
 		},
 	},
 	defaultVariants: { tone: 'ink' },

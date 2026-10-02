@@ -6,7 +6,7 @@ import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { pressReset } from './lib/interactive'
 import { floatingItem, floatingLabel, floatingSeparator, floatingSurface } from './lib/overlay'
-import { useEnter } from './lib/use-enter'
+import { usePopEnter } from './lib/use-enter'
 
 const Root = RadixSelect.Root
 const Group = RadixSelect.Group
@@ -36,7 +36,7 @@ const Content = ({
 	position = 'popper',
 	...props
 }: ComponentPropsWithRef<typeof RadixSelect.Content>) => {
-	const panel = useEnter<HTMLDivElement>({ opacity: [0, 1], scale: [0.96, 1], duration: 200, ease: 'outQuad' })
+	const panel = usePopEnter()
 
 	return (
 		<RadixSelect.Portal>

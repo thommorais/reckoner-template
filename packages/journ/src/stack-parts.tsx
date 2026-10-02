@@ -15,6 +15,8 @@ import { cn } from './lib/cn'
 import { pressReset } from './lib/interactive'
 import { surfaceTones } from './lib/tones'
 import { tv, type VariantProps } from './lib/tv'
+import { prefersReducedMotion } from './lib/use-enter'
+import { displayTitle } from './lib/text-styles'
 
 type StackContextValue = {
 	active: string
@@ -37,9 +39,6 @@ const useItemValue = (): string => {
 	if (value === null) throw new Error('Stack.Trigger and Stack.Content must be rendered inside Stack.Item')
 	return value
 }
-
-const prefersReducedMotion = () =>
-	typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
 type RootProps = Omit<ComponentPropsWithRef<'div'>, 'defaultValue'> & {
 	defaultValue: string
@@ -144,7 +143,8 @@ const Trigger = ({ className, onClick, ...props }: ComponentPropsWithRef<'button
 			}}
 			className={cn(
 				pressReset,
-				'flex w-full cursor-pointer items-start justify-between gap-4 rounded-journ text-left font-journ-display text-3xl/[0.95] font-semibold uppercase outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-journ-sky',
+				displayTitle,
+				'flex w-full cursor-pointer items-start justify-between gap-4 rounded-journ text-left outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-journ-sky',
 				className,
 			)}
 		/>

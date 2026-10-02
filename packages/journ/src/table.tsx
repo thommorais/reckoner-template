@@ -1,5 +1,6 @@
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
+import { mutedText } from './lib/text-styles'
 
 const Root = ({ className, ...props }: ComponentPropsWithRef<'table'>) => (
 	<div data-slot='table-container' className='scrollbar-journ w-full overflow-x-auto'>
@@ -8,7 +9,7 @@ const Root = ({ className, ...props }: ComponentPropsWithRef<'table'>) => (
 )
 
 const Caption = ({ className, ...props }: ComponentPropsWithRef<'caption'>) => (
-	<caption data-slot='table-caption' {...props} className={cn('pb-3 text-left text-sm/5 opacity-70', className)} />
+	<caption data-slot='table-caption' {...props} className={cn('pb-3 text-left', mutedText, className)} />
 )
 
 const Head = (props: ComponentPropsWithRef<'thead'>) => <thead data-slot='table-head' {...props} />

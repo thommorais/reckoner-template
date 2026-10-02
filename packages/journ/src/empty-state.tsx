@@ -1,5 +1,6 @@
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
+import { displayTitle, mutedText } from './lib/text-styles'
 
 const Root = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
 	<div
@@ -22,15 +23,11 @@ const Icon = ({ className, ...props }: ComponentPropsWithRef<'span'>) => (
 )
 
 const Title = ({ className, ...props }: ComponentPropsWithRef<'h3'>) => (
-	<h3
-		data-slot='empty-state-title'
-		{...props}
-		className={cn('font-journ-display text-3xl/[0.95] font-semibold uppercase', className)}
-	/>
+	<h3 data-slot='empty-state-title' {...props} className={cn(displayTitle, className)} />
 )
 
 const Description = ({ className, ...props }: ComponentPropsWithRef<'p'>) => (
-	<p data-slot='empty-state-description' {...props} className={cn('max-w-xs text-sm/5 opacity-70', className)} />
+	<p data-slot='empty-state-description' {...props} className={cn('max-w-xs', mutedText, className)} />
 )
 
 const Actions = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (

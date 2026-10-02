@@ -7,6 +7,7 @@ import { Button, type ButtonProps } from './button'
 import { Root as DrawerRoot, Trigger as DrawerTrigger } from './drawer-parts'
 import { cn } from './lib/cn'
 import { useControllableState } from './lib/use-controllable-state'
+import { controlSize, mutedText } from './lib/text-styles'
 
 type ComboboxState = {
 	value: string | null
@@ -124,10 +125,7 @@ const Input = ({ className, ...props }: ComponentPropsWithRef<typeof Command.Inp
 		<Search aria-hidden className='size-4 shrink-0 opacity-70' />
 		<Command.Input
 			{...props}
-			className={cn(
-				'min-w-0 flex-1 bg-transparent py-2.5 text-base/6 outline-none placeholder:text-current/50 sm:py-1.5 sm:text-sm/6',
-				className,
-			)}
+			className={cn(controlSize, 'min-w-0 flex-1 bg-transparent outline-none placeholder:text-current/50', className)}
 		/>
 	</div>
 )
@@ -141,11 +139,7 @@ const List = ({ className, ...props }: ComponentPropsWithRef<typeof Command.List
 )
 
 const Empty = ({ className, ...props }: ComponentPropsWithRef<typeof Command.Empty>) => (
-	<Command.Empty
-		data-slot='combobox-empty'
-		{...props}
-		className={cn('py-6 text-center text-sm/5 opacity-70', className)}
-	/>
+	<Command.Empty data-slot='combobox-empty' {...props} className={cn('py-6 text-center', mutedText, className)} />
 )
 
 const Group = ({ className, ...props }: ComponentPropsWithRef<typeof Command.Group>) => (
@@ -179,7 +173,8 @@ const Item = ({ value, onSelect, className, ...props }: ItemProps) => {
 					actions.select(value)
 				}}
 				className={cn(
-					'relative isolate flex items-center gap-3 rounded-full px-4 py-2.5 text-base/6 select-none sm:py-1.5 sm:text-sm/6 [&>svg]:size-4 [&>svg]:shrink-0',
+					controlSize,
+					'relative isolate flex items-center gap-3 rounded-full px-4 select-none [&>svg]:size-4 [&>svg]:shrink-0',
 					'after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] data-[selected=true]:after:bg-current/10',
 					'data-[checked=true]:bg-journ-coral data-[checked=true]:font-medium data-[checked=true]:text-journ-ink',
 					'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',

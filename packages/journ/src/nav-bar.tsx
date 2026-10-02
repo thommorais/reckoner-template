@@ -2,6 +2,7 @@ import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { interactive } from './lib/interactive'
 import { TouchTarget } from './touch-target'
+import { selectedWhenCurrent } from './lib/text-styles'
 
 const Root = ({ className, ...props }: ComponentPropsWithRef<'nav'>) => (
 	<nav
@@ -17,7 +18,8 @@ const Item = ({ className, children, ...props }: ComponentPropsWithRef<'a'>) => 
 		{...props}
 		className={cn(
 			interactive,
-			'grid size-10 place-items-center rounded-full text-journ-paper aria-[current=page]:bg-journ-sky aria-[current=page]:text-journ-ink [&>svg]:size-5',
+			'grid size-10 place-items-center rounded-full text-journ-paper [&>svg]:size-5',
+			selectedWhenCurrent,
 			className,
 		)}
 	>

@@ -3,6 +3,7 @@
 import * as RadixScrollArea from '@radix-ui/react-scroll-area'
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
+import { TouchTarget } from './touch-target'
 
 const Root = ({ className, type = 'hover', ...props }: ComponentPropsWithRef<typeof RadixScrollArea.Root>) => (
 	<RadixScrollArea.Root
@@ -42,8 +43,10 @@ const Scrollbar = ({
 	>
 		<RadixScrollArea.Thumb
 			data-slot='scroll-area-thumb'
-			className='relative flex-1 rounded-full bg-current/30 transition-colors before:absolute before:top-1/2 before:left-1/2 before:size-[max(100%,2.75rem)] before:-translate-x-1/2 before:-translate-y-1/2 hover:bg-current/50 pointer-fine:before:hidden'
-		/>
+			className='relative flex-1 rounded-full bg-current/30 transition-colors hover:bg-current/50'
+		>
+			<TouchTarget />
+		</RadixScrollArea.Thumb>
 	</RadixScrollArea.Scrollbar>
 )
 

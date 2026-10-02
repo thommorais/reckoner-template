@@ -4,6 +4,7 @@ import * as RadixLabel from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
 import { createContext, use, useId, type ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
+import { mutedText } from './lib/text-styles'
 
 type FieldContextValue = {
 	id: string
@@ -53,9 +54,7 @@ const Label = ({ className, ...props }: ComponentPropsWithRef<typeof RadixLabel.
 const Description = ({ className, ...props }: ComponentPropsWithRef<'p'>) => {
 	const { descriptionId } = useField()
 
-	return (
-		<p data-slot='field-description' id={descriptionId} {...props} className={cn('text-sm/5 opacity-70', className)} />
-	)
+	return <p data-slot='field-description' id={descriptionId} {...props} className={cn(mutedText, className)} />
 }
 
 const FieldError = ({ className, ...props }: ComponentPropsWithRef<'p'>) => {

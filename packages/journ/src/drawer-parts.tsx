@@ -3,6 +3,9 @@
 import type { ComponentPropsWithRef } from 'react'
 import { Drawer as Vaul } from 'vaul'
 import { cn } from './lib/cn'
+import { Actions, Body } from './lib/modal-parts'
+import { modalOverlay } from './lib/overlay'
+import { displayTitle, mutedText } from './lib/text-styles'
 
 const Root = Vaul.Root
 const Trigger = Vaul.Trigger
@@ -10,7 +13,7 @@ const Close = Vaul.Close
 
 const Content = ({ className, children, ...props }: ComponentPropsWithRef<typeof Vaul.Content>) => (
 	<Vaul.Portal>
-		<Vaul.Overlay data-slot='drawer-overlay' className='bg-journ-ink/60 fixed inset-0' />
+		<Vaul.Overlay data-slot='drawer-overlay' className={modalOverlay} />
 		<Vaul.Content
 			data-slot='drawer'
 			{...props}
@@ -26,27 +29,11 @@ const Content = ({ className, children, ...props }: ComponentPropsWithRef<typeof
 )
 
 const Title = ({ className, ...props }: ComponentPropsWithRef<typeof Vaul.Title>) => (
-	<Vaul.Title
-		data-slot='drawer-title'
-		{...props}
-		className={cn('font-journ-display text-3xl/[0.95] font-semibold uppercase', className)}
-	/>
+	<Vaul.Title data-slot='drawer-title' {...props} className={cn(displayTitle, className)} />
 )
 
 const Description = ({ className, ...props }: ComponentPropsWithRef<typeof Vaul.Description>) => (
-	<Vaul.Description data-slot='drawer-description' {...props} className={cn('text-sm/5 opacity-70', className)} />
-)
-
-const Body = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
-	<div
-		data-slot='drawer-body'
-		{...props}
-		className={cn('scrollbar-journ flex flex-col gap-2 overflow-y-auto', className)}
-	/>
-)
-
-const Actions = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
-	<div data-slot='drawer-actions' {...props} className={cn('flex items-center justify-end gap-2', className)} />
+	<Vaul.Description data-slot='drawer-description' {...props} className={cn(mutedText, className)} />
 )
 
 export { Root, Trigger, Close, Content, Title, Description, Body, Actions }

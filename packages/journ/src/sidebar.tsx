@@ -2,6 +2,7 @@ import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { interactive } from './lib/interactive'
 import { TouchTarget } from './touch-target'
+import { selectedWhenCurrent } from './lib/text-styles'
 
 const Layout = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
 	<div data-slot='sidebar-layout' {...props} className={cn('flex min-h-dvh w-full', className)} />
@@ -52,7 +53,8 @@ const Item = ({ className, children, ...props }: ComponentPropsWithRef<'a'>) => 
 		{...props}
 		className={cn(
 			interactive,
-			'flex items-center gap-3 rounded-full px-3 py-2.5 text-sm/6 font-medium aria-[current=page]:bg-journ-sky aria-[current=page]:text-journ-ink [&>svg]:size-4 [&>svg]:shrink-0',
+			'flex items-center gap-3 rounded-full px-3 py-2.5 text-sm/6 font-medium [&>svg]:size-4 [&>svg]:shrink-0',
+			selectedWhenCurrent,
 			className,
 		)}
 	>

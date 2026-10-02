@@ -3,6 +3,7 @@ import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { interactive } from './lib/interactive'
 import { TouchTarget } from './touch-target'
+import { selectedWhenCurrent } from './lib/text-styles'
 
 const control = cn(
 	interactive,
@@ -41,11 +42,7 @@ const Next = ({ className, children = 'Next', ...props }: ComponentPropsWithRef<
 )
 
 const Page = ({ className, children, ...props }: ComponentPropsWithRef<'a'>) => (
-	<a
-		data-slot='pagination-page'
-		{...props}
-		className={cn(control, 'aria-[current=page]:bg-journ-sky aria-[current=page]:text-journ-ink', className)}
-	>
+	<a data-slot='pagination-page' {...props} className={cn(control, selectedWhenCurrent, className)}>
 		<TouchTarget>{children}</TouchTarget>
 	</a>
 )

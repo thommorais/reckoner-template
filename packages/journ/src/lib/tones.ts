@@ -1,11 +1,36 @@
+/** Fill colors, the single source for every tone map in the package. */
+const fills = {
+	paper: 'bg-journ-paper',
+	coral: 'bg-journ-coral',
+	yellow: 'bg-journ-yellow',
+	indigo: 'bg-journ-indigo',
+	mint: 'bg-journ-mint',
+	sky: 'bg-journ-sky',
+} as const
+
+const onFill = 'text-journ-ink'
+
+/** Fill plus readable text. */
+const solidTones = {
+	paper: `${fills.paper} ${onFill}`,
+	coral: `${fills.coral} ${onFill}`,
+	yellow: `${fills.yellow} ${onFill}`,
+	indigo: `${fills.indigo} ${onFill}`,
+	mint: `${fills.mint} ${onFill}`,
+	sky: `${fills.sky} ${onFill}`,
+} as const
+
+/** The dark canvas color with light text, the inverse of the solid tones. */
+const inkTone = 'bg-journ-ink text-journ-paper'
+
 /** Surface tones shared by every block that paints its own background. */
 const surfaceTones = {
 	dark: 'bg-journ-surface text-journ-paper',
-	coral: 'bg-journ-coral text-journ-ink',
-	yellow: 'bg-journ-yellow text-journ-ink',
-	indigo: 'bg-journ-indigo text-journ-ink',
-	mint: 'bg-journ-mint text-journ-ink',
-	sky: 'bg-journ-sky text-journ-ink',
+	coral: solidTones.coral,
+	yellow: solidTones.yellow,
+	indigo: solidTones.indigo,
+	mint: solidTones.mint,
+	sky: solidTones.sky,
 } as const
 
-export { surfaceTones }
+export { fills, inkTone, solidTones, surfaceTones }
