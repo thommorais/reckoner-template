@@ -35,6 +35,7 @@ import { BottomNav } from '../_components/bottom-nav'
 import { PendingButtonDemo, QuantityDemo } from '../_components/action-demos'
 import { CurrencyDemo, TagDemo, TimeRangeDemo } from '../_components/field-demos'
 import { AnimatedSizeDemo, TextMorphDemo } from '../_components/motion-demos'
+import { SelectorDemo } from '../_components/selector-demo'
 import { BulkDemo } from '../_components/bulk-demo'
 import { ConfirmDemo } from '../_components/confirm-demo'
 import { DateInputDemo, DropzoneDemo, OtpDemo } from '../_components/form-demos'
@@ -609,6 +610,11 @@ const ComponentsPage = async ({ params }: { params: Promise<{ locale: string }> 
 					<Card.Title>Text effects</Card.Title>
 					<TextShimmer className='text-xl font-medium'>Loading your reports</TextShimmer>
 					<TextMorphDemo />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Multiple selector</Card.Title>
+					<SelectorDemo />
 				</Card.Root>
 
 				<PickerDemo locale={locale} />

@@ -14,7 +14,18 @@ type PickerProviderProps<V, M> = Omit<PickerContextValue<V, M>, 'meta'> & { meta
  * The state, trigger and value shared by every picker that opens in a drawer
  * (combobox, date picker, date range picker). `slot` prefixes each `data-slot`.
  */
-const createPicker = <V, M extends object = object>(name: string, slot: string) => {
+type PickerOptions<V> = {
+	/** Keep the drawer open after a pick, for pickers that choose several values. */
+	closeOnSelect?: boolean
+	/** When the value counts as empty and `Value` shows its placeholder. */
+	isEmpty?: (value: V | null) => boolean
+}
+
+const createPicker = <V, M extends object = object>(
+	name: string,
+	slot: string,
+	{ closeOnSelect = true, isEmpty = value => value === null }: PickerOptions<V> = {},
+) => {
 	const [Context, usePicker] = createRequiredContext<PickerContextValue<V, M>>(`${name}.Provider or ${name}.Root`)
 
 	/** Shares state and actions without opening a drawer, for pickers hosted elsewhere. */
@@ -39,7 +50,7 @@ const createPicker = <V, M extends object = object>(name: string, slot: string) 
 		const actions: PickerActions<V> = {
 			select: next => {
 				setCurrent(next)
-				setOpen(false)
+				if (closeOnSelect) setOpen(false)
 			},
 			setOpen,
 		}
@@ -69,11 +80,11 @@ const createPicker = <V, M extends object = object>(name: string, slot: string) 
 		return (
 			<span
 				data-slot={`${slot}-value`}
-				data-placeholder={state.value === null}
+				data-placeholder={isEmpty(state.value)}
 				{...props}
 				className={cn('truncate data-[placeholder=true]:opacity-70', className)}
 			>
-				{state.value === null ? placeholder : children}
+				{isEmpty(state.value) ? placeholder : children}
 			</span>
 		)
 	}

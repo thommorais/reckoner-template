@@ -1,6 +1,5 @@
 'use client'
 
-import { X } from 'lucide-react'
 import { useState, type ClipboardEvent, type ComponentPropsWithRef, type ReactNode } from 'react'
 import { Chip } from './chip'
 import { Composer } from './composer'
@@ -76,23 +75,14 @@ const Root = ({ value, defaultValue = none, onValueChange, validate, className, 
 
 const Tag = ({
 	value,
-	className,
 	...props
-}: Omit<ComponentPropsWithRef<typeof Chip.Root>, 'children'> & { value: string }) => {
+}: Omit<ComponentPropsWithRef<typeof Chip.Tag>, 'children' | 'onRemove'> & { value: string }) => {
 	const { remove } = useTagInput()
 
 	return (
-		<Chip.Root data-slot='tag-input-tag' tone='dim' {...props} className={cn('gap-1 py-1 pr-1 pl-2.5', className)}>
+		<Chip.Tag data-slot='tag-input-tag' removeLabel={`Remove ${value}`} onRemove={() => remove(value)} {...props}>
 			{value}
-			<button
-				type='button'
-				aria-label={`Remove ${value}`}
-				onClick={() => remove(value)}
-				className='focus-visible:outline-journ-sky grid size-5 cursor-default place-items-center rounded-full outline-none hover:bg-current/15 focus-visible:outline-2 [&>svg]:size-3'
-			>
-				<X />
-			</button>
-		</Chip.Root>
+		</Chip.Tag>
 	)
 }
 

@@ -97,32 +97,39 @@ type ItemProps = Omit<ComponentPropsWithRef<typeof Command.Item>, 'value'> & {
 	value: string
 }
 
-const Item = ({ value, onSelect, className, ...props }: ItemProps) => {
-	const { state, actions } = useCombobox()
-	const checked = state.value === value
+type OptionProps = ItemProps & {
+	checked: boolean
+	/** Runs with the option's value when it is chosen. */
+	onPick: (value: string) => void
+}
 
-	return (
-		<ItemContext value={{ checked }}>
-			<Command.Item
-				data-slot='combobox-item'
-				data-checked={checked}
-				value={value}
-				{...props}
-				onSelect={search => {
-					onSelect?.(search)
-					actions.select(value)
-				}}
-				className={cn(
-					controlSize,
-					'relative isolate flex items-center gap-3 rounded-full px-4 select-none [&>svg]:size-4 [&>svg]:shrink-0',
-					'after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] data-[selected=true]:after:bg-current/10',
-					'data-[checked=true]:bg-journ-coral data-[checked=true]:font-medium data-[checked=true]:text-journ-ink',
-					'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
-					className,
-				)}
-			/>
-		</ItemContext>
-	)
+/** An option that knows nothing about the picker around it. Combobox, MultipleSelector and others build their items from it. */
+const Option = ({ value, checked, onPick, onSelect, className, ...props }: OptionProps) => (
+	<ItemContext value={{ checked }}>
+		<Command.Item
+			data-slot='combobox-item'
+			data-checked={checked}
+			value={value}
+			{...props}
+			onSelect={search => {
+				onSelect?.(search)
+				onPick(value)
+			}}
+			className={cn(
+				controlSize,
+				'relative isolate flex items-center gap-3 rounded-full px-4 select-none [&>svg]:size-4 [&>svg]:shrink-0',
+				'after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] data-[selected=true]:after:bg-current/10',
+				'data-[checked=true]:bg-journ-coral data-[checked=true]:font-medium data-[checked=true]:text-journ-ink',
+				'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
+				className,
+			)}
+		/>
+	</ItemContext>
+)
+
+const Item = (props: ItemProps) => {
+	const { state, actions } = useCombobox()
+	return <Option {...props} checked={state.value === props.value} onPick={actions.select} />
 }
 
 const ItemIndicator = ({ className, children, ...props }: ComponentPropsWithRef<'span'>) => {
@@ -154,6 +161,7 @@ export {
 	Group,
 	Item,
 	ItemIndicator,
+	Option,
 	useCombobox,
 }
 export type { ComboboxActions, ComboboxContextValue, ComboboxState, RootProps }

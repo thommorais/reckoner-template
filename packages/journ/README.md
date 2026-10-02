@@ -102,7 +102,7 @@ Before writing a class string or an animation, look in `src/lib` first:
 - `modal-parts.tsx`: `Body` and `Actions`, shared by Dialog, AlertDialog and Drawer.
 - `menu-parts.tsx`: `createMenuParts(primitive, slot)` builds the styled `Content`, `Item`, `Label` and `Separator` for a Radix menu. Used by DropdownMenu, ContextMenu and Select.
 - `required-context.ts`: `createRequiredContext(owner)` for parts that must live inside a root. Do not hand-write the `use` and throw pair.
-- `picker.tsx`: `createPicker(name, slot)` gives a drawer picker its state, `Trigger`, `Value` and context. Used by Combobox, DatePicker and DateRangePicker.
+- `picker.tsx`: `createPicker(name, slot, options)` gives a drawer picker its state, `Trigger`, `Value` and context. Used by Combobox, DatePicker, DateRangePicker and MultipleSelector (`closeOnSelect: false`, custom `isEmpty`).
 - `month.ts`: `startOfMonth`, `addMonths`, `formatMonthYear`.
 - `icon-tile.ts`: the rounded icon square used by Card.Icon, EmptyState.Icon and FileDropzone.Icon.
 - `interactive.ts`: `interactive` and `pressReset` for anything pressable.
@@ -188,7 +188,7 @@ Import from `journ` or per file (`journ/card`).
 | `Card`                          | `Root` (`tone`), `Icon`, `Header`, `Title`, `Description`, `Content`, `Footer`                                                                                                        |
 | `Checkbox` (Radix)              | `Root` (supports `checked="indeterminate"`), `Indicator`                                                                                                                              |
 | `Carousel` (Embla)              | `Root` (`opts`, `orientation`), `Content`, `Item`, `Previous`, `Next`                                                                                                                 |
-| `Chip`                          | `Root` (`tone`), `Dot`                                                                                                                                                                |
+| `Chip`                          | `Root` (`tone`), `Dot`, `Remove`, `Tag`                                                                                                                                               |
 | `Collapsible` (Radix, animejs)  | `Root`, `Trigger`, `Content`                                                                                                                                                          |
 | `ContextMenu` (Radix)           | `Root`, `Trigger`, `Content`, `Group`, `Label`, `Item`, `Separator`                                                                                                                   |
 | `Combobox` (cmdk)               | `Provider`, `Root`, `Trigger`, `Value`, `Content`, `Title`, `Description`, `Frame`, `Input`, `List`, `Empty`, `Group`, `Item`, `ItemIndicator`, `useCombobox`                         |
@@ -226,6 +226,7 @@ Import from `journ` or per file (`journ/card`).
 | `Message`                       | `Root` (`from`), `Bubble`, `Highlight`                                                                                                                                                |
 | `NavBar`                        | `Root`, `Item` (`aria-current="page"` marks active)                                                                                                                                   |
 | `OtpInput` (Radix)              | `Root`, `Slot` (one per character), `Hidden`                                                                                                                                          |
+| `MultipleSelector` (cmdk)       | `Root` (`value`, `fixed`, `max`), `Trigger`, `Value`, `Tags`, `Content`, then Combobox's `Frame`, `Input`, `List`, `Empty`, `Group`, `Item`, `ItemIndicator`, plus `Create`           |
 | `NavigationMenu` (Radix)        | `Root` (includes the viewport), `List`, `Item`, `Trigger`, `Content`, `Link`                                                                                                          |
 | `Page`                          | `Root` (`tone`), `Content`, `Footer`                                                                                                                                                  |
 | `MonthPicker`                   | `Root` (`value`, `locale`), then the Calendar parts `Frame`, `Header`, `Heading`, `Previous`, `Next`, `Months`, `Years`                                                               |
