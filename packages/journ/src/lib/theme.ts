@@ -39,6 +39,10 @@ const controlText = 'text-journ-foreground dark:text-journ-ink'
 /** Selects and pickers read as light fields in both themes, never as buttons. */
 const control = `bg-journ-surface ${controlText} ring-1 ring-journ-foreground/15 dark:bg-journ-paper dark:ring-0`
 
+/** A gradient of the text color that the shimmer animation slides across the letters. */
+const shimmer =
+	'bg-linear-to-r from-journ-foreground/40 via-journ-foreground to-journ-foreground/40 dark:from-journ-foreground-dark/40 dark:via-journ-foreground-dark dark:to-journ-foreground-dark/40'
+
 const accentText = 'text-journ-accent dark:text-journ-accent-dark'
 
 export {
@@ -54,6 +58,7 @@ export {
 	neutralFill,
 	neutralText,
 	raised,
+	shimmer,
 	surface,
 	surfaceFill,
 }

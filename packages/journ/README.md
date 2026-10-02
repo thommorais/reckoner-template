@@ -97,6 +97,8 @@ Before writing a class string or an animation, look in `src/lib` first:
 - `modal-content.tsx`: `ModalContent` gives Dialog, AlertDialog and Sheet their portal, fading overlay and animated panel.
 - `step-button.tsx`: `StepButton`, the ghost icon button behind previous, next, minus and plus (Calendar, MonthStepper, QuantityInput).
 - `lib/commit-on.ts`: `commitOn(commit, handlers)` commits typed text on blur and Enter (DateInput, QuantityInput).
+- `use-draft.ts`: `useDraft` for text typed freely and turned into a value on commit (QuantityInput, CurrencyInput).
+- `number.ts` and `time.ts`: `clamp`, `parseNumber`, `parseLocalizedNumber`, `formatPlain`, `minutesBetween`, `formatDuration`.
 - `modal-parts.tsx`: `Body` and `Actions`, shared by Dialog, AlertDialog and Drawer.
 - `menu-parts.tsx`: `createMenuParts(primitive, slot)` builds the styled `Content`, `Item`, `Label` and `Separator` for a Radix menu. Used by DropdownMenu, ContextMenu and Select.
 - `required-context.ts`: `createRequiredContext(owner)` for parts that must live inside a root. Do not hand-write the `use` and throw pair.
@@ -104,7 +106,7 @@ Before writing a class string or an animation, look in `src/lib` first:
 - `month.ts`: `startOfMonth`, `addMonths`, `formatMonthYear`.
 - `icon-tile.ts`: the rounded icon square used by Card.Icon, EmptyState.Icon and FileDropzone.Icon.
 - `interactive.ts`: `interactive` and `pressReset` for anything pressable.
-- `use-enter.ts`: `useEnter`, `usePopEnter`, `useModalEnter`, `useExpand` and `prefersReducedMotion`.
+- `use-enter.ts`: `useEnter`, `usePopEnter`, `useDropEnter`, `useExpand` and `prefersReducedMotion`.
 - `touch-target.tsx`: the 44px touch area, never re-implement it with classes.
 
 ### Scrollbars
@@ -176,6 +178,7 @@ Import from `journ` or per file (`journ/card`).
 | `Accordion` (Radix, animejs)    | `Root` (`type`), `Item`, `Trigger`, `Content`                                                                                                                                         |
 | `AlertDialog` (Radix)           | `Root`, `Trigger`, `Content` (`tone`), `Title`, `Description`, `Actions`, `Cancel`, `Action`                                                                                          |
 | `Alert`                         | `Root` (`tone`), `Icon`, `Body`, `Title`, `Description`, `Actions`                                                                                                                    |
+| `AnimatedSize` (animejs)        | single element, `width`, `height`. Glides to its content's size                                                                                                                       |
 | `Avatar` (Radix)                | `Root`, `Image`, `Fallback`                                                                                                                                                           |
 | `Badge`                         | single element, `tone`                                                                                                                                                                |
 | `Breadcrumbs`                   | `Root`, `List`, `Item`, `Link`, `Page`, `Separator`                                                                                                                                   |
@@ -184,6 +187,7 @@ Import from `journ` or per file (`journ/card`).
 | `Calendar`                      | `Provider`, `Root`, `Frame`, `Header`, `Heading`, `Previous`, `Next`, `Weekdays`, `Days`, `Months`, `Years`, `useCalendar`                                                            |
 | `Card`                          | `Root` (`tone`), `Icon`, `Header`, `Title`, `Description`, `Content`, `Footer`                                                                                                        |
 | `Checkbox` (Radix)              | `Root` (supports `checked="indeterminate"`), `Indicator`                                                                                                                              |
+| `Carousel` (Embla)              | `Root` (`opts`, `orientation`), `Content`, `Item`, `Previous`, `Next`                                                                                                                 |
 | `Chip`                          | `Root` (`tone`), `Dot`                                                                                                                                                                |
 | `Collapsible` (Radix, animejs)  | `Root`, `Trigger`, `Content`                                                                                                                                                          |
 | `ContextMenu` (Radix)           | `Root`, `Trigger`, `Content`, `Group`, `Label`, `Item`, `Separator`                                                                                                                   |
@@ -193,6 +197,7 @@ Import from `journ` or per file (`journ/card`).
 | `DatePicker`                    | `Provider`, `Root`, `Trigger`, `Value`, `Content`, `Title`, `Description`, `Calendar` (wraps `Calendar.Root`), `useDatePicker`                                                        |
 | `DescriptionList`               | `Root`, `Term`, `Details`                                                                                                                                                             |
 | `DateRangePicker`               | `Root` (`value`, `locale`), `Trigger`, `Value`, `Content`, `Title`, `Description`, `Calendar`. Two clicks make a range                                                                |
+| `CurrencyInput`                 | `Root` (`value`, `currency`, `locale`, `min`, `max`), `Field`                                                                                                                         |
 | `DataTable` (TanStack Table v9) | `Root` (`data`, `columns`, `pageSize`, `onSelectionChange`), `Toolbar`, `ColumnPicker`, `Table`, `Pager`, `SelectionBar`. Helpers: `dataTableColumns`, `selectColumn`, `useDataTable` |
 | `DateInput`                     | `Root` (`value`, `locale`), `Field`. Parses typed dates in the locale's order                                                                                                         |
 | `Dialog` (Radix)                | `Root`, `Trigger`, `Close`, `Content` (`tone`), `Title`, `Description`, `Body`, `Actions`                                                                                             |
@@ -221,6 +226,7 @@ Import from `journ` or per file (`journ/card`).
 | `Message`                       | `Root` (`from`), `Bubble`, `Highlight`                                                                                                                                                |
 | `NavBar`                        | `Root`, `Item` (`aria-current="page"` marks active)                                                                                                                                   |
 | `OtpInput` (Radix)              | `Root`, `Slot` (one per character), `Hidden`                                                                                                                                          |
+| `NavigationMenu` (Radix)        | `Root` (includes the viewport), `List`, `Item`, `Trigger`, `Content`, `Link`                                                                                                          |
 | `Page`                          | `Root` (`tone`), `Content`, `Footer`                                                                                                                                                  |
 | `MonthPicker`                   | `Root` (`value`, `locale`), then the Calendar parts `Frame`, `Header`, `Heading`, `Previous`, `Next`, `Months`, `Years`                                                               |
 | `PageHeader`                    | `Root`, `Title`, `Actions`                                                                                                                                                            |
@@ -243,10 +249,14 @@ Import from `journ` or per file (`journ/card`).
 | `Stat`                          | `Root`, `Label`, `Value`, `Hint`                                                                                                                                                      |
 | `Switch` (Radix)                | `Root`, `Thumb`                                                                                                                                                                       |
 | `Table`                         | `Root`, `Caption`, `Head`, `Body`, `Row`, `Header`, `Cell`                                                                                                                            |
+| `TagInput`                      | `Root` (`validate`), `Tags`, `Tag`, `Field`. Enter or comma adds, Backspace removes, paste splits                                                                                     |
 | `Tabs` (Radix)                  | `Root`, `List`, `Trigger`, `Content`                                                                                                                                                  |
 | `Text`                          | single element, `size`, `tone`                                                                                                                                                        |
 | `Textarea`                      | single element, native `<textarea>`                                                                                                                                                   |
 | `ToggleGroup` (Radix)           | `Root` (`type`), `Item`                                                                                                                                                               |
+| `TextMorph` (animejs)           | single element, `as`. Only changed characters animate                                                                                                                                 |
+| `TextShimmer`                   | single element, `as`. Loading text, CSS only                                                                                                                                          |
+| `TimeRange`                     | `Root` (`value` as `{ start, stop }`), `Start`, `Stop`, `Duration`                                                                                                                    |
 | `Toast` (sonner)                | `Provider`, `show`, `Root`, `Title`, `Description`, `Action`                                                                                                                          |
 | `Tooltip` (Radix)               | `Root` (includes its provider), `Trigger`, `Content`, `Provider`                                                                                                                      |
 

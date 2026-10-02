@@ -2,6 +2,7 @@ import { Accordion } from 'journ/accordion'
 import { Avatar } from 'journ/avatar'
 import { Button } from 'journ/button'
 import { Card } from 'journ/card'
+import { Carousel } from 'journ/carousel'
 import { Collapsible } from 'journ/collapsible'
 import { ContextMenu } from 'journ/context-menu'
 import { Checkbox } from 'journ/checkbox'
@@ -19,6 +20,7 @@ import { Radio } from 'journ/radio'
 import { ScrollArea } from 'journ/scroll-area'
 import { Markdown } from 'journ/markdown'
 import { MonthStepper } from 'journ/month-stepper'
+import { NavigationMenu } from 'journ/navigation-menu'
 import { Select } from 'journ/select'
 import { Sheet } from 'journ/sheet'
 import { Slider } from 'journ/slider'
@@ -26,10 +28,13 @@ import { Stepper } from 'journ/stepper'
 import { Switch } from 'journ/switch'
 import { Tabs } from 'journ/tabs'
 import { ToggleGroup } from 'journ/toggle-group'
+import { TextShimmer } from 'journ/text-shimmer'
 import { Tooltip } from 'journ/tooltip'
 import { ArrowLeft, CalendarDays, ChevronDown, Ellipsis, Info, List } from 'lucide-react'
 import { BottomNav } from '../_components/bottom-nav'
 import { PendingButtonDemo, QuantityDemo } from '../_components/action-demos'
+import { CurrencyDemo, TagDemo, TimeRangeDemo } from '../_components/field-demos'
+import { AnimatedSizeDemo, TextMorphDemo } from '../_components/motion-demos'
 import { BulkDemo } from '../_components/bulk-demo'
 import { ConfirmDemo } from '../_components/confirm-demo'
 import { DateInputDemo, DropzoneDemo, OtpDemo } from '../_components/form-demos'
@@ -533,6 +538,77 @@ const ComponentsPage = async ({ params }: { params: Promise<{ locale: string }> 
 				<Card.Root>
 					<Card.Title>Quantity input</Card.Title>
 					<QuantityDemo />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Currency input</Card.Title>
+					<CurrencyDemo locale={locale} />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Time range</Card.Title>
+					<TimeRangeDemo />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Tag input</Card.Title>
+					<TagDemo />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Carousel</Card.Title>
+					<Carousel.Root>
+						<Carousel.Content>
+							{['Prime cost', 'Menu mix', 'Labor cost'].map(name => (
+								<Carousel.Item key={name}>
+									<div className='bg-journ-coral font-journ-display text-journ-ink grid h-28 place-items-center rounded-2xl text-2xl font-semibold uppercase'>
+										{name}
+									</div>
+								</Carousel.Item>
+							))}
+						</Carousel.Content>
+						<div className='mt-3 flex justify-end gap-2'>
+							<Carousel.Previous />
+							<Carousel.Next />
+						</div>
+					</Carousel.Root>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Navigation menu</Card.Title>
+					<NavigationMenu.Root>
+						<NavigationMenu.List>
+							<NavigationMenu.Item>
+								<NavigationMenu.Trigger>Reports</NavigationMenu.Trigger>
+								<NavigationMenu.Content>
+									<ul className='flex flex-col gap-1'>
+										<li>
+											<NavigationMenu.Link href='/journ/reports'>Prime cost</NavigationMenu.Link>
+										</li>
+										<li>
+											<NavigationMenu.Link href='/journ/revenue'>Revenue</NavigationMenu.Link>
+										</li>
+									</ul>
+								</NavigationMenu.Content>
+							</NavigationMenu.Item>
+							<NavigationMenu.Item>
+								<NavigationMenu.Link href='/journ/web' active>
+									Web
+								</NavigationMenu.Link>
+							</NavigationMenu.Item>
+						</NavigationMenu.List>
+					</NavigationMenu.Root>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Animated size</Card.Title>
+					<AnimatedSizeDemo />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Text effects</Card.Title>
+					<TextShimmer className='text-xl font-medium'>Loading your reports</TextShimmer>
+					<TextMorphDemo />
 				</Card.Root>
 
 				<PickerDemo locale={locale} />

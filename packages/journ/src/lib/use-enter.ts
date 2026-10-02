@@ -20,6 +20,10 @@ const useEnter = <T extends HTMLElement>(keyframes: Parameters<typeof animate>[1
 const usePopEnter = (duration = 200) =>
 	useEnter<HTMLDivElement>({ opacity: [0, 1], scale: [0.96, 1], duration, ease: 'outQuad' })
 
+/** Floating content that drops in a few pixels: tooltips, navigation menu panels. */
+const useDropEnter = () =>
+	useEnter<HTMLDivElement>({ opacity: [0, 1], translateY: [4, 0], duration: 180, ease: 'outQuad' })
+
 /** Overlay fade plus a panel that scales in from 0.85, for dialogs and alert dialogs. */
 const useOverlayEnter = () => useEnter<HTMLDivElement>({ opacity: [0, 1], duration: 200, ease: 'outQuad' })
 
@@ -52,4 +56,4 @@ const useExpand = <T extends HTMLElement>() => {
 	return element
 }
 
-export { modalPanelEnter, prefersReducedMotion, useEnter, useExpand, useOverlayEnter, usePopEnter }
+export { modalPanelEnter, prefersReducedMotion, useDropEnter, useEnter, useExpand, useOverlayEnter, usePopEnter }

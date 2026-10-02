@@ -1,7 +1,7 @@
 'use client'
 
 import { Minus, Plus } from 'lucide-react'
-import { useState, type ComponentPropsWithRef, type ReactNode } from 'react'
+import type { ComponentPropsWithRef, ReactNode } from 'react'
 import { Composer } from './composer'
 import type { IconButton } from './icon-button'
 import { cn } from './lib/cn'
@@ -9,6 +9,7 @@ import { commitOn } from './lib/commit-on'
 import { StepButton } from './step-button'
 import { clamp, parseNumber } from './lib/number'
 import { createRequiredContext } from './lib/required-context'
+import { useDraft } from './lib/use-draft'
 import { useControllableState } from './lib/use-controllable-state'
 
 type QuantityContextValue = {
@@ -16,8 +17,8 @@ type QuantityContextValue = {
 	min: number
 	max: number
 	disabled: boolean
-	draft: string | null
-	setDraft: (draft: string | null) => void
+	text: string
+	edit: (text: string) => void
 	step: (direction: -1 | 1) => void
 	commit: () => void
 }
@@ -49,13 +50,12 @@ const Root = ({
 }: RootProps) => {
 	const [stored, setStored] = useControllableState(value, defaultValue, onValueChange)
 	const current = clamp(stored ?? 0, min, max)
-	const [draft, setDraft] = useState<string | null>(null)
-
-	const commit = () => {
-		const parsed = parseNumber(draft ?? '')
-		if (parsed !== null) setStored(clamp(parsed, min, max))
-		setDraft(null)
-	}
+	const { text, edit, discard, commit } = useDraft({
+		value: current,
+		format: String,
+		parse: typed => parseNumber(typed) ?? undefined,
+		onCommit: typed => setStored(clamp(typed, min, max)),
+	})
 
 	return (
 		<QuantityContext
@@ -64,11 +64,11 @@ const Root = ({
 				min,
 				max,
 				disabled,
-				draft,
-				setDraft,
+				text,
+				edit,
 				commit,
 				step: direction => {
-					setDraft(null)
+					discard()
 					setStored(clamp(current + direction * step, min, max))
 				},
 			}}
@@ -111,7 +111,7 @@ const Increment = (props: StepProps) => {
 }
 
 const Field = ({ className, onBlur, onKeyDown, ...props }: ComponentPropsWithRef<typeof Composer.Input>) => {
-	const { value, min, max, disabled, draft, setDraft, step, commit } = useQuantity()
+	const { value, min, max, disabled, text, edit, step, commit } = useQuantity()
 
 	return (
 		<Composer.Input
@@ -123,8 +123,8 @@ const Field = ({ className, onBlur, onKeyDown, ...props }: ComponentPropsWithRef
 			aria-valuemax={Number.isFinite(max) ? max : undefined}
 			disabled={disabled}
 			{...props}
-			value={draft ?? String(value)}
-			onChange={event => setDraft(event.target.value)}
+			value={text}
+			onChange={event => edit(event.target.value)}
 			{...commitOn(commit, {
 				onBlur,
 				onKeyDown: event => {

@@ -3,7 +3,7 @@
 import * as RadixTooltip from '@radix-ui/react-tooltip'
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
-import { useEnter } from './lib/use-enter'
+import { useDropEnter } from './lib/use-enter'
 
 const Provider = RadixTooltip.Provider
 
@@ -17,7 +17,7 @@ const Root = ({ delayDuration = 300, ...props }: ComponentPropsWithRef<typeof Ra
 const Trigger = RadixTooltip.Trigger
 
 const Content = ({ className, ...props }: ComponentPropsWithRef<typeof RadixTooltip.Content>) => {
-	const panel = useEnter<HTMLDivElement>({ opacity: [0, 1], translateY: [4, 0], duration: 180, ease: 'outQuad' })
+	const panel = useDropEnter()
 
 	return (
 		<RadixTooltip.Portal>

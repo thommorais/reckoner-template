@@ -42,6 +42,17 @@
 	--font-journ-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
 
 	--radius-journ: 1.75rem;
+
+	--animate-journ-shimmer: journ-shimmer 2.2s linear infinite;
+
+	@keyframes journ-shimmer {
+		from {
+			background-position: 100% 0;
+		}
+		to {
+			background-position: -100% 0;
+		}
+	}
 }
 
 /* Thin, quiet scrollbar for native scroll containers. Thumb follows the text color. */
