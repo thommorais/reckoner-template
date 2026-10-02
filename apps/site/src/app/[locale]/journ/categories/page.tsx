@@ -34,7 +34,7 @@ const CategoriesPage = (): React.ReactNode => (
 						</Card.Footer>
 					</Stack.Content>
 				</Stack.Item>
-				<Stack.Item value='local-spot' tone='dark'>
+				<Stack.Item value='local-spot' tone='surface'>
 					<Stack.Trigger>Local spot</Stack.Trigger>
 					<Stack.Content>
 						<Card.Description>Neighborhood places with regulars.</Card.Description>

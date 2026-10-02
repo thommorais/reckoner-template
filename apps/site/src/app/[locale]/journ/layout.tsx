@@ -1,4 +1,5 @@
 import { Toast } from 'journ/toast'
+import { ThemeToggle } from './_components/theme-toggle'
 import { Barlow_Condensed } from 'next/font/google'
 
 const barlowCondensed = Barlow_Condensed({
@@ -10,6 +11,7 @@ const barlowCondensed = Barlow_Condensed({
 
 const JournLayout = ({ children }: { children: React.ReactNode }): React.ReactNode => (
 	<div className={barlowCondensed.variable}>
+		<ThemeToggle />
 		{children}
 		<Toast.Provider />
 	</div>

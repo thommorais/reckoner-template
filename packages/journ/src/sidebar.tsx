@@ -3,6 +3,7 @@ import { cn } from './lib/cn'
 import { interactive } from './lib/interactive'
 import { TouchTarget } from './touch-target'
 import { selectedWhenCurrent } from './lib/text-styles'
+import { faintBorder, surfaceFill } from './lib/theme'
 
 const Layout = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
 	<div data-slot='sidebar-layout' {...props} className={cn('flex min-h-dvh w-full', className)} />
@@ -17,7 +18,9 @@ const Root = ({ className, ...props }: ComponentPropsWithRef<'aside'>) => (
 		data-slot='sidebar'
 		{...props}
 		className={cn(
-			'sticky top-0 flex h-dvh w-64 shrink-0 flex-col gap-4 bg-journ-surface p-4 text-journ-paper',
+			surfaceFill,
+			faintBorder,
+			'sticky top-0 flex h-dvh w-64 shrink-0 flex-col gap-4 border-r p-4',
 			className,
 		)}
 	/>

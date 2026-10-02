@@ -13,7 +13,7 @@ import { BottomNav } from './_components/bottom-nav'
 import { ToastDemo } from './_components/toast-demo'
 
 const JournHome = (): React.ReactNode => (
-	<Page.Root tone='ink'>
+	<Page.Root>
 		<Page.Content>
 			<PageHeader.Root>
 				<Avatar.Root>

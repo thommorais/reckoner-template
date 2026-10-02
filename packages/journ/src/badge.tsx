@@ -10,7 +10,7 @@ const badge = tv({
 			ink: inkTone,
 		},
 	},
-	defaultVariants: { tone: 'paper' },
+	defaultVariants: { tone: 'neutral' },
 })
 
 type BadgeProps = ComponentPropsWithRef<'span'> & VariantProps<typeof badge>

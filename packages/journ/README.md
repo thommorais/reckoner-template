@@ -8,25 +8,49 @@ Mobile-first, dark, playful. Flat saturated color blocks on a near-black canvas,
 
 ### Color
 
-All color comes from tokens in `src/styles/tokens.css`. Never use raw colors or Tailwind palette colors in components.
+Never use raw colors or Tailwind palette colors in components. Tokens live in `src/styles/tokens.css`.
 
-| Token           | Role                                              |
-| --------------- | ------------------------------------------------- |
-| `journ-ink`     | Page canvas, text on colored surfaces, dark chips |
-| `journ-surface` | Default card surface, drawers, toasts             |
-| `journ-paper`   | Text on dark surfaces, light buttons, selects     |
-| `journ-coral`   | Primary accent, key actions, warm blocks          |
-| `journ-yellow`  | Highlights, alerts, tags on dark                  |
-| `journ-indigo`  | Secondary block color                             |
-| `journ-mint`    | Calm block color, positive emphasis               |
-| `journ-sky`     | Active state (nav item), user message bubbles     |
+**Palette tokens** are the same in both themes:
+
+| Token          | Role                                                        |
+| -------------- | ----------------------------------------------------------- |
+| `journ-ink`    | Text on colored fills, the tooltip, dimmed backdrops        |
+| `journ-paper`  | Text on `ink`, the switch thumb, the dark-theme select fill |
+| `journ-coral`  | Primary accent, key actions, warm blocks                    |
+| `journ-yellow` | Highlights, alerts                                          |
+| `journ-indigo` | Secondary block color                                       |
+| `journ-mint`   | Calm block color, positive emphasis                         |
+| `journ-sky`    | Active state (nav item), user message bubbles               |
+
+**Role tokens** come in a light/dark pair, `journ-<role>` and `journ-<role>-dark`:
+
+| Role         | Used for                                                  |
+| ------------ | --------------------------------------------------------- |
+| `canvas`     | Page background                                           |
+| `surface`    | Cards, drawers, toasts, nav, menus                        |
+| `foreground` | Text and icons on the canvas and on surfaces              |
+| `accent`     | Accent text on a surface (amber in light, yellow in dark) |
 
 Rules:
 
-- Color is applied as whole surfaces ("tones"), not as borders or gradients. Cards have no border and no shadow.
-- Text on a colored tone is `journ-ink`. Text on `dark` is `journ-paper`.
+- Color is applied as whole surfaces ("tones"), not as borders or gradients. Cards have no border; in light mode a faint ring separates them from the canvas.
+- Text on a colored fill is `journ-ink` in both themes. Text on `canvas` and `surface` is `foreground`.
 - Secondary text is the same color at reduced opacity (`opacity-70`), never a separate gray.
-- Translucent paper (`journ-paper/10`) is the "dim" layer on dark surfaces: composer, message bubbles, ghost buttons.
+- Dim layers use the current text color (`bg-current/10`) or the `dim` pair, so they follow the theme.
+- Three kinds of fill that change with the theme: `neutral` (action buttons, thumbs: dark in light, light in dark), `control` (selects and picker triggers: always a light field) and `surface`.
+
+### Themes
+
+Components follow Tailwind's `dark:` variant. The package defines it in `tokens.css` so it works both ways:
+
+- With no class it follows the OS (`prefers-color-scheme`).
+- `.dark` on `<html>` (or any ancestor) forces dark, `.light` forces light. Themes can nest.
+
+The package has no switcher. The site's `ThemeToggle` (`apps/site/.../journ/_components/theme-toggle.tsx`) is the reference: a system/light/dark `ToggleGroup` that sets the class on `<html>` and remembers the choice. Portals render on `<body>`, so the class must be on `<html>`.
+
+- Every light/dark pairing is written once in `src/lib/theme.ts` (`canvas`, `surface`, `raised`, `control`, `neutral`, `dim`, `foreground`, `accentText`). Components import these; do not write `dark:` pairs inline.
+- To restyle a theme, override the role tokens in your app's `@theme`, for example `--color-journ-surface-dark`. Light and dark are independent.
+- To follow only a class (never the OS), redefine the variant in your app: `@custom-variant dark (&:where(.dark, .dark *));`.
 
 ### Shape
 
@@ -43,7 +67,7 @@ Rules:
 
 ### Layout
 
-- Every screen is a `Page.Root` with its own `tone`. Each page picks a different background, as in the references. `ink` is the default dark canvas; the colored tones switch text to `journ-ink`.
+- Every screen is a `Page.Root` with its own `tone`. Each page can pick a different background, as in the references. `canvas` is the default and follows the theme; the colored tones switch text to `journ-ink`.
 - Controls that must adapt to the page (`IconButton` and `Button` with `ghost` or `outline`, `Composer`) inherit the page text color and use `currentColor` for their tint, so they stay legible on any page tone. Cards keep their own tone and do not depend on the page.
 - `Page.Content` is the column (safe-area padding included). `Page.Footer` pins its content, usually the `NavBar`, to the bottom.
 - Single column, content width capped at `max-w-sm`, `px-4` gutters.
@@ -66,6 +90,7 @@ Use `Button`, `IconButton` or `NavBar.Item` for anything pressable. Do not hand-
 
 Before writing a class string or an animation, look in `src/lib` first:
 
+- `theme.ts`: every light/dark pairing written with `dark:`.
 - `tones.ts`: `fills`, `solidTones`, `inkTone`, `surfaceTones`. Every tone map is built from these.
 - `text-styles.ts`: `displayTitle`, `displayHeading`, `displayLabel`, `mutedText`, `controlSize`, `fieldText`, `fieldRing` and the `selectedWhen*` pill classes.
 - `overlay.ts`: floating surface/item/card styles, the modal overlay and the centered panel (Dialog, AlertDialog).
@@ -122,7 +147,7 @@ Follow the composable pattern (`folio kb get react-composition-patterns`).
 
 ## Theming
 
-Import the tokens, then override any variable in your own `@theme` block after it:
+Import the tokens, then override any of them in your own `@theme` block after it:
 
 ```css
 @import 'tailwindcss';
@@ -219,9 +244,11 @@ Import from `journ` or per file (`journ/card`).
 | `Toast` (sonner)                | `Provider`, `show`, `Root`, `Title`, `Description`, `Action`                                                                                                                          |
 | `Tooltip` (Radix)               | `Root` (includes its provider), `Trigger`, `Content`, `Provider`                                                                                                                      |
 
-Card tones: `dark` (default), `coral`, `yellow`, `indigo`, `mint`, `sky`.
+Card tones: `surface` (default, follows the theme), `coral`, `yellow`, `indigo`, `mint`, `sky`.
 
-Page tones: `ink` (default), `indigo`, `mint`, `sky`, `yellow`, `coral`.
+Page tones: `canvas` (default, follows the theme), `ink` (always dark), `indigo`, `mint`, `sky`, `yellow`, `coral`.
+
+Button, IconButton and Badge tones: `neutral` (default, inverts with the theme), `coral`, `yellow`, `ink`, and for Button also `field`, `ghost` and `outline`. `field` is the light form-control look used by the select and picker triggers. Use it for any trigger that reads as a field, such as a "Search" bar that opens the command palette.
 
 ## Adding a component
 

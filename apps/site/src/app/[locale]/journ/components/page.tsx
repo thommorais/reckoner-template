@@ -53,7 +53,7 @@ const ComponentsPage = async ({ params }: { params: Promise<{ locale: string }> 
 	const { locale } = await params
 
 	return (
-		<Page.Root tone='ink'>
+		<Page.Root>
 			<Page.Content>
 				<PageHeader.Root>
 					<IconButton tone='ghost' aria-label='Back'>

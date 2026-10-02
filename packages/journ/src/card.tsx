@@ -9,7 +9,7 @@ const cardRoot = tv({
 	variants: {
 		tone: surfaceTones,
 	},
-	defaultVariants: { tone: 'dark' },
+	defaultVariants: { tone: 'surface' },
 })
 
 const cardHeader = tv({ base: 'flex items-start justify-between gap-4' })

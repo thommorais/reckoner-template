@@ -4,6 +4,7 @@ import * as RadixSlider from '@radix-ui/react-slider'
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { TouchTarget } from './touch-target'
+import { neutralFill } from './lib/theme'
 
 const Root = ({ className, ...props }: ComponentPropsWithRef<typeof RadixSlider.Root>) => (
 	<RadixSlider.Root
@@ -35,7 +36,8 @@ const Thumb = ({ className, ...props }: ComponentPropsWithRef<typeof RadixSlider
 		data-slot='slider-thumb'
 		{...props}
 		className={cn(
-			'relative block size-6 rounded-full bg-journ-paper shadow-sm outline-none transition-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-journ-sky active:scale-[0.96]',
+			neutralFill,
+			'relative block size-6 rounded-full shadow-sm outline-none transition-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-journ-sky active:scale-[0.96]',
 			className,
 		)}
 	>

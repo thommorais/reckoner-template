@@ -6,6 +6,7 @@ import { cn } from './lib/cn'
 import { Actions, Body } from './lib/modal-parts'
 import { modalOverlay } from './lib/overlay'
 import { displayTitle, mutedText } from './lib/text-styles'
+import { mutedFill, surfaceFill } from './lib/theme'
 
 const Root = Vaul.Root
 const Trigger = Vaul.Trigger
@@ -18,11 +19,12 @@ const Content = ({ className, children, ...props }: ComponentPropsWithRef<typeof
 			data-slot='drawer'
 			{...props}
 			className={cn(
-				'fixed inset-x-0 bottom-0 mx-auto flex max-h-[90dvh] w-full max-w-sm flex-col gap-4 rounded-t-journ bg-journ-surface p-5 text-journ-paper outline-none',
+				surfaceFill,
+				'fixed inset-x-0 bottom-0 mx-auto flex max-h-[90dvh] w-full max-w-sm flex-col gap-4 rounded-t-journ p-5 outline-none',
 				className,
 			)}
 		>
-			<div data-slot='drawer-handle' className='bg-journ-paper/30 mx-auto h-1.5 w-12 shrink-0 rounded-full' />
+			<div data-slot='drawer-handle' className={cn(mutedFill, 'mx-auto h-1.5 w-12 shrink-0 rounded-full')} />
 			{children}
 		</Vaul.Content>
 	</Vaul.Portal>

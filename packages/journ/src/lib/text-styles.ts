@@ -14,7 +14,7 @@ const mutedText = 'text-sm/5 opacity-70'
 const controlSize = 'py-2.5 text-base/6 sm:py-1.5 sm:text-sm/6'
 
 /** Colour scheme and placeholder shared by every text field. */
-const fieldText = 'scheme-dark placeholder:text-current/50'
+const fieldText = 'placeholder:text-current/50 scheme-light dark:scheme-dark'
 
 /** Focus, invalid and disabled states shared by every text field. */
 const fieldRing =

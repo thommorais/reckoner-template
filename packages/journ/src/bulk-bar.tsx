@@ -1,5 +1,6 @@
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
+import { raised } from './lib/theme'
 
 /** Render it while something is selected; it floats at the bottom of the page. */
 const Root = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
@@ -7,10 +8,7 @@ const Root = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
 		data-slot='bulk-bar'
 		role='toolbar'
 		{...props}
-		className={cn(
-			'sticky bottom-4 flex items-center gap-3 rounded-full bg-journ-surface p-2 pl-5 text-journ-paper shadow-lg ring-1 ring-journ-paper/10',
-			className,
-		)}
+		className={cn(raised, 'sticky bottom-4 flex items-center gap-3 rounded-full p-2 pl-5 shadow-lg', className)}
 	/>
 )
 

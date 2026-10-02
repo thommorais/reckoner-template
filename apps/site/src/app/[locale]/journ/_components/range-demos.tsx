@@ -59,7 +59,7 @@ const commands = [
 const PaletteDemo = () => (
 	<CommandPalette.Root onSelect={value => Toast.show(value)}>
 		<CommandPalette.Trigger asChild>
-			<Button className='w-full justify-start'>
+			<Button tone='field' className='w-full justify-start'>
 				<Search />
 				Search commands
 				<kbd className='ml-auto font-mono text-xs opacity-60'>⌘K</kbd>

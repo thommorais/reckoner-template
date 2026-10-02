@@ -8,7 +8,7 @@ const iconButton = tv({
 	base: [interactive, 'grid shrink-0 place-items-center rounded-full'],
 	variants: {
 		tone: {
-			paper: solidTones.paper,
+			neutral: solidTones.neutral,
 			ink: inkTone,
 			coral: solidTones.coral,
 			ghost: 'bg-current/10 text-inherit',
@@ -18,7 +18,7 @@ const iconButton = tv({
 			md: 'size-10 [&>svg]:size-5',
 		},
 	},
-	defaultVariants: { tone: 'paper', size: 'md' },
+	defaultVariants: { tone: 'neutral', size: 'md' },
 })
 
 type IconButtonProps = ComponentPropsWithRef<'button'> & VariantProps<typeof iconButton>

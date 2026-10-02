@@ -3,6 +3,7 @@ import { interactive } from './lib/interactive'
 import { tv, type VariantProps } from './lib/tv'
 import { TouchTarget } from './touch-target'
 import { controlSize } from './lib/text-styles'
+import { control } from './lib/theme'
 import { inkTone, solidTones } from './lib/tones'
 
 const button = tv({
@@ -14,15 +15,16 @@ const button = tv({
 	],
 	variants: {
 		tone: {
-			paper: solidTones.paper,
+			neutral: solidTones.neutral,
+			field: control,
 			coral: solidTones.coral,
 			yellow: solidTones.yellow,
 			ink: inkTone,
-			ghost: 'text-journ-paper bg-transparent',
-			outline: 'text-journ-paper border border-current/20 bg-transparent',
+			ghost: 'bg-transparent text-inherit',
+			outline: 'border border-current/20 bg-transparent text-inherit',
 		},
 	},
-	defaultVariants: { tone: 'paper' },
+	defaultVariants: { tone: 'neutral' },
 })
 
 type ButtonProps = VariantProps<typeof button> &

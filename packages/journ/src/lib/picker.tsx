@@ -48,7 +48,7 @@ const createPicker = <V, M extends object = object>(name: string, slot: string) 
 	}
 
 	const Trigger = ({
-		tone = 'paper',
+		tone = 'field',
 		className,
 		...props
 	}: ComponentPropsWithRef<'button'> & { tone?: ButtonProps['tone'] }) => (

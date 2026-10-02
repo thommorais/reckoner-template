@@ -9,7 +9,7 @@ import { ArrowLeft } from 'lucide-react'
 import { BottomNav } from '../_components/bottom-nav'
 
 const RevenuePage = (): React.ReactNode => (
-	<Page.Root tone='ink'>
+	<Page.Root>
 		<Page.Content>
 			<PageHeader.Root>
 				<IconButton tone='ghost' aria-label='Back'>

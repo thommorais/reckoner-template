@@ -30,7 +30,7 @@ const reports = [
 ] as const
 
 const WebPage = (): React.ReactNode => (
-	<Page.Root tone='ink'>
+	<Page.Root>
 		<Sidebar.Layout>
 			<Sidebar.Root className='hidden lg:flex'>
 				<Sidebar.Header>

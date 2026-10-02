@@ -3,6 +3,7 @@
 import type { ComponentPropsWithRef } from 'react'
 import { Toaster, toast } from 'sonner'
 import { cn } from './lib/cn'
+import { dim, neutral, raised } from './lib/theme'
 import { interactive } from './lib/interactive'
 import { displayLabel, mutedText } from './lib/text-styles'
 
@@ -13,13 +14,11 @@ const Provider = (props: React.ComponentProps<typeof Toaster>) => (
 		toastOptions={{
 			unstyled: true,
 			classNames: {
-				toast:
-					'flex w-full max-w-sm items-center gap-3 rounded-journ bg-journ-surface p-4 text-journ-paper shadow-lg ring-1 ring-journ-paper/10',
+				toast: `${raised} flex w-full max-w-sm items-center gap-3 rounded-journ p-4 shadow-lg`,
 				title: displayLabel,
 				description: mutedText,
-				actionButton:
-					'ml-auto shrink-0 rounded-full bg-journ-paper px-3 py-1.5 text-xs whitespace-nowrap text-journ-ink',
-				cancelButton: 'shrink-0 rounded-full bg-journ-paper/10 px-3 py-1.5 text-xs whitespace-nowrap',
+				actionButton: `${neutral} ml-auto shrink-0 rounded-full px-3 py-1.5 text-xs whitespace-nowrap`,
+				cancelButton: `${dim} shrink-0 rounded-full px-3 py-1.5 text-xs whitespace-nowrap`,
 			},
 		}}
 	/>
@@ -31,10 +30,7 @@ const Root = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
 	<div
 		data-slot='toast'
 		{...props}
-		className={cn(
-			'flex w-full max-w-sm items-center gap-3 rounded-journ bg-journ-surface p-4 text-journ-paper shadow-lg ring-1 ring-journ-paper/10',
-			className,
-		)}
+		className={cn(raised, 'flex w-full max-w-sm items-center gap-3 rounded-journ p-4 shadow-lg', className)}
 	/>
 )
 
@@ -51,10 +47,7 @@ const Action = ({ className, ...props }: ComponentPropsWithRef<'button'>) => (
 		type='button'
 		data-slot='toast-action'
 		{...props}
-		className={cn(
-			'ml-auto shrink-0 rounded-full bg-journ-paper px-3 py-1.5 text-xs whitespace-nowrap text-journ-ink',
-			className,
-		)}
+		className={cn(neutral, 'ml-auto shrink-0 rounded-full px-3 py-1.5 text-xs whitespace-nowrap', className)}
 	/>
 )
 

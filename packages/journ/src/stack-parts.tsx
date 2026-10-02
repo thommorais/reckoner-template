@@ -76,7 +76,7 @@ const Root = ({ defaultValue, onValueChange, className, ...props }: RootProps) =
 const stackItem = tv({
 	base: 'rounded-journ relative -mt-6 flex flex-col gap-3 p-5 pb-9 data-[active=true]:pb-5',
 	variants: { tone: surfaceTones },
-	defaultVariants: { tone: 'dark' },
+	defaultVariants: { tone: 'surface' },
 })
 
 type ItemProps = Omit<ComponentPropsWithRef<'div'>, 'ref'> &

@@ -8,6 +8,7 @@ import { pressReset } from './lib/interactive'
 import { floatingItem, floatingSurface } from './lib/overlay'
 import { usePopEnter } from './lib/use-enter'
 import { createMenuParts } from './lib/menu-parts'
+import { control } from './lib/theme'
 
 const Root = RadixSelect.Root
 const Group = RadixSelect.Group
@@ -19,7 +20,8 @@ const Trigger = ({ className, children, ...props }: ComponentPropsWithRef<typeof
 		{...props}
 		className={cn(
 			pressReset,
-			'inline-flex items-center justify-between gap-3 rounded-full bg-journ-paper py-2.5 pr-3 pl-4 text-base/6 text-journ-ink outline-none sm:py-1.5 sm:text-sm/6',
+			control,
+			'inline-flex items-center justify-between gap-3 rounded-full py-2.5 pr-3 pl-4 text-base/6 outline-none sm:py-1.5 sm:text-sm/6',
 			'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-journ-sky data-[disabled]:opacity-50 data-[placeholder]:opacity-60',
 			className,
 		)}

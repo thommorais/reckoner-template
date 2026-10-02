@@ -1,12 +1,13 @@
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 import { tv, type VariantProps } from './lib/tv'
-import { inkTone, solidTones } from './lib/tones'
+import { canvasTone, inkTone, solidTones } from './lib/tones'
 
 const pageRoot = tv({
 	base: 'min-h-dvh w-full',
 	variants: {
 		tone: {
+			canvas: canvasTone,
 			ink: inkTone,
 			indigo: solidTones.indigo,
 			mint: solidTones.mint,
@@ -15,7 +16,7 @@ const pageRoot = tv({
 			coral: solidTones.coral,
 		},
 	},
-	defaultVariants: { tone: 'ink' },
+	defaultVariants: { tone: 'canvas' },
 })
 
 type RootProps = ComponentPropsWithRef<'div'> & VariantProps<typeof pageRoot>

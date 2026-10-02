@@ -7,7 +7,7 @@ import { displayLabel } from './lib/text-styles'
 const alertRoot = tv({
 	base: 'rounded-journ flex items-start gap-3 p-4',
 	variants: { tone: surfaceTones },
-	defaultVariants: { tone: 'dark' },
+	defaultVariants: { tone: 'surface' },
 })
 
 type RootProps = ComponentPropsWithRef<'div'> & VariantProps<typeof alertRoot>
