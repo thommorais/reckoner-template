@@ -2,12 +2,32 @@ export { Accordion } from './accordion'
 export { Avatar } from './avatar'
 export { Button } from './button'
 export type { ButtonProps } from './button'
+export { Calendar, useCalendar } from './calendar'
+export type {
+	CalendarActions,
+	CalendarContextValue,
+	CalendarMeta,
+	CalendarProps,
+	CalendarState,
+	CalendarView,
+	Weekday,
+} from './calendar'
 export { Card } from './card'
 export type { CardProps } from './card'
 export { Checkbox } from './checkbox'
 export { Chip } from './chip'
 export type { ChipProps } from './chip'
+export { Combobox, useCombobox } from './combobox'
+export type { ComboboxActions, ComboboxContextValue, ComboboxProps, ComboboxState } from './combobox'
 export { Composer } from './composer'
+export { DatePicker, useDatePicker } from './date-picker'
+export type {
+	DatePickerActions,
+	DatePickerContextValue,
+	DatePickerMeta,
+	DatePickerProps,
+	DatePickerState,
+} from './date-picker'
 export { Dialog } from './dialog'
 export { Divider } from './divider'
 export { Drawer } from './drawer'

@@ -64,7 +64,7 @@ Use `Button`, `IconButton` or `NavBar.Item` for anything pressable. Do not hand-
 
 ## Composition rules
 
-Follow the composable pattern (folio kb note `react-composition-patterns`).
+Follow the composable pattern (`folio kb get react-composition-patterns`).
 
 - Compound components: `Card.Root`, `Card.Header`, `Card.Title`. Consumers pick the parts they need.
 - Pass `children`, not `renderX` props. No boolean props like `showFooter`.
@@ -72,6 +72,8 @@ Follow the composable pattern (folio kb note `react-composition-patterns`).
 - Each part sets a `data-slot` attribute and merges `className` through `cn`, so consumers can override.
 - React 19 style: `ref` is a regular prop, no `forwardRef`.
 - Share state through a provider only when parts truly share state. Stateless parts need no context.
+- Shared context is `{ state, actions, meta }`. `X.Provider` takes all three, so the state can come from anywhere (local, global store, server). `X.Root` is the default provider that owns local state with `value`, `defaultValue` and `onValueChange`. Neither renders DOM; `X.Frame` does.
+- Export a `useX` hook next to the namespace, so custom UI inside the provider can read state and call actions without being nested in the frame.
 
 ## Code conventions
 
@@ -80,7 +82,7 @@ Follow the composable pattern (folio kb note `react-composition-patterns`).
 - Export only at the end of the file, in one `export { ... }` block, so unused code is easy to spot.
 - Styles go through `tv` from `./lib/tv` and `cn` from `./lib/cn`.
 - A compound object (`const Card = { Root, ... }`) is the public API of a component file.
-- Client-only parts (vaul, sonner) live in `*-parts.tsx` with `'use client'`. The sibling file without the directive builds the `Drawer.X` or `Toast.X` object, because a namespace object exported from a client file cannot be read from a server component.
+- Client-only parts (vaul, sonner, cmdk) live in `*-parts.tsx` with `'use client'`. The sibling file without the directive builds the `Drawer.X` or `Toast.X` object, because a namespace object exported from a client file cannot be read from a server component.
 - Tests only for components with real logic or state (switchers, accordions, slides, `Stack`). Stateless presentational components are not tested. Run with `pnpm --filter journ test:run`; `animejs` is mocked.
 - Animations use `animejs` (v4, `animate`). Skip them when `prefers-reduced-motion: reduce` is set.
 
@@ -107,36 +109,39 @@ The display font is `--font-journ-display`. Load Barlow Condensed (or your own f
 
 Import from `journ` or per file (`journ/card`).
 
-| Component                    | Parts                                                                                     |
-| ---------------------------- | ----------------------------------------------------------------------------------------- |
-| `Accordion` (Radix, animejs) | `Root` (`type`), `Item`, `Trigger`, `Content`                                             |
-| `Avatar` (Radix)             | `Root`, `Image`, `Fallback`                                                               |
-| `Button`                     | single element, `tone`, renders `<a>` with `href`                                         |
-| `Card`                       | `Root` (`tone`), `Icon`, `Header`, `Title`, `Description`, `Content`, `Footer`            |
-| `Checkbox` (Radix)           | single element, supports `checked="indeterminate"`                                        |
-| `Chip`                       | `Root` (`tone`), `Dot`                                                                    |
-| `Composer`                   | `Root`, `Input`                                                                           |
-| `Dialog` (Radix)             | `Root`, `Trigger`, `Close`, `Content` (`tone`), `Title`, `Description`, `Body`, `Actions` |
-| `Divider` (Radix)            | single element, `orientation`                                                             |
-| `Drawer` (vaul)              | `Root`, `Trigger`, `Close`, `Content`, `Title`, `Description`, `Body`, `Actions`          |
-| `DropdownMenu` (Radix)       | `Root`, `Trigger`, `Content`, `Group`, `Label`, `Item`, `Separator`                       |
-| `Field` (Radix)              | `Root` (`invalid`), `Label`, `Control`, `Description`, `Error`                            |
-| `IconButton`                 | single element, `tone`, `size`                                                            |
-| `Message`                    | `Root` (`from`), `Bubble`, `Highlight`                                                    |
-| `NavBar`                     | `Root`, `Item` (`aria-current="page"` marks active)                                       |
-| `Page`                       | `Root` (`tone`), `Content`, `Footer`                                                      |
-| `PageHeader`                 | `Root`, `Title`, `Actions`                                                                |
-| `PillSelect`                 | single element, native `<select>`                                                         |
-| `Popover` (Radix)            | `Root`, `Trigger`, `Content`, `Close`                                                     |
-| `Progress` (Radix)           | single element, `value`, `tone`                                                           |
-| `Radio` (Radix)              | `Group`, `Item`                                                                           |
-| `Select` (Radix)             | `Root`, `Trigger`, `Value`, `Content`, `Group`, `Label`, `Item`, `Separator`              |
-| `Stack` (animejs)            | `Root` (`defaultValue`), `Item` (`value`, `tone`), `Trigger`, `Content`                   |
-| `Stat`                       | `Root`, `Label`, `Value`, `Hint`                                                          |
-| `Switch` (Radix)             | single element                                                                            |
-| `Tabs` (Radix)               | `Root`, `List`, `Trigger`, `Content`                                                      |
-| `Toast` (sonner)             | `Provider`, `show`, `Root`, `Title`, `Description`, `Action`                              |
-| `Tooltip` (Radix)            | `Root` (includes its provider), `Trigger`, `Content`, `Provider`                          |
+| Component                    | Parts                                                                                                                                                         |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Accordion` (Radix, animejs) | `Root` (`type`), `Item`, `Trigger`, `Content`                                                                                                                 |
+| `Avatar` (Radix)             | `Root`, `Image`, `Fallback`                                                                                                                                   |
+| `Button`                     | single element, `tone`, renders `<a>` with `href`                                                                                                             |
+| `Calendar`                   | `Provider`, `Root`, `Frame`, `Header`, `Heading`, `Previous`, `Next`, `Weekdays`, `Days`, `Months`, `Years`, `useCalendar`                                    |
+| `Card`                       | `Root` (`tone`), `Icon`, `Header`, `Title`, `Description`, `Content`, `Footer`                                                                                |
+| `Checkbox` (Radix)           | single element, supports `checked="indeterminate"`                                                                                                            |
+| `Chip`                       | `Root` (`tone`), `Dot`                                                                                                                                        |
+| `Combobox` (cmdk)            | `Provider`, `Root`, `Trigger`, `Value`, `Content`, `Title`, `Description`, `Frame`, `Input`, `List`, `Empty`, `Group`, `Item`, `ItemIndicator`, `useCombobox` |
+| `Composer`                   | `Root`, `Input`                                                                                                                                               |
+| `DatePicker`                 | `Provider`, `Root`, `Trigger`, `Value`, `Content`, `Title`, `Description`, `Calendar` (wraps `Calendar.Root`), `useDatePicker`                                |
+| `Dialog` (Radix)             | `Root`, `Trigger`, `Close`, `Content` (`tone`), `Title`, `Description`, `Body`, `Actions`                                                                     |
+| `Divider` (Radix)            | single element, `orientation`                                                                                                                                 |
+| `Drawer` (vaul)              | `Root`, `Trigger`, `Close`, `Content`, `Title`, `Description`, `Body`, `Actions`                                                                              |
+| `DropdownMenu` (Radix)       | `Root`, `Trigger`, `Content`, `Group`, `Label`, `Item`, `Separator`                                                                                           |
+| `Field` (Radix)              | `Root` (`invalid`), `Label`, `Control`, `Description`, `Error`                                                                                                |
+| `IconButton`                 | single element, `tone`, `size`                                                                                                                                |
+| `Message`                    | `Root` (`from`), `Bubble`, `Highlight`                                                                                                                        |
+| `NavBar`                     | `Root`, `Item` (`aria-current="page"` marks active)                                                                                                           |
+| `Page`                       | `Root` (`tone`), `Content`, `Footer`                                                                                                                          |
+| `PageHeader`                 | `Root`, `Title`, `Actions`                                                                                                                                    |
+| `PillSelect`                 | single element, native `<select>`                                                                                                                             |
+| `Popover` (Radix)            | `Root`, `Trigger`, `Content`, `Close`                                                                                                                         |
+| `Progress` (Radix)           | single element, `value`, `tone`                                                                                                                               |
+| `Radio` (Radix)              | `Group`, `Item`                                                                                                                                               |
+| `Select` (Radix)             | `Root`, `Trigger`, `Value`, `Content`, `Group`, `Label`, `Item`, `Separator`                                                                                  |
+| `Stack` (animejs)            | `Root` (`defaultValue`), `Item` (`value`, `tone`), `Trigger`, `Content`                                                                                       |
+| `Stat`                       | `Root`, `Label`, `Value`, `Hint`                                                                                                                              |
+| `Switch` (Radix)             | single element                                                                                                                                                |
+| `Tabs` (Radix)               | `Root`, `List`, `Trigger`, `Content`                                                                                                                          |
+| `Toast` (sonner)             | `Provider`, `show`, `Root`, `Title`, `Description`, `Action`                                                                                                  |
+| `Tooltip` (Radix)            | `Root` (includes its provider), `Trigger`, `Content`, `Provider`                                                                                              |
 
 Card tones: `dark` (default), `coral`, `yellow`, `indigo`, `mint`, `sky`.
 
