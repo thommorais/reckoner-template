@@ -6,6 +6,7 @@ import { Combobox } from 'journ/combobox'
 import { DatePicker } from 'journ/date-picker'
 import { CalendarDays, ChevronsUpDown } from 'lucide-react'
 import { useState } from 'react'
+import { MonthCalendar } from './month-calendar'
 
 const reports = [
 	{ id: 'prime-cost', name: 'Prime cost report', group: 'Finance' },
@@ -18,20 +19,6 @@ const reports = [
 ] as const
 
 const groups = [...new Set(reports.map(report => report.group))]
-
-const MonthCalendar = () => (
-	<Calendar.Frame>
-		<Calendar.Header>
-			<Calendar.Heading />
-			<Calendar.Previous />
-			<Calendar.Next />
-		</Calendar.Header>
-		<Calendar.Weekdays />
-		<Calendar.Days />
-		<Calendar.Months />
-		<Calendar.Years />
-	</Calendar.Frame>
-)
 
 const PickerDemo = ({ locale }: { locale: string }) => {
 	const [reportId, setReportId] = useState<string | null>(null)

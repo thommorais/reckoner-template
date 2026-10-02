@@ -25,6 +25,8 @@ export type { ChipProps } from './chip'
 export { Collapsible } from './collapsible'
 export { Combobox, useCombobox } from './combobox'
 export type { ComboboxActions, ComboboxContextValue, ComboboxProps, ComboboxState } from './combobox'
+export { CommandPalette } from './command-palette'
+export type { CommandPaletteProps } from './command-palette'
 export { Composer } from './composer'
 export { ContextMenu } from './context-menu'
 export { DateInput } from './date-input'
@@ -36,6 +38,15 @@ export type {
 	DatePickerProps,
 	DatePickerState,
 } from './date-picker'
+export { DateRangePicker, useDateRangePicker } from './date-range-picker'
+export type {
+	DateRange,
+	DateRangePickerActions,
+	DateRangePickerContextValue,
+	DateRangePickerMeta,
+	DateRangePickerState,
+	DateRangePickerProps,
+} from './date-range-picker'
 export { DescriptionList } from './description-list'
 export { Dialog } from './dialog'
 export { Divider } from './divider'
@@ -59,6 +70,8 @@ export { Link } from './link'
 export { Markdown } from './markdown'
 export type { MarkdownProps } from './markdown'
 export { Message } from './message'
+export { MonthPicker } from './month-picker'
+export type { MonthPickerProps } from './month-picker'
 export { MonthStepper } from './month-stepper'
 export { NavBar } from './nav-bar'
 export { OtpInput } from './otp-input'

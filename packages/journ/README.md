@@ -72,6 +72,7 @@ Before writing a class string or an animation, look in `src/lib` first:
 - `modal-parts.tsx`: `Body` and `Actions`, shared by Dialog, AlertDialog and Drawer.
 - `menu-parts.tsx`: `createMenuParts(primitive, slot)` builds the styled `Content`, `Item`, `Label` and `Separator` for a Radix menu. Used by DropdownMenu, ContextMenu and Select.
 - `required-context.ts`: `createRequiredContext(owner)` for parts that must live inside a root. Do not hand-write the `use` and throw pair.
+- `picker.tsx`: `createPicker(name, slot)` gives a drawer picker its state, `Trigger`, `Value` and context. Used by Combobox, DatePicker and DateRangePicker.
 - `month.ts`: `startOfMonth`, `addMonths`, `formatMonthYear`.
 - `icon-tile.ts`: the rounded icon square used by Card.Icon, EmptyState.Icon and FileDropzone.Icon.
 - `interactive.ts`: `interactive` and `pressReset` for anything pressable.
@@ -159,9 +160,11 @@ Import from `journ` or per file (`journ/card`).
 | `Collapsible` (Radix, animejs) | `Root`, `Trigger`, `Content`                                                                                                                                  |
 | `ContextMenu` (Radix)          | `Root`, `Trigger`, `Content`, `Group`, `Label`, `Item`, `Separator`                                                                                           |
 | `Combobox` (cmdk)              | `Provider`, `Root`, `Trigger`, `Value`, `Content`, `Title`, `Description`, `Frame`, `Input`, `List`, `Empty`, `Group`, `Item`, `ItemIndicator`, `useCombobox` |
+| `CommandPalette` (cmdk, Radix) | `Root` (`onSelect`, `shortcut`), `Trigger`, `Content`, plus the Combobox list parts `Frame`, `Input`, `List`, `Empty`, `Group`, `Item`, `ItemIndicator`       |
 | `Composer`                     | `Root`, `Input`                                                                                                                                               |
 | `DatePicker`                   | `Provider`, `Root`, `Trigger`, `Value`, `Content`, `Title`, `Description`, `Calendar` (wraps `Calendar.Root`), `useDatePicker`                                |
 | `DescriptionList`              | `Root`, `Term`, `Details`                                                                                                                                     |
+| `DateRangePicker`              | `Root` (`value`, `locale`), `Trigger`, `Value`, `Content`, `Title`, `Description`, `Calendar`. Two clicks make a range                                        |
 | `DateInput`                    | `Root` (`value`, `locale`), `Field`. Parses typed dates in the locale's order                                                                                 |
 | `Dialog` (Radix)               | `Root`, `Trigger`, `Close`, `Content` (`tone`), `Title`, `Description`, `Body`, `Actions`                                                                     |
 | `FileDropzone`                 | `Root` (`accept`, `maxSize`, `multiple`, `onFilesAccepted`, `onFilesRejected`), `Icon`, `Title`, `Description`                                                |
@@ -190,6 +193,7 @@ Import from `journ` or per file (`journ/card`).
 | `NavBar`                       | `Root`, `Item` (`aria-current="page"` marks active)                                                                                                           |
 | `OtpInput` (Radix)             | `Root`, `Slot` (one per character), `Hidden`                                                                                                                  |
 | `Page`                         | `Root` (`tone`), `Content`, `Footer`                                                                                                                          |
+| `MonthPicker`                  | `Root` (`value`, `locale`), then the Calendar parts `Frame`, `Header`, `Heading`, `Previous`, `Next`, `Months`, `Years`                                       |
 | `PageHeader`                   | `Root`, `Title`, `Actions`                                                                                                                                    |
 | `Pagination`                   | `Root`, `Previous`, `List`, `Page`, `Gap`, `Next`                                                                                                             |
 | `PillSelect`                   | single element, native `<select>`                                                                                                                             |

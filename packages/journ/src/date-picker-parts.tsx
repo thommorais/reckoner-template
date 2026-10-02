@@ -1,46 +1,21 @@
 'use client'
 
-import { useState, type ComponentPropsWithRef, type ReactNode } from 'react'
-import { Button, type ButtonProps } from './button'
+import type { ReactNode } from 'react'
 import { Root as CalendarRoot, type RootProps as CalendarRootProps } from './calendar-parts'
-import { Root as DrawerRoot, Trigger as DrawerTrigger } from './drawer-parts'
-import { cn } from './lib/cn'
-import { useControllableState } from './lib/use-controllable-state'
-import { createRequiredContext } from './lib/required-context'
+import { createPicker, type PickerActions, type PickerContextValue, type PickerState } from './lib/picker'
 
-type DatePickerState = {
-	value: Date | null
-	open: boolean
-}
+type DatePickerMeta = { locale?: string }
+type DatePickerState = PickerState<Date>
+type DatePickerActions = PickerActions<Date>
+type DatePickerContextValue = PickerContextValue<Date, DatePickerMeta>
 
-type DatePickerActions = {
-	select: (date: Date) => void
-	setOpen: (open: boolean) => void
-}
-
-type DatePickerMeta = {
-	locale?: string
-}
-
-type DatePickerContextValue = {
-	state: DatePickerState
-	actions: DatePickerActions
-	meta: DatePickerMeta
-}
-
-const [DatePickerContext, useDatePicker] = createRequiredContext<DatePickerContextValue>(
-	'DatePicker.Provider or DatePicker.Root',
-)
-
-type ProviderProps = DatePickerContextValue & { children?: ReactNode }
-
-const Provider = ({ state, actions, meta, children }: ProviderProps) => (
-	<DatePickerContext value={{ state, actions, meta }}>
-		<DrawerRoot open={state.open} onOpenChange={actions.setOpen}>
-			{children}
-		</DrawerRoot>
-	</DatePickerContext>
-)
+const {
+	Provider,
+	Trigger,
+	Value: PickerValue,
+	usePicker: useDatePicker,
+	usePickerState,
+} = createPicker<Date, DatePickerMeta>('DatePicker', 'date-picker')
 
 type RootProps = {
 	value?: Date | null
@@ -51,51 +26,26 @@ type RootProps = {
 }
 
 const Root = ({ value, defaultValue = null, onValueChange, locale = 'en', children }: RootProps) => {
-	const [current, setCurrent] = useControllableState(value, defaultValue, onValueChange)
-	const [open, setOpen] = useState(false)
-
-	const actions: DatePickerActions = {
-		select: date => {
-			setCurrent(date)
-			setOpen(false)
-		},
-		setOpen,
-	}
+	const { state, actions } = usePickerState(value, defaultValue, onValueChange)
 
 	return (
-		<Provider state={{ value: current, open }} actions={actions} meta={{ locale }}>
+		<Provider state={state} actions={actions} meta={{ locale }}>
 			{children}
 		</Provider>
 	)
 }
 
-type TriggerProps = ComponentPropsWithRef<'button'> & {
-	tone?: ButtonProps['tone']
-}
-
-const Trigger = ({ tone = 'paper', className, ...props }: TriggerProps) => (
-	<DrawerTrigger asChild>
-		<Button data-slot='date-picker-trigger' tone={tone} {...props} className={cn('justify-start', className)} />
-	</DrawerTrigger>
-)
-
-type ValueProps = Omit<ComponentPropsWithRef<'span'>, 'children'> & {
-	placeholder?: string
+type ValueProps = Omit<React.ComponentProps<typeof PickerValue>, 'children'> & {
 	format?: Intl.DateTimeFormatOptions
 }
 
-const Value = ({ placeholder, format = { dateStyle: 'medium' }, className, ...props }: ValueProps) => {
+const Value = ({ format = { dateStyle: 'medium' }, ...props }: ValueProps) => {
 	const { state, meta } = useDatePicker()
 
 	return (
-		<span
-			data-slot='date-picker-value'
-			data-placeholder={state.value === null}
-			{...props}
-			className={cn('truncate data-[placeholder=true]:opacity-70', className)}
-		>
-			{state.value === null ? placeholder : new Intl.DateTimeFormat(meta.locale, format).format(state.value)}
-		</span>
+		<PickerValue {...props}>
+			{state.value && new Intl.DateTimeFormat(meta.locale, format).format(state.value)}
+		</PickerValue>
 	)
 }
 

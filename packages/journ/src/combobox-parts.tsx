@@ -3,29 +3,23 @@
 import { Command } from 'cmdk'
 import { Check, Search } from 'lucide-react'
 import { useState, type ComponentPropsWithRef, type ReactNode } from 'react'
-import { Button, type ButtonProps } from './button'
-import { Root as DrawerRoot, Trigger as DrawerTrigger } from './drawer-parts'
 import { cn } from './lib/cn'
-import { useControllableState } from './lib/use-controllable-state'
 import { controlSize, mutedText } from './lib/text-styles'
+import { createPicker, type PickerActions, type PickerContextValue, type PickerState } from './lib/picker'
 import { createRequiredContext } from './lib/required-context'
 
-type ComboboxState = {
-	value: string | null
-	open: boolean
-}
+type ComboboxState = PickerState<string>
+type ComboboxActions = PickerActions<string>
+type ComboboxContextValue = Omit<PickerContextValue<string, object>, 'meta'>
 
-type ComboboxActions = {
-	select: (value: string) => void
-	setOpen: (open: boolean) => void
-}
-
-type ComboboxContextValue = {
-	state: ComboboxState
-	actions: ComboboxActions
-}
-
-const [ComboboxContext, useCombobox] = createRequiredContext<ComboboxContextValue>('Combobox.Provider or Combobox.Root')
+const {
+	ContextProvider,
+	Provider,
+	Trigger,
+	Value,
+	usePicker: useCombobox,
+	usePickerState,
+} = createPicker<string>('Combobox', 'combobox')
 const [ItemContext, useComboboxItem] = createRequiredContext<{ checked: boolean }>('Combobox.Item')
 
 const normalize = (text: string) =>
@@ -37,16 +31,6 @@ const normalize = (text: string) =>
 const matchKeywords = (value: string, search: string, keywords?: string[]) =>
 	normalize(keywords?.length ? keywords.join(' ') : value).includes(normalize(search)) ? 1 : 0
 
-type ProviderProps = ComboboxContextValue & { children?: ReactNode }
-
-const Provider = ({ state, actions, children }: ProviderProps) => (
-	<ComboboxContext value={{ state, actions }}>
-		<DrawerRoot open={state.open} onOpenChange={actions.setOpen}>
-			{children}
-		</DrawerRoot>
-	</ComboboxContext>
-)
-
 type RootProps = {
 	value?: string | null
 	defaultValue?: string | null
@@ -55,50 +39,11 @@ type RootProps = {
 }
 
 const Root = ({ value, defaultValue = null, onValueChange, children }: RootProps) => {
-	const [current, setCurrent] = useControllableState(value, defaultValue, onValueChange)
-	const [open, setOpen] = useState(false)
-
-	const actions: ComboboxActions = {
-		select: next => {
-			setCurrent(next)
-			setOpen(false)
-		},
-		setOpen,
-	}
-
+	const { state, actions } = usePickerState(value, defaultValue, onValueChange)
 	return (
-		<Provider state={{ value: current, open }} actions={actions}>
+		<Provider state={state} actions={actions}>
 			{children}
 		</Provider>
-	)
-}
-
-type TriggerProps = ComponentPropsWithRef<'button'> & {
-	tone?: ButtonProps['tone']
-}
-
-const Trigger = ({ tone = 'paper', className, ...props }: TriggerProps) => (
-	<DrawerTrigger asChild>
-		<Button data-slot='combobox-trigger' tone={tone} {...props} className={cn('justify-start', className)} />
-	</DrawerTrigger>
-)
-
-type ValueProps = ComponentPropsWithRef<'span'> & {
-	placeholder?: string
-}
-
-const Value = ({ placeholder, className, children, ...props }: ValueProps) => {
-	const { state } = useCombobox()
-
-	return (
-		<span
-			data-slot='combobox-value'
-			data-placeholder={state.value === null}
-			{...props}
-			className={cn('truncate data-[placeholder=true]:opacity-70', className)}
-		>
-			{state.value === null ? placeholder : children}
-		</span>
 	)
 }
 
@@ -196,5 +141,19 @@ const ItemIndicator = ({ className, children, ...props }: ComponentPropsWithRef<
 	)
 }
 
-export { Provider, Root, Trigger, Value, Frame, Input, List, Empty, Group, Item, ItemIndicator, useCombobox }
+export {
+	ContextProvider,
+	Provider,
+	Root,
+	Trigger,
+	Value,
+	Frame,
+	Input,
+	List,
+	Empty,
+	Group,
+	Item,
+	ItemIndicator,
+	useCombobox,
+}
 export type { ComboboxActions, ComboboxContextValue, ComboboxState, RootProps }

@@ -31,6 +31,7 @@ import { BottomNav } from '../_components/bottom-nav'
 import { BulkDemo } from '../_components/bulk-demo'
 import { ConfirmDemo } from '../_components/confirm-demo'
 import { DateInputDemo, DropzoneDemo, OtpDemo } from '../_components/form-demos'
+import { DateRangeDemo, MonthPickerDemo, PaletteDemo } from '../_components/range-demos'
 import { DialogExample } from '../_components/dialog-example'
 import { PickerDemo } from '../_components/picker-demo'
 
@@ -478,6 +479,21 @@ const ComponentsPage = async ({ params }: { params: Promise<{ locale: string }> 
 				<Card.Root>
 					<Card.Title>Markdown</Card.Title>
 					<Markdown>{notes}</Markdown>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Command palette</Card.Title>
+					<PaletteDemo />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Date range picker</Card.Title>
+					<DateRangeDemo locale={locale} />
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Month picker</Card.Title>
+					<MonthPickerDemo locale={locale} />
 				</Card.Root>
 
 				<PickerDemo locale={locale} />

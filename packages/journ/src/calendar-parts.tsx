@@ -14,8 +14,13 @@ import { displayHeading } from './lib/text-styles'
 type CalendarView = 'days' | 'months' | 'years'
 type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
+/** A range being picked: `to` stays null until the second click. */
+type CalendarRange = { from: Date; to: Date | null }
+
 type CalendarState = {
 	selected: Date | null
+	/** When set, days show as a range instead of a single selection. */
+	range?: CalendarRange | null
 	month: Date
 	view: CalendarView
 }
@@ -73,6 +78,22 @@ const Provider = ({ state, actions, meta, children }: ProviderProps) => (
 	<CalendarContext value={{ state, actions, meta }}>{children}</CalendarContext>
 )
 
+/** Month, view and paging shared by every calendar-based picker. */
+const useCalendarNavigation = (initialMonth: Date, initialView: CalendarView = 'days') => {
+	const [month, setMonth] = useState(() => startOfMonth(initialMonth))
+	const [view, setView] = useState<CalendarView>(initialView)
+	const step = view === 'days' ? 1 : view === 'months' ? 12 : 12 * YEAR_PAGE_SIZE
+
+	const navigation = {
+		showMonth: (next: Date) => setMonth(startOfMonth(next)),
+		showView: setView,
+		previous: () => setMonth(addMonths(month, -step)),
+		next: () => setMonth(addMonths(month, step)),
+	}
+
+	return { month, view, navigation }
+}
+
 /** A fixed default keeps server and client output identical; pass `locale` to localize. */
 const DEFAULT_LOCALE = 'en'
 
@@ -96,19 +117,14 @@ const Root = ({
 	children,
 }: RootProps) => {
 	const [selected, setSelected] = useControllableState(value, defaultValue, onValueChange)
-	const [month, setMonth] = useState(() => startOfMonth(defaultMonth ?? selected ?? new Date()))
-	const [view, setView] = useState<CalendarView>('days')
-	const step = view === 'days' ? 1 : view === 'months' ? 12 : 12 * YEAR_PAGE_SIZE
+	const { month, view, navigation } = useCalendarNavigation(defaultMonth ?? selected ?? new Date())
 
 	const actions: CalendarActions = {
+		...navigation,
 		select: date => {
 			setSelected(date)
-			if (!isSameMonth(date, month)) setMonth(startOfMonth(date))
+			if (!isSameMonth(date, month)) navigation.showMonth(date)
 		},
-		showMonth: next => setMonth(startOfMonth(next)),
-		showView: setView,
-		previous: () => setMonth(addMonths(month, -step)),
-		next: () => setMonth(addMonths(month, step)),
 	}
 
 	return (
@@ -209,12 +225,17 @@ const cell = tv({
 			idle: '',
 			today: 'bg-current/10 font-semibold',
 			selected: 'bg-journ-coral text-journ-ink font-semibold',
+			inRange: 'bg-journ-coral/25',
 		},
 	},
 	defaultVariants: { shape: 'day', state: 'idle' },
 })
 
-const cellState = (selected: boolean, today: boolean) => (selected ? 'selected' : today ? 'today' : 'idle')
+const cellState = (selected: boolean, today: boolean, inRange = false) =>
+	selected ? 'selected' : inRange ? 'inRange' : today ? 'today' : 'idle'
+
+const isInRange = (date: Date, range: CalendarRange | null | undefined) =>
+	range?.to != null && date.getTime() > range.from.getTime() && date.getTime() < range.to.getTime()
 
 const Weekdays = ({ className, ...props }: Omit<ComponentPropsWithRef<'div'>, 'children'>) => {
 	const { state, meta } = useCalendar()
@@ -239,6 +260,8 @@ const Days = ({ className, ...props }: Omit<ComponentPropsWithRef<'div'>, 'child
 	const today = useToday()
 	if (state.view !== 'days') return null
 	const format = new Intl.DateTimeFormat(meta.locale, { dateStyle: 'full' })
+	const isEdge = (date: Date) =>
+		state.range ? isSameDay(date, state.range.from) || isSameDay(date, state.range.to) : isSameDay(date, state.selected)
 
 	return (
 		<div data-slot='calendar-days' {...props} className={cn('grid grid-cols-7 gap-y-1', className)}>
@@ -247,11 +270,11 @@ const Days = ({ className, ...props }: Omit<ComponentPropsWithRef<'div'>, 'child
 					key={dayKey(date)}
 					type='button'
 					aria-label={format.format(date)}
-					aria-pressed={isSameDay(date, state.selected)}
+					aria-pressed={isEdge(date)}
 					aria-current={isSameDay(date, today) ? 'date' : undefined}
 					data-outside={date.getMonth() !== state.month.getMonth()}
 					onClick={() => actions.select(date)}
-					className={cell({ state: cellState(isSameDay(date, state.selected), isSameDay(date, today)) })}
+					className={cell({ state: cellState(isEdge(date), isSameDay(date, today), isInRange(date, state.range)) })}
 				>
 					{date.getDate()}
 				</button>
@@ -320,5 +343,29 @@ const Years = ({ className, ...props }: Omit<ComponentPropsWithRef<'div'>, 'chil
 	)
 }
 
-export { Provider, Root, Frame, Header, Heading, Previous, Next, Weekdays, Days, Months, Years, useCalendar }
-export type { CalendarActions, CalendarContextValue, CalendarMeta, CalendarState, CalendarView, RootProps, Weekday }
+export {
+	YEAR_PAGE_SIZE,
+	Provider,
+	Root,
+	Frame,
+	Header,
+	Heading,
+	Previous,
+	Next,
+	Weekdays,
+	Days,
+	Months,
+	Years,
+	useCalendar,
+	useCalendarNavigation,
+}
+export type {
+	CalendarActions,
+	CalendarContextValue,
+	CalendarMeta,
+	CalendarRange,
+	CalendarState,
+	CalendarView,
+	RootProps,
+	Weekday,
+}
