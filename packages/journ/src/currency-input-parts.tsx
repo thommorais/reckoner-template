@@ -87,7 +87,7 @@ const Field = ({ className, onBlur, onKeyDown, onFocus, ...props }: ComponentPro
 				focus()
 			}}
 			{...commitOn(commit, { onBlur, onKeyDown })}
-			className={cn('text-right tabular-nums', className)}
+			className={cn('tabular-nums', className)}
 		/>
 	)
 }
