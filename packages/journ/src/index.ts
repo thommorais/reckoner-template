@@ -29,6 +29,8 @@ export { CommandPalette } from './command-palette'
 export type { CommandPaletteProps } from './command-palette'
 export { Composer } from './composer'
 export { ContextMenu } from './context-menu'
+export { DataTable, dataTableColumns, selectColumn, useDataTable } from './data-table'
+export type { DataTableColumn, DataTableProps } from './data-table'
 export { DateInput } from './date-input'
 export { DatePicker, useDatePicker } from './date-picker'
 export type {

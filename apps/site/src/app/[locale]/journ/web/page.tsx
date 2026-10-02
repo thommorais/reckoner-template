@@ -20,6 +20,7 @@ import { Table } from 'journ/table'
 import { Text } from 'journ/text'
 import { Textarea } from 'journ/textarea'
 import { FileSearch, FileText, Home, LineChart, Settings, ShieldAlert } from 'lucide-react'
+import { DataTableDemo } from '../_components/data-table-demo'
 
 const reports = [
 	{ name: 'Prime cost report', owner: 'Hanna', status: 'Ready', tone: 'mint', updated: 'Today' },
@@ -153,6 +154,11 @@ const WebPage = (): React.ReactNode => (
 						</Pagination.List>
 						<Pagination.Next href='#' />
 					</Pagination.Root>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Transactions</Card.Title>
+					<DataTableDemo />
 				</Card.Root>
 
 				<div className='grid gap-6 lg:grid-cols-2'>
