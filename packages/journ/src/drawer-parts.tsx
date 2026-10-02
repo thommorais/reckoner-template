@@ -38,7 +38,11 @@ const Description = ({ className, ...props }: ComponentPropsWithRef<typeof Vaul.
 )
 
 const Body = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
-	<div data-slot='drawer-body' {...props} className={cn('flex flex-col gap-2 overflow-y-auto', className)} />
+	<div
+		data-slot='drawer-body'
+		{...props}
+		className={cn('scrollbar-journ flex flex-col gap-2 overflow-y-auto', className)}
+	/>
 )
 
 const Actions = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (

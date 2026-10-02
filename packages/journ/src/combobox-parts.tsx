@@ -136,7 +136,7 @@ const List = ({ className, ...props }: ComponentPropsWithRef<typeof Command.List
 	<Command.List
 		data-slot='combobox-list'
 		{...props}
-		className={cn('max-h-72 overflow-y-auto overscroll-contain', className)}
+		className={cn('scrollbar-journ max-h-72 overflow-y-auto overscroll-contain', className)}
 	/>
 )
 

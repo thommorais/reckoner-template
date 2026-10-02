@@ -62,6 +62,11 @@ Every pressable thing shares `src/lib/interactive.ts`, ported from Catalyst:
 
 Use `Button`, `IconButton` or `NavBar.Item` for anything pressable. Do not hand-roll pressable elements.
 
+### Scrollbars
+
+- Native scroll containers inside journ use the `scrollbar-journ` utility (defined in `tokens.css`): thin, transparent track, thumb in the current text color at 30%.
+- For a fully custom, overlay scrollbar use `ScrollArea` (Radix). It shows on hover by default and has a 44px touch hit area.
+
 ### Motion and touch
 
 Rules from the design style guide, applied across the package:
@@ -165,6 +170,7 @@ Import from `journ` or per file (`journ/card`).
 | `Popover` (Radix)            | `Root`, `Trigger`, `Content`, `Close`                                                                                                                         |
 | `Progress` (Radix)           | single element, `value`, `tone`                                                                                                                               |
 | `Radio` (Radix)              | `Group`, `Item`                                                                                                                                               |
+| `ScrollArea` (Radix)         | `Root` (`type`), `Viewport`, `Scrollbar` (`orientation`), `Corner`                                                                                            |
 | `Select` (Radix)             | `Root`, `Trigger`, `Value`, `Content`, `Group`, `Label`, `Item`, `Separator`                                                                                  |
 | `Sidebar`                    | `Layout`, `Root`, `Header`, `Body`, `Section`, `Heading`, `Item`, `Footer`, `Content` (desktop only)                                                          |
 | `Skeleton`                   | single element                                                                                                                                                |

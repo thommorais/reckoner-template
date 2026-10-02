@@ -48,7 +48,9 @@ const Content = ({
 				{...props}
 				className={cn(floatingSurface, 'min-w-(--radix-select-trigger-width)', className)}
 			>
-				<RadixSelect.Viewport>{children}</RadixSelect.Viewport>
+				<RadixSelect.Viewport className='scrollbar-journ max-h-(--radix-select-content-available-height)'>
+					{children}
+				</RadixSelect.Viewport>
 			</RadixSelect.Content>
 		</RadixSelect.Portal>
 	)

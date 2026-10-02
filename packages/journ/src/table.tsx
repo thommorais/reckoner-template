@@ -2,7 +2,7 @@ import type { ComponentPropsWithRef } from 'react'
 import { cn } from './lib/cn'
 
 const Root = ({ className, ...props }: ComponentPropsWithRef<'table'>) => (
-	<div data-slot='table-container' className='w-full overflow-x-auto'>
+	<div data-slot='table-container' className='scrollbar-journ w-full overflow-x-auto'>
 		<table data-slot='table' {...props} className={cn('w-full border-collapse text-left text-sm/6', className)} />
 	</div>
 )

@@ -13,6 +13,7 @@ import { PageHeader } from 'journ/page-header'
 import { Popover } from 'journ/popover'
 import { Progress } from 'journ/progress'
 import { Radio } from 'journ/radio'
+import { ScrollArea } from 'journ/scroll-area'
 import { Select } from 'journ/select'
 import { Switch } from 'journ/switch'
 import { Tabs } from 'journ/tabs'
@@ -268,6 +269,30 @@ const ComponentsPage = async ({ params }: { params: Promise<{ locale: string }> 
 							<Accordion.Content>Two items will run out before the next delivery.</Accordion.Content>
 						</Accordion.Item>
 					</Accordion.Root>
+				</Card.Root>
+
+				<Card.Root>
+					<Card.Title>Scroll area</Card.Title>
+					<ScrollArea.Root type='always' className='h-40 rounded-2xl bg-current/10'>
+						<ScrollArea.Viewport>
+							<ul className='flex flex-col gap-2 p-3 text-sm'>
+								{Array.from({ length: 12 }, (_, index) => (
+									<li key={index} className='rounded-xl bg-current/10 px-3 py-2'>
+										Report {index + 1}
+									</li>
+								))}
+							</ul>
+						</ScrollArea.Viewport>
+						<ScrollArea.Scrollbar />
+					</ScrollArea.Root>
+					<Card.Description>Native container with the scrollbar-journ utility:</Card.Description>
+					<ul className='scrollbar-journ flex h-32 flex-col gap-2 overflow-y-auto rounded-2xl bg-current/10 p-3 text-sm'>
+						{Array.from({ length: 12 }, (_, index) => (
+							<li key={index} className='rounded-xl bg-current/10 px-3 py-2'>
+								Venue {index + 1}
+							</li>
+						))}
+					</ul>
 				</Card.Root>
 
 				<PickerDemo locale={locale} />

@@ -16,3 +16,9 @@
 
 	--radius-journ: 1.75rem;
 }
+
+/* Thin, quiet scrollbar for native scroll containers. Thumb follows the text color. */
+@utility scrollbar-journ {
+	scrollbar-width: thin;
+	scrollbar-color: color-mix(in oklab, currentColor 30%, transparent) transparent;
+}

@@ -27,7 +27,11 @@ const Header = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
 )
 
 const Body = ({ className, ...props }: ComponentPropsWithRef<'nav'>) => (
-	<nav data-slot='sidebar-body' {...props} className={cn('flex flex-1 flex-col gap-6 overflow-y-auto', className)} />
+	<nav
+		data-slot='sidebar-body'
+		{...props}
+		className={cn('scrollbar-journ flex flex-1 flex-col gap-6 overflow-y-auto', className)}
+	/>
 )
 
 const Section = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (

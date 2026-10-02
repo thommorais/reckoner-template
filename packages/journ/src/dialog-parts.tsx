@@ -53,7 +53,11 @@ const Description = ({ className, ...props }: ComponentPropsWithRef<typeof Radix
 )
 
 const Body = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
-	<div data-slot='dialog-body' {...props} className={cn('flex flex-col gap-3 overflow-y-auto', className)} />
+	<div
+		data-slot='dialog-body'
+		{...props}
+		className={cn('scrollbar-journ flex flex-col gap-3 overflow-y-auto', className)}
+	/>
 )
 
 const Actions = ({ className, ...props }: ComponentPropsWithRef<'div'>) => (
