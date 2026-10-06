@@ -1,5 +1,5 @@
 {
-	"name": "dashboard",
+	"name": "@thom/base",
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {

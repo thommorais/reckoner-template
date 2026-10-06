@@ -13,7 +13,7 @@
 		"web:build": "nx build @thom/site",
 		"web:icons": "node ./apps/site/src/scripts/build-icons.mjs",
 		"web:start": "nx start @thom/site",
-		"pwa:dev": "nx dev @thom/pwa",
+		"pwa:dev": "nx run-many -t dev -p @thom/base @thom/pwa",
 		"pwa:build": "nx build @thom/pwa",
 		"pwa:start": "nx start @thom/pwa",
 		"ui:build": "nx build @thom/ui",
