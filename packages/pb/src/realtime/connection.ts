@@ -1,12 +1,12 @@
 import type { Realtime } from '../client'
 
-export type Connection = {
+type Connection = {
 	readonly onReconnect: (listener: () => void) => () => void
 }
 
 const noop = () => {}
 
-export const createConnection = (realtime: Realtime): Connection => {
+const createConnection = (realtime: Realtime): Connection => {
 	const listeners = new Set<() => void>()
 	let connected = false
 
@@ -31,3 +31,6 @@ export const createConnection = (realtime: Realtime): Connection => {
 		},
 	}
 }
+
+export { createConnection }
+export type { Connection }

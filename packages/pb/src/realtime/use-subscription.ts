@@ -5,7 +5,7 @@ const noop = () => {}
 
 type Open = () => Promise<Unsubscribe> | undefined
 
-export const useSubscription = (open: Open, deps: readonly unknown[]): void => {
+const useSubscription = (open: Open, deps: readonly unknown[]): void => {
 	useEffect(() => {
 		const opened = open()?.catch(noop)
 
@@ -15,3 +15,5 @@ export const useSubscription = (open: Open, deps: readonly unknown[]): void => {
 		// oxlint-disable-next-line react-hooks/exhaustive-deps
 	}, deps)
 }
+
+export { useSubscription }

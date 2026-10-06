@@ -1,7 +1,8 @@
 import { type ErrorResponse, tryCatch } from '@thom/try-catch'
-import { useCallback, useEffect, useEffectEvent, useId, useReducer, useState } from 'react'
+import { useCallback, useEffect, useEffectEvent, useId, useMemo, useState } from 'react'
 import type { Client, RecordEvent, RequestOptions } from '../client'
 import type { Filter } from '../filter-builder'
+import { create } from '../store'
 import type { Connection } from './connection'
 import {
 	type Action,
@@ -15,21 +16,21 @@ import {
 } from './live-collection-model'
 import { useSubscription } from './use-subscription'
 
-export type LiveSource<TRecord, TEntity extends Entity> = {
+type LiveSource<TRecord, TEntity extends Entity> = {
 	readonly client: Client<TRecord>
 	readonly collection: string
 	readonly map: (record: TRecord) => TEntity
 	readonly connection: Connection
 }
 
-export type LiveCollectionOptions = {
+type LiveCollectionOptions = {
 	readonly filter?: Filter
 	readonly sort?: string
 	readonly perPage?: number
 	readonly skip?: boolean
 }
 
-export type LiveCollection<TEntity> = {
+type LiveCollection<TEntity> = {
 	readonly state: LiveCollectionState<TEntity>
 	readonly page: number
 	readonly perPage: number
@@ -51,11 +52,11 @@ const isAbort = ({ originalError }: ErrorResponse): boolean =>
 
 const subscribeOptions = (query: string): RequestOptions | undefined => (query ? { filter: query } : undefined)
 
-export const useLiveCollection = <TRecord, TEntity extends Entity>(
+const useLiveCollection = <TRecord, TEntity extends Entity>(
 	{ client, collection, map, connection }: LiveSource<TRecord, TEntity>,
 	{ filter, sort, perPage = DEFAULT_PER_PAGE, skip = false }: LiveCollectionOptions = {},
 ): LiveCollection<TEntity> => {
-	const query = filter ? client.filter(filter.expr, filter.params) : ''
+	const query = filter?.expr ? client.filter(filter.expr, filter.params) : ''
 	const scope = JSON.stringify([collection, query, sort, perPage])
 
 	const [paging, setPaging] = useState({ scope, page: FIRST_PAGE })
@@ -64,10 +65,19 @@ export const useLiveCollection = <TRecord, TEntity extends Entity>(
 
 	const requestKey = useId()
 
-	const [model, dispatch] = useReducer<Model<TEntity>, boolean, [Action<TEntity>]>(reduce, skip, initial)
+	const [useModel] = useState(() => create<Model<TEntity>>(initial<TEntity>(skip)))
+	const live = useModel()
+
+	const dispatch = useCallback(
+		(action: Action<TEntity>) => useModel.assign(reduce(useModel.getState(), action)),
+		[useModel],
+	)
 
 	const onLoaded = useEffectEvent((token: symbol, result: ListOutcome<TRecord>) => {
-		if (!result.success && isAbort(result.error)) return
+		if (!result.success && isAbort(result.error)) {
+			dispatch({ type: 'aborted', token })
+			return
+		}
 
 		dispatch({ type: 'loaded', token, view: toView(result, map) })
 	})
@@ -76,7 +86,7 @@ export const useLiveCollection = <TRecord, TEntity extends Entity>(
 		dispatch({ type: 'changed', action, entity: map(record) }),
 	)
 
-	useEffect(() => {
+	const load = useEffectEvent(() => {
 		if (skip) {
 			dispatch({ type: 'skipped' })
 			return
@@ -89,7 +99,19 @@ export const useLiveCollection = <TRecord, TEntity extends Entity>(
 		void tryCatch(client.collection(collection).getList(page, perPage, listOptions(query, sort, requestKey))).then(
 			result => onLoaded(token, result),
 		)
-	}, [client, collection, query, sort, page, perPage, scope, skip, requestKey, model.run])
+	})
+
+	useEffect(
+		() =>
+			useModel.subscribe((_, key) => {
+				if (key === 'run') load()
+			}),
+		[useModel],
+	)
+
+	useEffect(() => {
+		load()
+	}, [client, collection, query, sort, page, perPage, scope, skip, requestKey])
 
 	useSubscription(
 		() =>
@@ -105,7 +127,20 @@ export const useLiveCollection = <TRecord, TEntity extends Entity>(
 		[client, collection, query, skip],
 	)
 
-	useEffect(() => connection.onReconnect(() => dispatch({ type: 'invalidated' })), [connection])
+	useEffect(() => connection.onReconnect(() => dispatch({ type: 'invalidated' })), [connection, dispatch])
 
-	return { state: model.view, page, perPage, setPage }
+	return useMemo(
+		() => ({
+			get state() {
+				return live.view
+			},
+			page,
+			perPage,
+			setPage,
+		}),
+		[live, page, perPage, setPage],
+	)
 }
+
+export { useLiveCollection }
+export type { LiveCollection, LiveCollectionOptions, LiveSource }

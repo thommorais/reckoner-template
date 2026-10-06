@@ -20,8 +20,10 @@ Create one connection per client, at module level. It listens for reconnects so 
 import { createConnection } from '@thom/pb/realtime'
 import PocketBase from 'pocketbase'
 
-export const client = new PocketBase(API_URL)
-export const connection = createConnection(client.realtime)
+const client = new PocketBase(API_URL)
+const connection = createConnection(client.realtime)
+
+export { client, connection }
 ```
 
 ## The source
@@ -34,12 +36,14 @@ import type { LiveSource } from '@thom/pb/realtime'
 type IssueRecord = { id: string; title: string; status: string; created: string }
 type Issue = { id: string; title: string; status: string }
 
-export const issuesSource: LiveSource<IssueRecord, Issue> = {
+const issuesSource: LiveSource<IssueRecord, Issue> = {
 	client,
 	collection: 'issues',
 	map: record => ({ id: record.id, title: record.title, status: record.status }),
 	connection,
 }
+
+export { issuesSource }
 ```
 
 Keep the source at module level, or memoize it. A new `client` or `connection` identity on every render reopens the subscription and reloads the page.
@@ -54,7 +58,7 @@ import { Status, useLiveCollection } from '@thom/pb/realtime'
 
 type IssueColumns = { status: string; title: string }
 
-export const Issues = ({ status, search }: { status?: string; search?: string }) => {
+const Issues = ({ status, search }: { status?: string; search?: string }) => {
 	const filter = filterFor<IssueColumns>()([
 		{ field: 'status', comparator: 'eq', value: status },
 		{ field: 'title', comparator: 'contains', value: search },
@@ -83,6 +87,8 @@ export const Issues = ({ status, search }: { status?: string; search?: string })
 		</>
 	)
 }
+
+export { Issues }
 ```
 
 ### Options
@@ -135,5 +141,6 @@ The filter can be rebuilt on every render. The hook compares the resolved filter
 - **Every event re-reads the current page.** The SDK only delivers the event. Where a created row lands, and whether an updated row still sorts or filters into the page, is known to the server alone. Bursts of events collapse into one read.
 - **Updates and deletes of rows already on the page are applied immediately**, before that read returns.
 - **Reconnects** re-read the page, as does the moment the subscription opens.
-- **Auto-cancellation is left on.** Each hook instance reads under its own `requestKey`, so a newer read cancels the one it replaces. The cancelled read fails with `isAbort` and is ignored, and the newer one updates the state. Two lists over the same collection do not cancel each other.
+- **Auto-cancellation is left on.** Each hook instance reads under its own `requestKey`, so a newer read cancels the one it replaces. The cancelled read fails with `isAbort` and is ignored, and the newer one updates the state. A read cancelled with nothing replacing it, as after `pb.cancelAllRequests()`, is read again. Two lists over the same collection do not cancel each other.
+- **Entries live outside React state**, in a store from `@thom/pb/store`. A component re-renders only if it read `state` during render, and only when the view changes. Reading just `page` or `setPage` does not subscribe it to the entries.
 - **A failed subscription is silent.** The list still loads but will not update live.

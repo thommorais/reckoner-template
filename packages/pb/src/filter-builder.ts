@@ -1,10 +1,10 @@
-export type Comparator = 'eq' | 'neq' | 'anyOf' | 'contains' | 'containsAll' | 'gte' | 'lte'
+type Comparator = 'eq' | 'neq' | 'anyOf' | 'contains' | 'containsAll' | 'gte' | 'lte'
 
-export type FilterValue = string | number | boolean | Date
+type FilterValue = string | number | boolean | Date
 
-export type Filterable = Record<string, FilterValue | readonly FilterValue[] | undefined>
+type Filterable = Record<string, FilterValue | readonly FilterValue[] | undefined>
 
-export type Clause<T extends Filterable> = {
+type Clause<T extends Filterable> = {
 	[K in keyof T]-?: {
 		readonly field: K
 		readonly comparator: Comparator
@@ -47,7 +47,7 @@ type BoundValues<C> = C extends readonly [infer Head, ...infer Tail]
 		: never
 	: never
 
-export type Filter<C extends readonly unknown[] = readonly unknown[]> = {
+type Filter<C extends readonly unknown[] = readonly unknown[]> = {
 	readonly expr: Expr<C>
 	readonly params: Readonly<Record<`p${number}`, BoundValues<C>>>
 }
@@ -72,7 +72,7 @@ const isEmpty = (value: unknown): boolean =>
 
 const scalar = (value: unknown): Scalar => (value instanceof Date ? value.toISOString() : (value as Scalar))
 
-export const filterFor =
+const filterFor =
 	<T extends Filterable>() =>
 	<const C extends readonly Clause<T>[]>(clauses: C): Filter<C> =>
 		build(clauses)
@@ -111,3 +111,6 @@ const build = <const C extends readonly AnyClause[]>(clauses: C): Filter<C> => {
 		params: params as Filter<C>['params'],
 	}
 }
+
+export { filterFor }
+export type { Clause, Comparator, Filter, FilterValue, Filterable }

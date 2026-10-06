@@ -1,8 +1,8 @@
-export type Unsubscribe = () => Promise<void>
+type Unsubscribe = () => Promise<void>
 
-export type RequestOptions = Record<string, unknown>
+type RequestOptions = Record<string, unknown>
 
-export type ListResult<TRecord> = {
+type ListResult<TRecord> = {
 	readonly page: number
 	readonly perPage: number
 	readonly totalItems: number
@@ -10,12 +10,12 @@ export type ListResult<TRecord> = {
 	readonly items: readonly TRecord[]
 }
 
-export type RecordEvent<TRecord> = {
+type RecordEvent<TRecord> = {
 	readonly action: string
 	readonly record: TRecord
 }
 
-export type CollectionService<TRecord> = {
+type CollectionService<TRecord> = {
 	readonly getList: (page: number, perPage: number, options?: RequestOptions) => Promise<ListResult<TRecord>>
 	readonly subscribe: (
 		topic: string,
@@ -24,11 +24,13 @@ export type CollectionService<TRecord> = {
 	) => Promise<Unsubscribe>
 }
 
-export type Client<TRecord> = {
+type Client<TRecord> = {
 	readonly filter: (expr: string, params?: Record<string, unknown>) => string
 	readonly collection: (name: string) => CollectionService<TRecord>
 }
 
-export type Realtime = {
+type Realtime = {
 	readonly subscribe: (topic: string, handler: () => void) => Promise<unknown>
 }
+
+export type { Client, CollectionService, ListResult, Realtime, RecordEvent, RequestOptions, Unsubscribe }

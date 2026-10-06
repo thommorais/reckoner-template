@@ -6,22 +6,32 @@
 	"exports": {
 		"./client": "./src/client.ts",
 		"./filter-builder": "./src/filter-builder.ts",
-		"./realtime": "./src/realtime.ts"
+		"./realtime": "./src/realtime.ts",
+		"./store": "./src/store.ts"
 	},
 	"scripts": {
 		"check-types": "tsc --noEmit",
 		"lint": "oxlint ./src",
-		"format": "oxfmt ./src"
+		"format": "oxfmt ./src",
+		"test": "vitest",
+		"test:run": "vitest run",
+		"test:watch": "vitest --watch"
 	},
 	"dependencies": {
 		"@thom/safe-return": "workspace:*",
 		"@thom/try-catch": "workspace:*"
 	},
 	"devDependencies": {
+		"@testing-library/dom": "^10.4.2",
+		"@testing-library/react": "^16.3.3",
 		"@thom/typescript-config": "workspace:*",
 		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"happy-dom": "^20.14.5",
 		"react": "catalog:",
-		"typescript": "7.0.2"
+		"react-dom": "catalog:",
+		"typescript": "7.0.2",
+		"vitest": "^5.0.2"
 	},
 	"peerDependencies": {
 		"react": "^19"
