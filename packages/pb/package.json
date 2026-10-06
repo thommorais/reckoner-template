@@ -22,16 +22,16 @@
 		"@thom/try-catch": "workspace:*"
 	},
 	"devDependencies": {
-		"@testing-library/dom": "^10.4.2",
-		"@testing-library/react": "^16.3.3",
+		"@testing-library/dom": "catalog:",
+		"@testing-library/react": "catalog:",
 		"@thom/typescript-config": "workspace:*",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
-		"happy-dom": "^20.14.5",
+		"happy-dom": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"typescript": "7.0.2",
-		"vitest": "^5.0.2"
+		"typescript": "catalog:",
+		"vitest": "catalog:"
 	},
 	"peerDependencies": {
 		"react": "^19"

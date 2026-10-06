@@ -3,15 +3,34 @@ packages:
   - packages/*
 
 catalog:
-  '@types/react': ^19
-  '@types/react-dom': ^19
-  '@vitejs/plugin-react': ^6.0.1
+  fast-glob: ^3.3.3
+  fs-extra: ^11.4.1
+  happy-dom: ^20.14.5
+  '@headlessui/react': ^2.2.10
+  node-html-parser: ^9.0.4
+  nx: 23.2.1
+  '@nx/devkit': 23.2.1
+  postcss: ^8.5.29
+  '@radix-ui/react-slot': ^1.4.0
   react: ^19.3.0
   react-dom: ^19.3.0
+  react-inlinesvg: ^4.5.0
   tailwind-variants: ^3.3.1
-  tailwindcss: ^4.2.1
-  vite: ^8.0.10
-  zustand: ^5.0.11
+  tailwindcss: ^4.3.3
+  '@tailwindcss/cli': ^4.3.3
+  '@tailwindcss/postcss': ^4.3.3
+  '@tailwindcss/vite': ^4.3.3
+  '@testing-library/dom': ^10.4.2
+  '@testing-library/react': ^16.3.3
+  '@total-typescript/ts-reset': ^0.6.1
+  '@types/node': ^26.6.4
+  '@types/react': ^19
+  '@types/react-dom': ^19
+  typescript: 7.0.2
+  vite: ^8.3.3
+  '@vitejs/plugin-react': ^6.1.2
+  vitest: ^5.0.3
+  zustand: ^5.0.15
 
 onlyBuiltDependencies:
   - '@parcel/watcher'

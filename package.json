@@ -24,12 +24,12 @@
 		"new:package": "nx g @thom/workspace-tools:package"
 	},
 	"devDependencies": {
-		"@nx/devkit": "23.2.1",
+		"@nx/devkit": "catalog:",
 		"@thom/workspace-tools": "workspace:*",
-		"nx": "23.2.1",
-		"oxfmt": "0.71.0",
-		"oxlint": "1.86.0",
-		"typescript": "7.0.2"
+		"nx": "catalog:",
+		"oxfmt": "0.72.0",
+		"oxlint": "1.87.0",
+		"typescript": "catalog:"
 	},
 	"engines": {
 		"node": ">=18"

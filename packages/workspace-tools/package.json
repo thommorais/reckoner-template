@@ -8,10 +8,10 @@
 		"format": "oxfmt ./generators"
 	},
 	"devDependencies": {
-		"@nx/devkit": "23.2.1",
+		"@nx/devkit": "catalog:",
 		"@thom/typescript-config": "workspace:*",
-		"@types/node": "^26.6.3",
-		"typescript": "7.0.2"
+		"@types/node": "catalog:",
+		"typescript": "catalog:"
 	},
 	"generators": "./generators.json"
 }
