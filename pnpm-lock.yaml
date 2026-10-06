@@ -376,6 +376,28 @@ importers:
         specifier: ^7.0.2
         version: 7.0.2
 
+  packages/pb:
+    dependencies:
+      '@thom/safe-return':
+        specifier: workspace:*
+        version: link:../safe-return
+      '@thom/try-catch':
+        specifier: workspace:*
+        version: link:../try-catch
+    devDependencies:
+      '@thom/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/react':
+        specifier: 19.3.0
+        version: 19.3.0
+      react:
+        specifier: 'catalog:'
+        version: 19.3.0
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
+
   packages/safe-return:
     devDependencies:
       '@thom/typescript-config':

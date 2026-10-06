@@ -1,0 +1,29 @@
+{
+	"name": "@thom/pb",
+	"version": "0.1.0",
+	"private": true,
+	"sideEffects": false,
+	"exports": {
+		"./client": "./src/client.ts",
+		"./filter-builder": "./src/filter-builder.ts",
+		"./realtime": "./src/realtime.ts"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit",
+		"lint": "oxlint ./src",
+		"format": "oxfmt ./src"
+	},
+	"dependencies": {
+		"@thom/safe-return": "workspace:*",
+		"@thom/try-catch": "workspace:*"
+	},
+	"devDependencies": {
+		"@thom/typescript-config": "workspace:*",
+		"@types/react": "catalog:",
+		"react": "catalog:",
+		"typescript": "7.0.2"
+	},
+	"peerDependencies": {
+		"react": "^19"
+	}
+}
