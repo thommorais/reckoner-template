@@ -68,5 +68,6 @@
 		"clean": {
 			"cache": false
 		}
-	}
+	},
+	"analytics": false
 }
