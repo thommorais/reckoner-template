@@ -1,7 +1,7 @@
 import { HTML } from '_/components/ui/html'
 import { LOCAL_HREFS } from '_/constants'
 import { defaultLocale } from '_/i18n/dictionaries/locales'
-import Link from 'next/dist/client/link';
+import Link from 'next/link'
 
 function NotFound() {
 	return (

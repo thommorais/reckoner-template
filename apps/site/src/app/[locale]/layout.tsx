@@ -13,9 +13,7 @@ const LocaleLayout = async ({ children, params }: LayoutProps) => {
 	return (
 		<HTML locale={locale}>
 			<LocaleProviders locale={locale}>
-					<body className='relative min-h-dvh w-full overflow-x-hidden'>
-						{children}
-					</body>
+				<body className='relative min-h-dvh w-full overflow-x-hidden'>{children}</body>
 			</LocaleProviders>
 		</HTML>
 	)
