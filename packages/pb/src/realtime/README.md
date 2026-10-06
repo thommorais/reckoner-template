@@ -135,5 +135,5 @@ The filter can be rebuilt on every render. The hook compares the resolved filter
 - **Every event re-reads the current page.** The SDK only delivers the event. Where a created row lands, and whether an updated row still sorts or filters into the page, is known to the server alone. Bursts of events collapse into one read.
 - **Updates and deletes of rows already on the page are applied immediately**, before that read returns.
 - **Reconnects** re-read the page, as does the moment the subscription opens.
-- **Reads pass `requestKey: null`.** Otherwise the SDK's auto-cancellation would abort one of two lists over the same collection.
+- **Auto-cancellation is left on.** Each hook instance reads under its own `requestKey`, so a newer read cancels the one it replaces. The cancelled read fails with `isAbort` and is ignored, and the newer one updates the state. Two lists over the same collection do not cancel each other.
 - **A failed subscription is silent.** The list still loads but will not update live.

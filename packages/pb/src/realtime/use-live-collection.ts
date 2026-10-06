@@ -1,5 +1,5 @@
-import { tryCatch } from '@thom/try-catch'
-import { useCallback, useEffect, useEffectEvent, useReducer, useState } from 'react'
+import { type ErrorResponse, tryCatch } from '@thom/try-catch'
+import { useCallback, useEffect, useEffectEvent, useId, useReducer, useState } from 'react'
 import type { Client, RecordEvent, RequestOptions } from '../client'
 import type { Filter } from '../filter-builder'
 import type { Connection } from './connection'
@@ -40,11 +40,14 @@ const DEFAULT_PER_PAGE = 30
 
 const FIRST_PAGE = 1
 
-const listOptions = (query: string, sort: string | undefined): RequestOptions => ({
+const listOptions = (query: string, sort: string | undefined, requestKey: string): RequestOptions => ({
 	...(query && { filter: query }),
 	...(sort && { sort }),
-	requestKey: null,
+	requestKey,
 })
+
+const isAbort = ({ originalError }: ErrorResponse): boolean =>
+	(originalError as { readonly isAbort?: unknown } | undefined)?.isAbort === true
 
 const subscribeOptions = (query: string): RequestOptions | undefined => (query ? { filter: query } : undefined)
 
@@ -59,11 +62,15 @@ export const useLiveCollection = <TRecord, TEntity extends Entity>(
 	const page = paging.scope === scope ? paging.page : FIRST_PAGE
 	const setPage = useCallback((next: number) => setPaging({ scope, page: next }), [scope])
 
+	const requestKey = useId()
+
 	const [model, dispatch] = useReducer<Model<TEntity>, boolean, [Action<TEntity>]>(reduce, skip, initial)
 
-	const onLoaded = useEffectEvent((token: symbol, result: ListOutcome<TRecord>) =>
-		dispatch({ type: 'loaded', token, view: toView(result, map) }),
-	)
+	const onLoaded = useEffectEvent((token: symbol, result: ListOutcome<TRecord>) => {
+		if (!result.success && isAbort(result.error)) return
+
+		dispatch({ type: 'loaded', token, view: toView(result, map) })
+	})
 
 	const onEvent = useEffectEvent(({ action, record }: RecordEvent<TRecord>) =>
 		dispatch({ type: 'changed', action, entity: map(record) }),
@@ -79,10 +86,10 @@ export const useLiveCollection = <TRecord, TEntity extends Entity>(
 
 		dispatch({ type: 'requested', key: JSON.stringify([scope, page]), token })
 
-		void tryCatch(client.collection(collection).getList(page, perPage, listOptions(query, sort))).then(result =>
-			onLoaded(token, result),
+		void tryCatch(client.collection(collection).getList(page, perPage, listOptions(query, sort, requestKey))).then(
+			result => onLoaded(token, result),
 		)
-	}, [client, collection, query, sort, page, perPage, scope, skip, model.run])
+	}, [client, collection, query, sort, page, perPage, scope, skip, requestKey, model.run])
 
 	useSubscription(
 		() =>
