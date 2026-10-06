@@ -1,0 +1,41 @@
+{
+	"name": "@thom/pwa",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"start": "vite preview",
+		"lint": "oxlint ./src",
+		"format": "oxfmt ./src",
+		"typecheck": "tsc -b",
+		"generate-pwa-assets": "pwa-assets-generator",
+		"clean": "rm -rf dist node_modules"
+	},
+	"dependencies": {
+		"@tanstack/react-router": "^1.170.32",
+		"intlayer": "^8.9.8",
+		"journ": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"react-intlayer": "^8.9.8",
+		"tailwind-variants": "catalog:"
+	},
+	"devDependencies": {
+		"@tailwindcss/vite": "^4.2.1",
+		"@tanstack/router-plugin": "^1.168.35",
+		"@thom/typescript-config": "workspace:*",
+		"@total-typescript/ts-reset": "^0.6.1",
+		"@types/node": "^26.6.3",
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"@vite-pwa/assets-generator": "^1.0.2",
+		"@vitejs/plugin-react": "catalog:",
+		"tailwindcss": "catalog:",
+		"typescript": "7.0.2",
+		"vite": "catalog:",
+		"vite-intlayer": "^8.9.8",
+		"vite-plugin-pwa": "^1.3.0"
+	}
+}

@@ -1,0 +1,20 @@
+/* eslint-disable */
+export default {
+  "key": "reload-prompt",
+  "content": {
+    "nodeType": "translation",
+    "translation": {
+      "en": {
+        "message": "A new version is ready.",
+        "action": "Reload"
+      },
+      "pt": {
+        "message": "Uma nova versão está pronta.",
+        "action": "Recarregar"
+      }
+    }
+  },
+  "location": "local",
+  "localId": "reload-prompt::local::src/components/reload-prompt.content.ts",
+  "filePath": "src/components/reload-prompt.content.ts"
+} as const;

@@ -51,3 +51,8 @@ apps/base/.gocache/
 .nx/cache
 .nx/workspace-data
 .nx/migrate-runs
+
+# intlayer and router generated caches
+apps/pwa/.intlayer/cache/
+apps/pwa/.intlayer/tmp/
+apps/pwa/.tanstack/
