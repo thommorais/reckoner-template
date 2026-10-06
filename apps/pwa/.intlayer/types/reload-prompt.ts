@@ -14,7 +14,7 @@ export default {
       }
     }
   },
-  "location": "local",
-  "localId": "reload-prompt::local::src/components/reload-prompt.content.ts",
-  "filePath": "src/components/reload-prompt.content.ts"
+  "localIds": [
+    "reload-prompt::local::src/components/reload-prompt.content.ts"
+  ]
 } as const;

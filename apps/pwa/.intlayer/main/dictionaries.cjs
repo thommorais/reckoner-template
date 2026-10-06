@@ -5,4 +5,5 @@ const dictionaries = {
 };
 const getDictionaries = () => dictionaries;
 
-module.exports = { ...dictionaries, getDictionaries };
+module.exports.getDictionaries = getDictionaries;
+module.exports = dictionaries;

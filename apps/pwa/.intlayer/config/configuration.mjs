@@ -10,12 +10,6 @@ const internationalization = {
   "strictMode": "inclusive",
   "defaultLocale": "pt"
 };
-const dictionary = {
-  "fill": true,
-  "contentAutoTransformation": false,
-  "location": "local",
-  "importMode": "static"
-};
 const routing = {
   "mode": "prefix-no-default",
   "storage": {
@@ -34,6 +28,35 @@ const routing = {
     ]
   },
   "basePath": ""
+};
+const editor = {
+  "editorURL": "http://localhost:8000",
+  "cmsURL": "https://app.intlayer.org",
+  "backendURL": "https://back.intlayer.org",
+  "port": 8000,
+  "enabled": false,
+  "dictionaryPriorityStrategy": "local_first",
+  "liveSync": false,
+  "liveSyncPort": 4000,
+  "liveSyncURL": "http://localhost:4000"
+};
+const log = {
+  "mode": "default",
+  "prefix": "\u001b[38;5;239m[intlayer] \u001b[0m"
+};
+const system = {
+  "baseDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa",
+  "moduleAugmentationDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/types",
+  "unmergedDictionariesDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/unmerged_dictionary",
+  "remoteDictionariesDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/remote_dictionary",
+  "dictionariesDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/dictionary",
+  "dynamicDictionariesDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/dynamic_dictionary",
+  "fetchDictionariesDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/fetch_dictionary",
+  "typesDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/types",
+  "mainDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/main",
+  "configDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/config",
+  "cacheDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/cache",
+  "tempDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/tmp"
 };
 const content = {
   "fileExtensions": [
@@ -73,47 +96,17 @@ const content = {
   ],
   "watch": true
 };
-const system = {
-  "baseDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa",
-  "moduleAugmentationDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/types",
-  "unmergedDictionariesDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/unmerged_dictionary",
-  "remoteDictionariesDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/remote_dictionary",
-  "dictionariesDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/dictionary",
-  "dynamicDictionariesDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/dynamic_dictionary",
-  "fetchDictionariesDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/fetch_dictionary",
-  "typesDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/types",
-  "mainDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/main",
-  "configDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/config",
-  "cacheDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/cache",
-  "tempDir": "/Users/thommorais/shed/journ/reckoner-template/apps/pwa/.intlayer/tmp"
-};
-const editor = {
-  "editorURL": "http://localhost:8000",
-  "cmsURL": "https://app.intlayer.org",
-  "backendURL": "https://back.intlayer.org",
-  "port": 8000,
-  "enabled": false,
-  "dictionaryPriorityStrategy": "local_first",
-  "liveSync": false,
-  "liveSyncPort": 4000,
-  "liveSyncURL": "http://localhost:4000"
-};
-const analytics = {
-  "enabled": false,
-  "flushInterval": 20000,
-  "sampleRate": 1
-};
-const log = {
-  "mode": "default",
-  "prefix": "Intlayer: "
-};
 const ai = {};
+const dictionary = {
+  "fill": true,
+  "contentAutoTransformation": false,
+  "location": "local",
+  "importMode": "static"
+};
 const build = {
   "mode": "auto",
   "minify": false,
   "purge": false,
-  "chunkGrouping": true,
-  "dictionariesPreload": true,
   "traversePattern": [
     "**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,astro}",
     "!**/node_modules/**",
@@ -140,16 +133,14 @@ const build = {
     "esm",
     "cjs"
   ],
-  "cache": false,
+  "cache": true,
   "checkTypes": false
 };
 const compiler = {
-  "enabled": false,
+  "enabled": true,
   "dictionaryKeyPrefix": "",
   "noMetadata": false,
   "saveComponents": false
 };
-const schemas = undefined;
-const plugins = undefined;
 
-export { internationalization, dictionary, routing, content, system, editor, analytics, log, ai, build, compiler, schemas, plugins };
+export { internationalization, routing, editor, log, system, content, ai, dictionary, build, compiler };

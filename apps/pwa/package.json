@@ -16,10 +16,10 @@
 	"dependencies": {
 		"@tanstack/react-router": "^1.170.32",
 		"intlayer": "^8.9.8",
-		"journ": "workspace:*",
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"react-intlayer": "^8.9.8",
+		"sonner": "^2.0.8",
 		"tailwind-variants": "catalog:"
 	},
 	"devDependencies": {

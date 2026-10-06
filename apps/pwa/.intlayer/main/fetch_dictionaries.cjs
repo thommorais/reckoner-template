@@ -4,4 +4,5 @@ const dictionaries = {
 };
 const getFetchDictionaries = () => dictionaries;
 
-module.exports = { ...dictionaries, getFetchDictionaries };
+module.exports.getFetchDictionaries = getFetchDictionaries;
+module.exports = dictionaries;

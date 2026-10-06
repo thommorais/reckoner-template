@@ -1,8 +1,6 @@
 @import 'tailwindcss';
-@import 'journ/tokens.css';
 
 @source "../../node_modules/@thom/ui/**/*.{tsx,ts,js,jsx}";
-@source "../../node_modules/journ/src/**/*.{ts,tsx}";
 
 @utility text-balance {
 	text-wrap: balance;

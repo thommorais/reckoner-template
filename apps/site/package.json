@@ -34,7 +34,6 @@
 		"highcharts": "^13.1.1",
 		"highcharts-react-official": "^3.2.3",
 		"http-status-codes": "^2.3.0",
-		"journ": "workspace:*",
 		"lucide-react": "^1.48.0",
 		"motion": "^13.4.6",
 		"next": "16.3.7",

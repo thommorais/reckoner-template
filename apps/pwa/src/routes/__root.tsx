@@ -1,14 +1,14 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { DocumentLocale } from '_/components/document-locale'
 import { ReloadPrompt } from '_/components/reload-prompt'
-import { Toast } from 'journ/toast'
 import { IntlayerProvider } from 'react-intlayer'
+import { Toaster } from 'sonner'
 
 const RootComponent = () => (
 	<IntlayerProvider>
 		<DocumentLocale />
 		<Outlet />
-		<Toast.Provider />
+		<Toaster position='top-center' />
 		<ReloadPrompt />
 	</IntlayerProvider>
 )

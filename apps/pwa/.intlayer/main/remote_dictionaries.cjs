@@ -4,4 +4,5 @@ const dictionaries = {
 };
 const getRemoteDictionaries = () => dictionaries;
 
-module.exports = { ...dictionaries, getRemoteDictionaries };
+module.exports.getRemoteDictionaries = getRemoteDictionaries;
+module.exports = dictionaries;
