@@ -1,7 +1,5 @@
 @import 'tailwindcss';
 
-@source "../../node_modules/@thom/ui/**/*.{tsx,ts,js,jsx}";
-
 @utility text-balance {
 	text-wrap: balance;
 }
