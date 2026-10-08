@@ -1,0 +1,103 @@
+- generic:
+  - generic:
+    - generic:
+      - main:
+        - generic [aria-hidden]:
+          - button
+          - heading [level=1]: Schedule
+        - generic [aria-hidden]:
+          - heading [level=3]: New schedule
+          - generic:
+            - button [expanded] [active]:
+              - generic: Pick a report
+            - button:
+              - generic: Oct 28, 2026
+        - generic:
+          - generic:
+            - generic:
+              - button "February 2027"
+              - button [aria-hidden]
+              - button [aria-hidden]
+            - generic [aria-hidden]:
+              - generic: Mon
+              - generic: Tue
+              - generic: Wed
+              - generic: Thu
+              - generic: Fri
+              - generic: Sat
+              - generic: Sun
+              - button: "1"
+              - button: "2"
+              - button: "3"
+              - button: "4"
+              - button: "5"
+              - button: "6"
+              - button: "7"
+              - button: "8"
+              - button: "9"
+              - button: "10"
+              - button: "11"
+              - button: "12"
+              - button: "13"
+              - button: "14"
+              - button: "15"
+              - button: "16"
+              - button: "17"
+              - button: "18"
+              - button: "19"
+              - button: "20"
+              - button: "21"
+              - button: "22"
+              - button: "23"
+              - button: "24"
+              - button: "25"
+              - button: "26"
+              - button: "27"
+              - button: "28"
+              - button: "1"
+              - button: "2"
+              - button: "3"
+              - button: "4"
+              - button: "5"
+              - button: "6"
+              - button: "7"
+              - button: "8"
+              - button: "9"
+              - button: "10"
+              - button: "11"
+              - button: "12"
+              - button: "13"
+              - button: "14"
+        - generic [aria-hidden]:
+          - navigation:
+            - link:
+              - /url: /journ
+            - link:
+              - /url: /journ/revenue
+            - link:
+              - /url: /journ/reports
+            - link:
+              - /url: /journ/categories
+    - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e105] [cursor=pointer]
+  - alert
+  - dialog [ref=e110]:
+    - generic [ref=e112]:
+      - generic [ref=e113]: Reports
+      - heading "Report" [level=2] [ref=e114]
+      - combobox "Reports" [expanded] [ref=e119]
+      - listbox "Suggestions" [ref=e120]:
+        - generic [ref=e121]:
+          - generic [aria-hidden] [ref=e122]: Finance
+          - group "Finance" [ref=e123]:
+            - option "Prime cost report" [selected] [ref=e124]
+            - option "P&L statement" [ref=e125]
+          - generic [aria-hidden] [ref=e126]: Menu
+          - group "Menu" [ref=e127]:
+            - option "Menu mix" [ref=e128]
+            - option "Menu engineering" [ref=e129]
+          - generic [aria-hidden] [ref=e130]: Operations
+          - group "Operations" [ref=e131]:
+            - option "Labor cost" [ref=e132]
+            - option "Inventory risk" [ref=e133]
+            - option "Café sales" [ref=e134]

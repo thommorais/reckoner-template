@@ -1,0 +1,57 @@
+- generic:
+  - generic:
+    - generic:
+      - main:
+        - generic [aria-hidden]:
+          - button
+          - heading [level=1]: Schedule
+        - generic [aria-hidden]:
+          - heading [level=3]: New schedule
+          - generic:
+            - button [expanded]:
+              - generic: Pick a report
+            - button:
+              - generic: Oct 18, 2026
+        - generic:
+          - generic:
+            - generic:
+              - button "2026"
+              - button [aria-hidden]
+              - button [aria-hidden]
+            - generic [aria-hidden]:
+              - button: Jan
+              - button: Feb
+              - button: Mar
+              - button: Apr
+              - button: May
+              - button: Jun
+              - button: Jul
+              - button: Aug
+              - button: Sep
+              - button: Oct
+              - button: Nov
+              - button: Dec
+        - generic [aria-hidden]:
+          - navigation:
+            - link:
+              - /url: /journ
+            - link:
+              - /url: /journ/revenue
+            - link:
+              - /url: /journ/reports
+            - link:
+              - /url: /journ/categories
+    - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=f4e106] [cursor=pointer]
+  - alert
+  - dialog [ref=f4e213]:
+    - heading "Report" [level=2] [ref=f4e215]
+    - generic [ref=f4e216]:
+      - generic [ref=f4e217]: Reports
+      - combobox "Reports" [expanded] [active] [ref=f4e222]: menu
+      - listbox "Suggestions" [ref=f4e223]:
+        - generic [ref=f4e224]:
+          - generic [aria-hidden] [ref=f4e229]: Menu
+          - group "Menu" [ref=f4e230]:
+            - option "Menu mix" [selected] [ref=f4e231]
+            - option "Menu engineering" [ref=f4e232]

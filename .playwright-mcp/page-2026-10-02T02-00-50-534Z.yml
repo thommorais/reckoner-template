@@ -1,0 +1,75 @@
+- generic [ref=e2]:
+  - main [ref=e4]:
+    - generic [ref=e5]:
+      - button "Back" [ref=e6]
+      - heading "Schedule" [level=1] [ref=e9]
+    - generic [ref=e10]:
+      - heading "New schedule" [level=3] [ref=e11]
+      - generic [ref=e12]:
+        - button "Pick a report" [ref=e13]
+        - button "First run" [ref=e18]
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - button "October 2026" [ref=e25]
+        - button "Previous" [ref=e26]
+        - button "Next" [ref=e29]
+      - generic [ref=e32]:
+        - generic [ref=e33]: Mon
+        - generic [ref=e34]: Tue
+        - generic [ref=e35]: Wed
+        - generic [ref=e36]: Thu
+        - generic [ref=e37]: Fri
+        - generic [ref=e38]: Sat
+        - generic [ref=e39]: Sun
+        - button "Monday, September 28, 2026" [ref=e40]: "28"
+        - button "Tuesday, September 29, 2026" [ref=e41]: "29"
+        - button "Wednesday, September 30, 2026" [ref=e42]: "30"
+        - button "Thursday, October 1, 2026" [ref=e43]: "1"
+        - button "Friday, October 2, 2026" [ref=e44]: "2"
+        - button "Saturday, October 3, 2026" [ref=e45]: "3"
+        - button "Sunday, October 4, 2026" [ref=e46]: "4"
+        - button "Monday, October 5, 2026" [ref=e47]: "5"
+        - button "Tuesday, October 6, 2026" [ref=e48]: "6"
+        - button "Wednesday, October 7, 2026" [ref=e49]: "7"
+        - button "Thursday, October 8, 2026" [ref=e50]: "8"
+        - button "Friday, October 9, 2026" [ref=e51]: "9"
+        - button "Saturday, October 10, 2026" [ref=e52]: "10"
+        - button "Sunday, October 11, 2026" [ref=e53]: "11"
+        - button "Monday, October 12, 2026" [ref=e54]: "12"
+        - button "Tuesday, October 13, 2026" [ref=e55]: "13"
+        - button "Wednesday, October 14, 2026" [ref=e56]: "14"
+        - button "Thursday, October 15, 2026" [ref=e57]: "15"
+        - button "Friday, October 16, 2026" [ref=e58]: "16"
+        - button "Saturday, October 17, 2026" [ref=e59]: "17"
+        - button "Sunday, October 18, 2026" [ref=e60]: "18"
+        - button "Monday, October 19, 2026" [ref=e61]: "19"
+        - button "Tuesday, October 20, 2026" [ref=e62]: "20"
+        - button "Wednesday, October 21, 2026" [ref=e63]: "21"
+        - button "Thursday, October 22, 2026" [ref=e64]: "22"
+        - button "Friday, October 23, 2026" [ref=e65]: "23"
+        - button "Saturday, October 24, 2026" [ref=e66]: "24"
+        - button "Sunday, October 25, 2026" [ref=e67]: "25"
+        - button "Monday, October 26, 2026" [ref=e68]: "26"
+        - button "Tuesday, October 27, 2026" [ref=e69]: "27"
+        - button "Wednesday, October 28, 2026" [ref=e70]: "28"
+        - button "Thursday, October 29, 2026" [ref=e71]: "29"
+        - button "Friday, October 30, 2026" [ref=e72]: "30"
+        - button "Saturday, October 31, 2026" [ref=e73]: "31"
+        - button "Sunday, November 1, 2026" [ref=e74]: "1"
+        - button "Monday, November 2, 2026" [ref=e75]: "2"
+        - button "Tuesday, November 3, 2026" [ref=e76]: "3"
+        - button "Wednesday, November 4, 2026" [ref=e77]: "4"
+        - button "Thursday, November 5, 2026" [ref=e78]: "5"
+        - button "Friday, November 6, 2026" [ref=e79]: "6"
+        - button "Saturday, November 7, 2026" [ref=e80]: "7"
+        - button "Sunday, November 8, 2026" [ref=e81]: "8"
+    - navigation [ref=e83]:
+      - link "Home" [ref=e84]:
+        - /url: /journ
+      - link "Revenue" [ref=e88]:
+        - /url: /journ/revenue
+      - link "Reports" [ref=e92]:
+        - /url: /journ/reports
+      - link "Categories" [ref=e96]:
+        - /url: /journ/categories
+  - region "Notifications alt+T"

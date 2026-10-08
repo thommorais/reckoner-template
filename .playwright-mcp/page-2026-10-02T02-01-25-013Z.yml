@@ -1,0 +1,90 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - main [ref=e4]:
+      - generic [aria-hidden] [ref=e5]:
+        - button [ref=e161]
+        - heading [level=1] [ref=e162]: Schedule
+      - generic [aria-hidden] [ref=e10]:
+        - heading [level=3] [ref=e163]: New schedule
+        - generic [ref=e12]:
+          - button [ref=e164]:
+            - generic [ref=e14]: Café sales
+          - button [ref=e165]:
+            - generic [ref=e21]: Oct 28, 2026
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - button "June 2027" [ref=e166]
+          - button [aria-hidden] [ref=e167]
+          - button [aria-hidden] [ref=e168]
+        - generic [aria-hidden] [ref=e32]:
+          - generic [ref=e33]: Mon
+          - generic [ref=e34]: Tue
+          - generic [ref=e35]: Wed
+          - generic [ref=e36]: Thu
+          - generic [ref=e37]: Fri
+          - generic [ref=e38]: Sat
+          - generic [ref=e39]: Sun
+          - button [ref=e169]: "31"
+          - button [ref=e170]: "1"
+          - button [ref=e171]: "2"
+          - button [ref=e172]: "3"
+          - button [ref=e173]: "4"
+          - button [ref=e174]: "5"
+          - button [ref=e175]: "6"
+          - button [ref=e176]: "7"
+          - button [ref=e177]: "8"
+          - button [ref=e178]: "9"
+          - button [ref=e179]: "10"
+          - button [ref=e180]: "11"
+          - button [ref=e181]: "12"
+          - button [ref=e182]: "13"
+          - button [ref=e183]: "14"
+          - button [ref=e184]: "15"
+          - button [ref=e185]: "16"
+          - button [ref=e186]: "17"
+          - button [ref=e187]: "18"
+          - button [ref=e188]: "19"
+          - button [ref=e189]: "20"
+          - button [ref=e190]: "21"
+          - button [ref=e191]: "22"
+          - button [ref=e192]: "23"
+          - button [ref=e193]: "24"
+          - button [ref=e194]: "25"
+          - button [ref=e195]: "26"
+          - button [ref=e196]: "27"
+          - button [ref=e197]: "28"
+          - button [ref=e198]: "29"
+          - button [ref=e199]: "30"
+          - button [ref=e200]: "1"
+          - button [ref=e201]: "2"
+          - button [ref=e202]: "3"
+          - button [ref=e203]: "4"
+          - button [ref=e204]: "5"
+          - button [ref=e205]: "6"
+          - button [ref=e206]: "7"
+          - button [ref=e207]: "8"
+          - button [ref=e208]: "9"
+          - button [ref=e209]: "10"
+          - button [ref=e210]: "11"
+      - navigation [ref=e83]:
+        - link [ref=e211]:
+          - /url: /journ
+        - link [ref=e212]:
+          - /url: /journ/revenue
+        - link [ref=e213]:
+          - /url: /journ/reports
+        - link [ref=e214]:
+          - /url: /journ/categories
+    - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e105] [cursor=pointer]
+  - alert [ref=e215]
+  - dialog [ref=e136]:
+    - generic [ref=e138]:
+      - generic [ref=e139]: Reports
+      - heading "Report" [level=2] [ref=e140]
+      - combobox "Reports" [expanded] [ref=e145]: cafe
+      - listbox "Suggestions" [active] [ref=e146]:
+        - generic [ref=e147]:
+          - generic [aria-hidden] [ref=e156]: Operations
+          - group "Operations" [ref=e157]:
+            - option "Café sales" [selected] [ref=e160]

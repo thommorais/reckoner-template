@@ -1,0 +1,66 @@
+- generic:
+  - generic:
+    - generic:
+      - main:
+        - generic [aria-hidden]:
+          - button
+          - heading [level=1]: Schedule
+        - generic [aria-hidden]:
+          - heading [level=3]: New schedule
+          - generic:
+            - button [expanded] [active]:
+              - generic: Menu engineering
+            - button:
+              - generic: Oct 18, 2026
+        - generic:
+          - generic:
+            - generic:
+              - button "2026"
+              - button [aria-hidden]
+              - button [aria-hidden]
+            - generic [aria-hidden]:
+              - button: Jan
+              - button: Feb
+              - button: Mar
+              - button: Apr
+              - button: May
+              - button: Jun
+              - button: Jul
+              - button: Aug
+              - button: Sep
+              - button: Oct
+              - button: Nov
+              - button: Dec
+        - generic [aria-hidden]:
+          - navigation:
+            - link:
+              - /url: /journ
+            - link:
+              - /url: /journ/revenue
+            - link:
+              - /url: /journ/reports
+            - link:
+              - /url: /journ/categories
+    - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=f4e106] [cursor=pointer]
+  - alert
+  - dialog [ref=f4e262]:
+    - heading "Report" [level=2] [ref=f4e264]
+    - generic [ref=f4e265]:
+      - generic [ref=f4e266]: Reports
+      - combobox "Reports" [expanded] [ref=f4e271]
+      - listbox "Suggestions" [ref=f4e272]:
+        - generic [ref=f4e273]:
+          - generic [aria-hidden] [ref=f4e274]: Finance
+          - group "Finance" [ref=f4e275]:
+            - option "Prime cost report" [selected] [ref=f4e276]
+            - option "P&L statement" [ref=f4e277]
+          - generic [aria-hidden] [ref=f4e278]: Menu
+          - group "Menu" [ref=f4e279]:
+            - option "Menu mix" [ref=f4e280]
+            - option "Menu engineering" [ref=f4e281]
+          - generic [aria-hidden] [ref=f4e285]: Operations
+          - group "Operations" [ref=f4e286]:
+            - option "Labor cost" [ref=f4e287]
+            - option "Inventory risk" [ref=f4e288]
+            - option "Café sales" [ref=f4e289]

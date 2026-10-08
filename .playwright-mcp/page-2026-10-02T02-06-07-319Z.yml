@@ -1,0 +1,104 @@
+- generic:
+  - generic:
+    - generic:
+      - main:
+        - generic [aria-hidden]:
+          - button
+          - heading [level=1]: Schedule
+        - generic [aria-hidden]:
+          - heading [level=3]: New schedule
+          - generic:
+            - button:
+              - generic: Pick a report
+            - button [expanded] [active]:
+              - generic: First run
+        - generic:
+          - generic:
+            - generic:
+              - button "2026"
+              - button [aria-hidden]
+              - button [aria-hidden]
+            - generic [aria-hidden]:
+              - button: Jan
+              - button: Feb
+              - button: Mar
+              - button: Apr
+              - button: May
+              - button: Jun
+              - button: Jul
+              - button: Aug
+              - button: Sep
+              - button: Oct
+              - button: Nov
+              - button: Dec
+        - generic [aria-hidden]:
+          - navigation:
+            - link:
+              - /url: /journ
+            - link:
+              - /url: /journ/revenue
+            - link:
+              - /url: /journ/reports
+            - link:
+              - /url: /journ/categories
+    - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=f4e106] [cursor=pointer]
+  - alert
+  - dialog [ref=f4e126]:
+    - heading "First run" [level=2] [ref=f4e128]
+    - generic [ref=f4e129]:
+      - generic [ref=f4e130]:
+        - button "October 2026" [ref=f4e131]
+        - button "Previous" [ref=f4e132]
+        - button "Next" [ref=f4e135]
+      - generic [aria-hidden] [ref=f4e138]:
+        - generic [ref=f4e139]: Mon
+        - generic [ref=f4e140]: Tue
+        - generic [ref=f4e141]: Wed
+        - generic [ref=f4e142]: Thu
+        - generic [ref=f4e143]: Fri
+        - generic [ref=f4e144]: Sat
+        - generic [ref=f4e145]: Sun
+      - generic [ref=f4e146]:
+        - button "Monday, September 28, 2026" [ref=f4e147]: "28"
+        - button "Tuesday, September 29, 2026" [ref=f4e148]: "29"
+        - button "Wednesday, September 30, 2026" [ref=f4e149]: "30"
+        - button "Thursday, October 1, 2026" [ref=f4e150]: "1"
+        - button "Friday, October 2, 2026" [ref=f4e151]: "2"
+        - button "Saturday, October 3, 2026" [ref=f4e152]: "3"
+        - button "Sunday, October 4, 2026" [ref=f4e153]: "4"
+        - button "Monday, October 5, 2026" [ref=f4e154]: "5"
+        - button "Tuesday, October 6, 2026" [ref=f4e155]: "6"
+        - button "Wednesday, October 7, 2026" [ref=f4e156]: "7"
+        - button "Thursday, October 8, 2026" [ref=f4e157]: "8"
+        - button "Friday, October 9, 2026" [ref=f4e158]: "9"
+        - button "Saturday, October 10, 2026" [ref=f4e159]: "10"
+        - button "Sunday, October 11, 2026" [ref=f4e160]: "11"
+        - button "Monday, October 12, 2026" [ref=f4e161]: "12"
+        - button "Tuesday, October 13, 2026" [ref=f4e162]: "13"
+        - button "Wednesday, October 14, 2026" [ref=f4e163]: "14"
+        - button "Thursday, October 15, 2026" [ref=f4e164]: "15"
+        - button "Friday, October 16, 2026" [ref=f4e165]: "16"
+        - button "Saturday, October 17, 2026" [ref=f4e166]: "17"
+        - button "Sunday, October 18, 2026" [ref=f4e167]: "18"
+        - button "Monday, October 19, 2026" [ref=f4e168]: "19"
+        - button "Tuesday, October 20, 2026" [ref=f4e169]: "20"
+        - button "Wednesday, October 21, 2026" [ref=f4e170]: "21"
+        - button "Thursday, October 22, 2026" [ref=f4e171]: "22"
+        - button "Friday, October 23, 2026" [ref=f4e172]: "23"
+        - button "Saturday, October 24, 2026" [ref=f4e173]: "24"
+        - button "Sunday, October 25, 2026" [ref=f4e174]: "25"
+        - button "Monday, October 26, 2026" [ref=f4e175]: "26"
+        - button "Tuesday, October 27, 2026" [ref=f4e176]: "27"
+        - button "Wednesday, October 28, 2026" [ref=f4e177]: "28"
+        - button "Thursday, October 29, 2026" [ref=f4e178]: "29"
+        - button "Friday, October 30, 2026" [ref=f4e179]: "30"
+        - button "Saturday, October 31, 2026" [ref=f4e180]: "31"
+        - button "Sunday, November 1, 2026" [ref=f4e181]: "1"
+        - button "Monday, November 2, 2026" [ref=f4e182]: "2"
+        - button "Tuesday, November 3, 2026" [ref=f4e183]: "3"
+        - button "Wednesday, November 4, 2026" [ref=f4e184]: "4"
+        - button "Thursday, November 5, 2026" [ref=f4e185]: "5"
+        - button "Friday, November 6, 2026" [ref=f4e186]: "6"
+        - button "Saturday, November 7, 2026" [ref=f4e187]: "7"
+        - button "Sunday, November 8, 2026" [ref=f4e188]: "8"

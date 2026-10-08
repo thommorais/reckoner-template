@@ -1,0 +1,79 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e2]:
+    - main [ref=f4e4]:
+      - generic [ref=f4e5]:
+        - button "Back" [ref=f4e6]
+        - heading "Schedule" [level=1] [ref=f4e9]
+      - generic [ref=f4e10]:
+        - heading "New schedule" [level=3] [ref=f4e11]
+        - generic [ref=f4e12]:
+          - button "Pick a report" [ref=f4e13]
+          - button "First run" [ref=f4e18]
+      - generic [ref=f4e23]:
+        - generic [ref=f4e24]:
+          - button "October 2026" [ref=f4e25]
+          - button "Previous" [ref=f4e26]
+          - button "Next" [ref=f4e29]
+        - generic [aria-hidden] [ref=f4e32]:
+          - generic [ref=f4e33]: Mon
+          - generic [ref=f4e34]: Tue
+          - generic [ref=f4e35]: Wed
+          - generic [ref=f4e36]: Thu
+          - generic [ref=f4e37]: Fri
+          - generic [ref=f4e38]: Sat
+          - generic [ref=f4e39]: Sun
+        - generic [ref=f4e40]:
+          - button "Monday, September 28, 2026" [ref=f4e41]: "28"
+          - button "Tuesday, September 29, 2026" [ref=f4e42]: "29"
+          - button "Wednesday, September 30, 2026" [ref=f4e43]: "30"
+          - button "Thursday, October 1, 2026" [ref=f4e44]: "1"
+          - button "Friday, October 2, 2026" [ref=f4e45]: "2"
+          - button "Saturday, October 3, 2026" [ref=f4e46]: "3"
+          - button "Sunday, October 4, 2026" [ref=f4e47]: "4"
+          - button "Monday, October 5, 2026" [ref=f4e48]: "5"
+          - button "Tuesday, October 6, 2026" [ref=f4e49]: "6"
+          - button "Wednesday, October 7, 2026" [ref=f4e50]: "7"
+          - button "Thursday, October 8, 2026" [ref=f4e51]: "8"
+          - button "Friday, October 9, 2026" [ref=f4e52]: "9"
+          - button "Saturday, October 10, 2026" [ref=f4e53]: "10"
+          - button "Sunday, October 11, 2026" [ref=f4e54]: "11"
+          - button "Monday, October 12, 2026" [ref=f4e55]: "12"
+          - button "Tuesday, October 13, 2026" [ref=f4e56]: "13"
+          - button "Wednesday, October 14, 2026" [ref=f4e57]: "14"
+          - button "Thursday, October 15, 2026" [ref=f4e58]: "15"
+          - button "Friday, October 16, 2026" [ref=f4e59]: "16"
+          - button "Saturday, October 17, 2026" [ref=f4e60]: "17"
+          - button "Sunday, October 18, 2026" [ref=f4e61]: "18"
+          - button "Monday, October 19, 2026" [ref=f4e62]: "19"
+          - button "Tuesday, October 20, 2026" [ref=f4e63]: "20"
+          - button "Wednesday, October 21, 2026" [ref=f4e64]: "21"
+          - button "Thursday, October 22, 2026" [ref=f4e65]: "22"
+          - button "Friday, October 23, 2026" [ref=f4e66]: "23"
+          - button "Saturday, October 24, 2026" [ref=f4e67]: "24"
+          - button "Sunday, October 25, 2026" [ref=f4e68]: "25"
+          - button "Monday, October 26, 2026" [ref=f4e69]: "26"
+          - button "Tuesday, October 27, 2026" [ref=f4e70]: "27"
+          - button "Wednesday, October 28, 2026" [ref=f4e71]: "28"
+          - button "Thursday, October 29, 2026" [ref=f4e72]: "29"
+          - button "Friday, October 30, 2026" [ref=f4e73]: "30"
+          - button "Saturday, October 31, 2026" [ref=f4e74]: "31"
+          - button "Sunday, November 1, 2026" [ref=f4e75]: "1"
+          - button "Monday, November 2, 2026" [ref=f4e76]: "2"
+          - button "Tuesday, November 3, 2026" [ref=f4e77]: "3"
+          - button "Wednesday, November 4, 2026" [ref=f4e78]: "4"
+          - button "Thursday, November 5, 2026" [ref=f4e79]: "5"
+          - button "Friday, November 6, 2026" [ref=f4e80]: "6"
+          - button "Saturday, November 7, 2026" [ref=f4e81]: "7"
+          - button "Sunday, November 8, 2026" [ref=f4e82]: "8"
+      - navigation [ref=f4e84]:
+        - link "Home" [ref=f4e85]:
+          - /url: /journ
+        - link "Revenue" [ref=f4e89]:
+          - /url: /journ/revenue
+        - link "Reports" [ref=f4e93]:
+          - /url: /journ/reports
+        - link "Categories" [ref=f4e97]:
+          - /url: /journ/categories
+    - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=f4e106] [cursor=pointer]
+  - alert [ref=f4e110]
