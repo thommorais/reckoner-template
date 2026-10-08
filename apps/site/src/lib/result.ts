@@ -6,8 +6,7 @@
  */
 import type { Safe } from '@thom/safe-return'
 
-export { err, ok } from '@thom/safe-return'
-
 type Result<T, E = Error> = Safe<T, E>
 
 export type { Result }
+export { err, ok } from '@thom/safe-return'

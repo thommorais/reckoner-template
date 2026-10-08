@@ -1,6 +1,13 @@
 {
 	"$schema": "./node_modules/oxlint/configuration_schema.json",
-	"ignorePatterns": ["**/pocketbase-types.ts", "**/*.gen.ts", "**/public/**", "**/.next/**", "**/dist/**"],
+	"ignorePatterns": [
+		"**/pocketbase-types.ts",
+		"**/*.gen.ts",
+		"**/.intlayer/**",
+		"**/public/**",
+		"**/.next/**",
+		"**/dist/**"
+	],
 	"plugins": ["react", "typescript", "unicorn", "import"],
 	"rules": {
 		"no-unused-vars": [
@@ -14,6 +21,7 @@
 		"no-param-reassign": "error",
 		"no-throw-literal": "error",
 		"import/no-default-export": "warn",
+		"import/exports-last": "error",
 		"typescript/prefer-enum-initializers": "error",
 		"typescript/consistent-type-exports": "error",
 		"typescript/prefer-for-of": "error",

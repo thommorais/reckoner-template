@@ -1,8 +1,3 @@
-export { ASSETS } from '_/constants/assets-paths'
-export { ENVS } from '_/constants/envs'
-export { MEDIA_QUERIES } from '_/constants/media-queries'
-export { VIEW } from '_/constants/view'
-
 const CONST = {
 	PRODUCTION: 'production',
 	SERVER: 'server',
@@ -15,3 +10,7 @@ const LOCAL_HREFS = {
 }
 
 export { CONST, LOCAL_HREFS }
+export { ASSETS } from '_/constants/assets-paths'
+export { ENVS } from '_/constants/envs'
+export { MEDIA_QUERIES } from '_/constants/media-queries'
+export { VIEW } from '_/constants/view'
