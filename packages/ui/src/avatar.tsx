@@ -13,14 +13,14 @@ type AvatarProps = {
 	className?: string
 }
 
-export function Avatar({
+const Avatar = ({
 	src = null,
 	square = false,
 	initials,
 	alt = '',
 	className,
 	...props
-}: AvatarProps & React.ComponentPropsWithoutRef<'span'>) {
+}: AvatarProps & React.ComponentPropsWithoutRef<'span'>) => {
 	return (
 		<span
 			data-slot='avatar'
@@ -51,38 +51,44 @@ export function Avatar({
 	)
 }
 
-export const AvatarButton = forwardRef(function AvatarButton(
-	{
-		src,
-		square = false,
-		initials,
-		alt,
-		className,
-		...props
-	}: AvatarProps &
-		(
-			| ({ href?: never } & Omit<Headless.ButtonProps, 'as' | 'className'>)
-			| ({ href: string } & Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>)
-		),
-	ref: React.ForwardedRef<HTMLButtonElement>,
-) {
-	const classes = cn(
-		className,
-		square ? 'rounded-[20%]' : 'rounded-full',
-		'data-focus:outline-primary-500 relative inline-grid focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2',
-	)
+const AvatarButton = forwardRef(
+	(
+		{
+			src,
+			square = false,
+			initials,
+			alt,
+			className,
+			...props
+		}: AvatarProps &
+			(
+				| ({ href?: never } & Omit<Headless.ButtonProps, 'as' | 'className'>)
+				| ({ href: string } & Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>)
+			),
+		ref: React.ForwardedRef<HTMLButtonElement>,
+	) => {
+		const classes = cn(
+			className,
+			square ? 'rounded-[20%]' : 'rounded-full',
+			'data-focus:outline-primary-500 relative inline-grid focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2',
+		)
 
-	return typeof props.href === 'string' ? (
-		<Link {...props} className={classes} ref={ref as React.ForwardedRef<HTMLAnchorElement>}>
-			<TouchTarget>
-				<Avatar src={src} square={square} initials={initials} alt={alt} />
-			</TouchTarget>
-		</Link>
-	) : (
-		<Headless.Button {...props} className={classes} ref={ref}>
-			<TouchTarget>
-				<Avatar src={src} square={square} initials={initials} alt={alt} />
-			</TouchTarget>
-		</Headless.Button>
-	)
-})
+		return typeof props.href === 'string' ? (
+			<Link {...props} className={classes} ref={ref as React.ForwardedRef<HTMLAnchorElement>}>
+				<TouchTarget>
+					<Avatar src={src} square={square} initials={initials} alt={alt} />
+				</TouchTarget>
+			</Link>
+		) : (
+			<Headless.Button {...props} className={classes} ref={ref}>
+				<TouchTarget>
+					<Avatar src={src} square={square} initials={initials} alt={alt} />
+				</TouchTarget>
+			</Headless.Button>
+		)
+	},
+)
+
+AvatarButton.displayName = 'AvatarButton'
+
+export { Avatar, AvatarButton }

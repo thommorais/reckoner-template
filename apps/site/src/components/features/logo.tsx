@@ -6,7 +6,7 @@ const logoClasses = tv({
 
 type LogoProps = React.ComponentProps<'svg'> & VariantProps<typeof logoClasses>
 
-export const Logo = ({ className, ...props }: LogoProps) => {
+const Logo = ({ className, ...props }: LogoProps) => {
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
@@ -21,3 +21,5 @@ export const Logo = ({ className, ...props }: LogoProps) => {
 		</svg>
 	)
 }
+
+export { Logo }

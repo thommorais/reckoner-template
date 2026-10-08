@@ -32,7 +32,7 @@ type ComboboxProps<T> = Omit<Headless.ComboboxProps<T, false>, 'as' | 'multiple'
 	anchor?: 'top' | 'bottom'
 } & (SingleComboboxProps<T> | MultiComboboxProps<T>)
 
-export const Combobox = <T,>({
+const Combobox = <T,>({
 	options,
 	displayValue,
 	filter,
@@ -155,14 +155,14 @@ export const Combobox = <T,>({
 	)
 }
 
-export function ComboboxOption<T>({
+const ComboboxOption = <T,>({
 	children,
 	className,
 	...props
 }: { className?: string; children?: React.ReactNode } & Omit<
 	Headless.ComboboxOptionProps<'div', T>,
 	'as' | 'className'
->) {
+>) => {
 	const sharedClasses = cn(
 		// Base
 		'flex min-w-0 items-center',
@@ -203,11 +203,11 @@ export function ComboboxOption<T>({
 	)
 }
 
-export function ComboboxLabel({ className, ...props }: React.ComponentPropsWithoutRef<'span'>) {
+const ComboboxLabel = ({ className, ...props }: React.ComponentPropsWithoutRef<'span'>) => {
 	return <span {...props} className={cn(className, 'ml-2.5 truncate first:ml-0 sm:ml-2 sm:first:ml-0')} />
 }
 
-export function ComboboxDescription({ className, children, ...props }: React.ComponentPropsWithoutRef<'span'>) {
+const ComboboxDescription = ({ className, children, ...props }: React.ComponentPropsWithoutRef<'span'>) => {
 	return (
 		<span
 			{...props}
@@ -220,3 +220,5 @@ export function ComboboxDescription({ className, children, ...props }: React.Com
 		</span>
 	)
 }
+
+export { ComboboxOption, ComboboxLabel, ComboboxDescription, Combobox }

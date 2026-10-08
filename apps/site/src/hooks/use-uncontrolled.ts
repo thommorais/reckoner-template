@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export type UseUncontrolledOptions<T> = {
+type UseUncontrolledOptions<T> = {
 	/** Value for controlled state */
 	value?: T
 
@@ -14,7 +14,7 @@ export type UseUncontrolledOptions<T> = {
 	onChange?: (value: T, ...payload: unknown[]) => void
 }
 
-export type UseUncontrolledReturnValue<T> = [
+type UseUncontrolledReturnValue<T> = [
 	/** Current value */
 	T,
 	/** Handler to update the state, passes `value` and `payload` to `onChange` */
@@ -23,7 +23,7 @@ export type UseUncontrolledReturnValue<T> = [
 	boolean,
 ]
 
-export const useUncontrolled = <T>({
+const useUncontrolled = <T>({
 	value,
 	defaultValue,
 	finalValue,
@@ -42,3 +42,6 @@ export const useUncontrolled = <T>({
 
 	return [uncontrolledValue as T, handleUncontrolledChange, false]
 }
+
+export { useUncontrolled }
+export type { UseUncontrolledOptions, UseUncontrolledReturnValue }

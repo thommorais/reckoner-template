@@ -2,7 +2,7 @@ import * as chrono from 'chrono-node'
 import { format, type Locale } from 'date-fns'
 import { enUS, ptBR } from 'date-fns/locale'
 
-export type DateLocale = 'en-US' | 'en' | 'pt-BR' | 'pt'
+type DateLocale = 'en-US' | 'en' | 'pt-BR' | 'pt'
 
 const DATE_FNS_LOCALE: Record<DateLocale, Locale> = {
 	'en-US': enUS,
@@ -54,3 +54,5 @@ const parseDate = <V extends string>(value: V, locale: DateLocale): ParsedDate |
 }
 
 export { parseDate, resolveDateFnsLocale, formatDate, formatCalendarDate, toCalendarDate, weekdayShortLabels }
+
+export type { DateLocale }

@@ -7,7 +7,7 @@ interface ReactComponentGeneratorSchema {
 
 const PROJECT_ROOT = 'packages/ui'
 
-export default async function reactComponentGenerator(tree: Tree, options: ReactComponentGeneratorSchema) {
+const reactComponentGenerator = async (tree: Tree, options: ReactComponentGeneratorSchema) => {
 	const { fileName, className } = names(options.name)
 
 	const templateDir = join(workspaceRoot, PROJECT_ROOT, 'generators/react-component/files')
@@ -23,3 +23,5 @@ export default async function reactComponentGenerator(tree: Tree, options: React
 
 	await formatFiles(tree)
 }
+
+export default reactComponentGenerator

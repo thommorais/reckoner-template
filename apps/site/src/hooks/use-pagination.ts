@@ -6,7 +6,7 @@ const range = (start: number, end: number) => {
 	return Array.from({ length }, (_, index) => index + start)
 }
 
-export const DOTS = '...' as const
+const DOTS = '...' as const
 
 type UsePaginationOptions = {
 	initialPage?: number
@@ -22,7 +22,7 @@ type UsePaginationReturnValue = {
 	active: number
 }
 
-export const usePagination = ({
+const usePagination = ({
 	total,
 	siblings = 1,
 	boundaries = 1,
@@ -72,3 +72,5 @@ export const usePagination = ({
 		active: activePage,
 	}
 }
+
+export { DOTS, usePagination }

@@ -1,6 +1,6 @@
 import { cn } from '@thom/libs/cn'
 
-export function DescriptionList({ className, ...props }: React.ComponentPropsWithoutRef<'dl'>) {
+const DescriptionList = ({ className, ...props }: React.ComponentPropsWithoutRef<'dl'>) => {
 	return (
 		<dl
 			{...props}
@@ -12,7 +12,7 @@ export function DescriptionList({ className, ...props }: React.ComponentPropsWit
 	)
 }
 
-export function DescriptionTerm({ className, ...props }: React.ComponentPropsWithoutRef<'dt'>) {
+const DescriptionTerm = ({ className, ...props }: React.ComponentPropsWithoutRef<'dt'>) => {
 	return (
 		<dt
 			{...props}
@@ -24,7 +24,7 @@ export function DescriptionTerm({ className, ...props }: React.ComponentPropsWit
 	)
 }
 
-export function DescriptionDetails({ className, ...props }: React.ComponentPropsWithoutRef<'dd'>) {
+const DescriptionDetails = ({ className, ...props }: React.ComponentPropsWithoutRef<'dd'>) => {
 	return (
 		<dd
 			{...props}
@@ -32,3 +32,5 @@ export function DescriptionDetails({ className, ...props }: React.ComponentProps
 		/>
 	)
 }
+
+export { DescriptionList, DescriptionTerm, DescriptionDetails }

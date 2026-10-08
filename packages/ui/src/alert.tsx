@@ -15,7 +15,7 @@ const sizes = {
 	'5xl': 'sm:max-w-5xl',
 }
 
-export function Alert({
+const Alert = ({
 	size = 'md',
 	className,
 	children,
@@ -23,7 +23,7 @@ export function Alert({
 }: { size?: keyof typeof sizes; className?: string; children: React.ReactNode } & Omit<
 	Headless.DialogProps,
 	'as' | 'className'
->) {
+>) => {
 	return (
 		<Headless.Dialog {...props}>
 			<Headless.DialogBackdrop
@@ -50,10 +50,10 @@ export function Alert({
 	)
 }
 
-export function AlertTitle({
+const AlertTitle = ({
 	className,
 	...props
-}: { className?: string } & Omit<Headless.DialogTitleProps, 'as' | 'className'>) {
+}: { className?: string } & Omit<Headless.DialogTitleProps, 'as' | 'className'>) => {
 	return (
 		<Headless.DialogTitle
 			{...props}
@@ -65,20 +65,20 @@ export function AlertTitle({
 	)
 }
 
-export function AlertDescription({
+const AlertDescription = ({
 	className,
 	...props
-}: { className?: string } & Omit<Headless.DescriptionProps<typeof Text>, 'as' | 'className'>) {
+}: { className?: string } & Omit<Headless.DescriptionProps<typeof Text>, 'as' | 'className'>) => {
 	return (
 		<Headless.Description as={Text} {...props} className={cn(className, 'mt-2 text-center text-pretty sm:text-left')} />
 	)
 }
 
-export function AlertBody({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+const AlertBody = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
 	return <div {...props} className={cn(className, 'mt-4')} />
 }
 
-export function AlertActions({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+const AlertActions = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
 	return (
 		<div
 			{...props}
@@ -89,3 +89,5 @@ export function AlertActions({ className, ...props }: React.ComponentPropsWithou
 		/>
 	)
 }
+
+export { Alert, AlertTitle, AlertDescription, AlertBody, AlertActions }

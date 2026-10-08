@@ -4,7 +4,7 @@ import { cn } from '@thom/libs/cn'
 import * as Headless from '@headlessui/react'
 import { Fragment } from 'react'
 
-export function Listbox<T>({
+const Listbox = <T,>({
 	className,
 	placeholder,
 	autoFocus,
@@ -17,7 +17,7 @@ export function Listbox<T>({
 	autoFocus?: boolean
 	'aria-label'?: string
 	children?: React.ReactNode
-} & Omit<Headless.ListboxProps<typeof Fragment, T>, 'as' | 'multiple'>) {
+} & Omit<Headless.ListboxProps<typeof Fragment, T>, 'as' | 'multiple'>) => {
 	return (
 		<Headless.Listbox {...props} multiple={false}>
 			<Headless.ListboxButton
@@ -100,14 +100,14 @@ export function Listbox<T>({
 	)
 }
 
-export function ListboxOption<T>({
+const ListboxOption = <T,>({
 	children,
 	className,
 	...props
 }: { className?: string; children?: React.ReactNode } & Omit<
 	Headless.ListboxOptionProps<'div', T>,
 	'as' | 'className'
->) {
+>) => {
 	const sharedClasses = cn(
 		// Base
 		'flex min-w-0 items-center',
@@ -157,11 +157,11 @@ export function ListboxOption<T>({
 	)
 }
 
-export function ListboxLabel({ className, ...props }: React.ComponentPropsWithoutRef<'span'>) {
+const ListboxLabel = ({ className, ...props }: React.ComponentPropsWithoutRef<'span'>) => {
 	return <span {...props} className={cn(className, 'ml-2.5 truncate first:ml-0 sm:ml-2 sm:first:ml-0')} />
 }
 
-export function ListboxDescription({ className, children, ...props }: React.ComponentPropsWithoutRef<'span'>) {
+const ListboxDescription = ({ className, children, ...props }: React.ComponentPropsWithoutRef<'span'>) => {
 	return (
 		<span
 			{...props}
@@ -175,3 +175,5 @@ export function ListboxDescription({ className, children, ...props }: React.Comp
 		</span>
 	)
 }
+
+export { Listbox, ListboxOption, ListboxLabel, ListboxDescription }

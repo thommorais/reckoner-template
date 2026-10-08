@@ -1,6 +1,6 @@
 import { LOCAL_HREFS } from '_/constants'
 
-async function sitemap() {
+const sitemap = async () => {
 	return [LOCAL_HREFS].map(route => ({
 		url: `${route}`,
 		lastModified: new Date().toISOString().split('T')[0],

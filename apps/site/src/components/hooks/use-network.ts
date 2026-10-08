@@ -24,7 +24,7 @@ interface NavigatorWithConnection extends Navigator {
 	webkitConnection?: NetworkConnection
 }
 
-function getConnection(): NetworkStatus {
+const getConnection = (): NetworkStatus => {
 	if (typeof navigator === 'undefined') {
 		return {}
 	}

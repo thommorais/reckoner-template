@@ -15,24 +15,27 @@ type TextareaProps = React.ComponentPropsWithoutRef<'textarea'> & {
 	resizable?: boolean
 }
 
-export const Textarea = forwardRef(function Textarea(
-	{ className, resizable = true, ...props }: TextareaProps,
-	ref: React.ForwardedRef<HTMLTextAreaElement>,
-) {
-	const dataProps = {
-		'data-disabled': props.disabled || undefined,
-		'data-invalid': props['aria-invalid'],
-	}
+const Textarea = forwardRef(
+	({ className, resizable = true, ...props }: TextareaProps, ref: React.ForwardedRef<HTMLTextAreaElement>) => {
+		const dataProps = {
+			'data-disabled': props.disabled || undefined,
+			'data-invalid': props['aria-invalid'],
+		}
 
-	return (
-		<span data-slot='control' className={inputControlClasses({ class: className })}>
-			<textarea
-				ref={ref}
-				{...props}
-				{...dataProps}
-				data-invalid={props['aria-invalid']}
-				className={textareaClasses({ class: resizable ? 'resize-y' : 'resize-none' })}
-			/>
-		</span>
-	)
-})
+		return (
+			<span data-slot='control' className={inputControlClasses({ class: className })}>
+				<textarea
+					ref={ref}
+					{...props}
+					{...dataProps}
+					data-invalid={props['aria-invalid']}
+					className={textareaClasses({ class: resizable ? 'resize-y' : 'resize-none' })}
+				/>
+			</span>
+		)
+	},
+)
+
+Textarea.displayName = 'Textarea'
+
+export { Textarea }

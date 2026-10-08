@@ -8,7 +8,7 @@ const cwd = process.cwd()
 const inputDir = path.join(cwd, './apps/site', 'node_modules', 'lucide-static', 'icons')
 const tempDir = path.join(cwd, 'svg-icons')
 
-export async function copyIcons() {
+const copyIcons = async () => {
 	fs.ensureDirSync(tempDir)
 
 	const svgIcons = glob.sync('**/*.svg', {
@@ -26,6 +26,8 @@ export async function copyIcons() {
 	}
 }
 
-export const removeTempDir = async () => {
+const removeTempDir = async () => {
 	await fs.remove(tempDir)
 }
+
+export { copyIcons, removeTempDir }

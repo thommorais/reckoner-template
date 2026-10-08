@@ -96,18 +96,18 @@ const switchThumbClasses = tv({
 	],
 })
 
-export function SwitchGroup({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+const SwitchGroup = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
 	return <div data-slot='control' {...props} className={switchGroupClasses({ class: className })} />
 }
 
-export function SwitchField({
+const SwitchField = ({
 	className,
 	...props
-}: { className?: string } & Omit<Headless.FieldProps, 'as' | 'className'>) {
+}: { className?: string } & Omit<Headless.FieldProps, 'as' | 'className'>) => {
 	return <Headless.Field data-slot='field' {...props} className={switchFieldClasses({ class: className })} />
 }
 
-export function Switch({
+const Switch = ({
 	color = 'primary',
 	className,
 	id,
@@ -116,7 +116,7 @@ export function Switch({
 	color?: Color
 	className?: string
 	id?: string
-} & Omit<Headless.SwitchProps, 'as' | 'className' | 'children'>) {
+} & Omit<Headless.SwitchProps, 'as' | 'className' | 'children'>) => {
 	return (
 		<Headless.Switch
 			data-slot='control'
@@ -130,3 +130,5 @@ export function Switch({
 		</Headless.Switch>
 	)
 }
+
+export { SwitchGroup, SwitchField, Switch }

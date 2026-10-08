@@ -8,11 +8,11 @@ import { useId } from 'react'
 import { TouchTarget } from './button'
 import { Link } from './link'
 
-export function Sidebar({ className, ...props }: React.ComponentPropsWithoutRef<'nav'>) {
+const Sidebar = ({ className, ...props }: React.ComponentPropsWithoutRef<'nav'>) => {
 	return <nav {...props} className={cn(className, 'flex h-full min-h-0 flex-col')} />
 }
 
-export function SidebarHeader({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+const SidebarHeader = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
 	return (
 		<div
 			{...props}
@@ -24,7 +24,7 @@ export function SidebarHeader({ className, ...props }: React.ComponentPropsWitho
 	)
 }
 
-export function SidebarBody({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+const SidebarBody = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
 	return (
 		<div
 			{...props}
@@ -36,7 +36,7 @@ export function SidebarBody({ className, ...props }: React.ComponentPropsWithout
 	)
 }
 
-export function SidebarFooter({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+const SidebarFooter = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
 	return (
 		<div
 			{...props}
@@ -48,7 +48,7 @@ export function SidebarFooter({ className, ...props }: React.ComponentPropsWitho
 	)
 }
 
-export function SidebarSection({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+const SidebarSection = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
 	const id = useId()
 
 	return (
@@ -58,15 +58,15 @@ export function SidebarSection({ className, ...props }: React.ComponentPropsWith
 	)
 }
 
-export function SidebarDivider({ className, ...props }: React.ComponentPropsWithoutRef<'hr'>) {
+const SidebarDivider = ({ className, ...props }: React.ComponentPropsWithoutRef<'hr'>) => {
 	return <hr {...props} className={cn(className, 'border-primary-200/50 my-4 border-t lg:-mx-4')} />
 }
 
-export function SidebarSpacer({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+const SidebarSpacer = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
 	return <div aria-hidden='true' {...props} className={cn(className, 'mt-8 flex-1')} />
 }
 
-export function SidebarHeading({ className, ...props }: React.ComponentPropsWithoutRef<'h3'>) {
+const SidebarHeading = ({ className, ...props }: React.ComponentPropsWithoutRef<'h3'>) => {
 	return (
 		<h3
 			{...props}
@@ -75,7 +75,7 @@ export function SidebarHeading({ className, ...props }: React.ComponentPropsWith
 	)
 }
 
-export const SidebarItem = ({
+const SidebarItem = ({
 	current,
 	className,
 	children,
@@ -142,6 +142,19 @@ export const SidebarItem = ({
 	)
 }
 
-export const SidebarLabel = ({ className, ...props }: React.ComponentPropsWithoutRef<'span'>) => {
+const SidebarLabel = ({ className, ...props }: React.ComponentPropsWithoutRef<'span'>) => {
 	return <span {...props} className={cn(className, 'truncate')} />
+}
+
+export {
+	Sidebar,
+	SidebarHeader,
+	SidebarBody,
+	SidebarFooter,
+	SidebarSection,
+	SidebarDivider,
+	SidebarSpacer,
+	SidebarHeading,
+	SidebarItem,
+	SidebarLabel,
 }

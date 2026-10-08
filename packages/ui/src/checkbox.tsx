@@ -9,7 +9,7 @@ const checkboxGroupClasses = tv({
 	],
 })
 
-export function CheckboxGroup({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+const CheckboxGroup = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
 	return <div data-slot='control' {...props} className={checkboxGroupClasses({ class: [className] })} />
 }
 
@@ -27,10 +27,10 @@ const checkboxFieldClasses = tv({
 	],
 })
 
-export function CheckboxField({
+const CheckboxField = ({
 	className,
 	...props
-}: { className?: string } & Omit<Headless.FieldProps, 'as' | 'className'>) {
+}: { className?: string } & Omit<Headless.FieldProps, 'as' | 'className'>) => {
 	return <Headless.Field data-slot='field' {...props} className={checkboxFieldClasses({ class: [className] })} />
 }
 
@@ -80,7 +80,7 @@ type CheckboxProps = Omit<Headless.CheckboxProps, 'as'> &
 		id?: string
 	}
 
-export function Checkbox({ color = 'primary', id, ...props }: CheckboxProps) {
+const Checkbox = ({ color = 'primary', id, ...props }: CheckboxProps) => {
 	return (
 		<Headless.Checkbox
 			data-slot='control'
@@ -116,3 +116,5 @@ export function Checkbox({ color = 'primary', id, ...props }: CheckboxProps) {
 		</Headless.Checkbox>
 	)
 }
+
+export { CheckboxGroup, CheckboxField, Checkbox }

@@ -7,11 +7,7 @@ const paginationStyles = tv({
 	base: 'place-items-["auto center"] grid grid-cols-2 sm:grid-cols-3',
 })
 
-export const Pagination = ({
-	'aria-label': ariaLabel = 'Page navigation',
-	className,
-	...props
-}: ComponentProps<'nav'>) => {
+const Pagination = ({ 'aria-label': ariaLabel = 'Page navigation', className, ...props }: ComponentProps<'nav'>) => {
 	return (
 		<nav
 			aria-label={ariaLabel}
@@ -23,7 +19,7 @@ export const Pagination = ({
 	)
 }
 
-export const PaginationPrevious = ({ className, children = 'Previous', ...props }: ComponentProps<typeof Button>) => {
+const PaginationPrevious = ({ className, children = 'Previous', ...props }: ComponentProps<typeof Button>) => {
 	return (
 		<span className={cn(className, 'grow basis-0')}>
 			<Button variant='outline' color='secondary' aria-label='Previous page' {...props}>
@@ -42,7 +38,7 @@ export const PaginationPrevious = ({ className, children = 'Previous', ...props 
 	)
 }
 
-export const PaginationNext = ({ className, children = 'Next', ...props }: ComponentProps<typeof Button>) => {
+const PaginationNext = ({ className, children = 'Next', ...props }: ComponentProps<typeof Button>) => {
 	return (
 		<span className={cn(className, 'flex grow basis-0 justify-end')}>
 			<Button variant='outline' color='secondary' aria-label='Next page' {...props}>
@@ -61,7 +57,7 @@ export const PaginationNext = ({ className, children = 'Next', ...props }: Compo
 	)
 }
 
-export const PaginationList = ({ className, ...props }: ComponentProps<'span'>) => {
+const PaginationList = ({ className, ...props }: ComponentProps<'span'>) => {
 	return (
 		<span
 			{...props}
@@ -73,7 +69,7 @@ export const PaginationList = ({ className, ...props }: ComponentProps<'span'>) 
 	)
 }
 
-export const PaginationPage = ({
+const PaginationPage = ({
 	current = false,
 	children,
 	...props
@@ -93,7 +89,7 @@ export const PaginationPage = ({
 	)
 }
 
-export const PaginationGap = ({ className, children = <>&hellip;</>, ...props }: ComponentProps<'span'>) => {
+const PaginationGap = ({ className, children = <>&hellip;</>, ...props }: ComponentProps<'span'>) => {
 	return (
 		<span
 			aria-hidden='true'
@@ -104,3 +100,5 @@ export const PaginationGap = ({ className, children = <>&hellip;</>, ...props }:
 		</span>
 	)
 }
+
+export { Pagination, PaginationPrevious, PaginationNext, PaginationList, PaginationPage, PaginationGap }

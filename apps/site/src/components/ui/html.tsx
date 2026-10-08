@@ -14,7 +14,7 @@ const jost = Jost({
 	variable: '--font-default',
 })
 
-export const htmlClasses = tv({
+const htmlClasses = tv({
 	base: [
 		// cascadiaMono.variable,
 		jost.variable,
@@ -35,4 +35,4 @@ const HTML = ({ children, locale, className }: HTMLProps): React.ReactNode => {
 	)
 }
 
-export { HTML }
+export { HTML, htmlClasses }

@@ -1,6 +1,6 @@
 import { ENVS } from '_/constants'
 
-function robots() {
+const robots = () => {
 	return {
 		rules: [
 			{

@@ -52,4 +52,6 @@ const createLogger = (): Logger => {
 	}
 }
 
-export const logger = createLogger()
+const logger = createLogger()
+
+export { logger }

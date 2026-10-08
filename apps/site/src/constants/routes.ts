@@ -3,7 +3,7 @@
  * Centralized route definitions to avoid hardcoding paths throughout the application
  */
 
-export const ROUTES = {
+const ROUTES = {
 	// Root
 	home: '/',
 	dashboard: '/dashboard',
@@ -15,3 +15,5 @@ export const ROUTES = {
 		recovery: '/recovery',
 	},
 } as const
+
+export { ROUTES }

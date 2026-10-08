@@ -1,7 +1,7 @@
 import { err, ok, type Safe, type SafeError } from '@thom/safe-return'
 
 /** Standard API error shape. */
-export interface ErrorResponse {
+interface ErrorResponse {
 	code?: number
 	message: string
 	stack?: string
@@ -52,7 +52,7 @@ const isErrorResponse = (value: object): value is ErrorResponse =>
  * Never mutates the value it is given; the returned error is always a fresh
  * object.
  */
-export function errorToResponse(error: unknown): SafeError<ErrorResponse> {
+const errorToResponse = (error: unknown): SafeError<ErrorResponse> => {
 	if (error instanceof Error) {
 		const code = readStatusCode(error) ?? DEFAULT_STATUS
 
@@ -99,7 +99,7 @@ export function errorToResponse(error: unknown): SafeError<ErrorResponse> {
  * }
  * logger.info('User:', result.data)
  */
-export async function tryCatch<T>(promise: Promise<T>): Promise<Safe<T, ErrorResponse>> {
+const tryCatch = async <T>(promise: Promise<T>): Promise<Safe<T, ErrorResponse>> => {
 	try {
 		return ok(await promise)
 	} catch (error) {
@@ -108,10 +108,13 @@ export async function tryCatch<T>(promise: Promise<T>): Promise<Safe<T, ErrorRes
 }
 
 /** Runs a synchronous function, capturing throws as structured errors. */
-export function tryCatchSync<T>(fn: () => T): Safe<T, ErrorResponse> {
+const tryCatchSync = <T>(fn: () => T): Safe<T, ErrorResponse> => {
 	try {
 		return ok(fn())
 	} catch (error) {
 		return errorToResponse(error)
 	}
 }
+
+export { errorToResponse, tryCatch, tryCatchSync }
+export type { ErrorResponse }

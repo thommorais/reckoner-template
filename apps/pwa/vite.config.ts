@@ -8,8 +8,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 const THEME_COLOR = '#DE1A1A'
 
-// oxlint-disable-next-line import/no-default-export -- vite config
-export default defineConfig({
+const config = defineConfig({
 	server: {
 		host: true,
 	},
@@ -110,3 +109,6 @@ export default defineConfig({
 		},
 	},
 })
+
+// oxlint-disable-next-line import/no-default-export -- vite config
+export default config

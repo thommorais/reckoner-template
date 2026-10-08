@@ -48,8 +48,6 @@ const TooltipContent = forwardRef<
 ))
 TooltipContent.displayName = TooltipPrimitive.Content.displayName
 
-export { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent }
-
 type TooltipProps = {
 	readonly children: React.ReactNode
 	readonly content: React.ReactNode
@@ -57,7 +55,7 @@ type TooltipProps = {
 	readonly delayDuration?: number
 }
 
-export const Tooltip = ({ children, content, side = 'top', delayDuration = 200 }: TooltipProps) => {
+const Tooltip = ({ children, content, side = 'top', delayDuration = 200 }: TooltipProps) => {
 	return (
 		<TooltipRoot delayDuration={delayDuration}>
 			<TooltipTrigger asChild>{children}</TooltipTrigger>
@@ -65,3 +63,5 @@ export const Tooltip = ({ children, content, side = 'top', delayDuration = 200 }
 		</TooltipRoot>
 	)
 }
+
+export { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent, Tooltip }

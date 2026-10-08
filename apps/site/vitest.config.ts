@@ -2,8 +2,7 @@ import path from 'node:path'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vitest/config'
 
-// oxlint-disable-next-line import/no-default-export -- config
-export default defineConfig({
+const config = defineConfig({
 	plugins: [react()],
 	test: {
 		environment: 'happy-dom',
@@ -16,3 +15,6 @@ export default defineConfig({
 		},
 	},
 })
+
+// oxlint-disable-next-line import/no-default-export -- config
+export default config

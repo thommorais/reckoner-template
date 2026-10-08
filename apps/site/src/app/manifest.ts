@@ -3,7 +3,7 @@ import { meta } from './meta'
 
 const theme_color = '#DE1A1A'
 
-function manifest(): MetadataRoute.Manifest {
+const manifest = (): MetadataRoute.Manifest => {
 	return {
 		name: meta.name,
 		short_name: meta.name,

@@ -1,7 +1,7 @@
 import { cn } from '@thom/libs/cn'
 import { Link } from './link'
 
-export function Text({ className, ...props }: React.ComponentPropsWithoutRef<'p'>) {
+const Text = ({ className, ...props }: React.ComponentPropsWithoutRef<'p'>) => {
 	return (
 		<p
 			data-slot='text'
@@ -12,7 +12,7 @@ export function Text({ className, ...props }: React.ComponentPropsWithoutRef<'p'
 	)
 }
 
-export function TextLink({ className, ...props }: React.ComponentPropsWithoutRef<typeof Link>) {
+const TextLink = ({ className, ...props }: React.ComponentPropsWithoutRef<typeof Link>) => {
 	return (
 		<Link
 			{...props}
@@ -22,11 +22,11 @@ export function TextLink({ className, ...props }: React.ComponentPropsWithoutRef
 	)
 }
 
-export function Strong({ className, ...props }: React.ComponentPropsWithoutRef<'strong'>) {
+const Strong = ({ className, ...props }: React.ComponentPropsWithoutRef<'strong'>) => {
 	return <strong {...props} className={cn(className, 'font-medium text-black')} data-id='thom-ui' />
 }
 
-export function Code({ className, ...props }: React.ComponentPropsWithoutRef<'code'>) {
+const Code = ({ className, ...props }: React.ComponentPropsWithoutRef<'code'>) => {
 	return (
 		<code
 			{...props}
@@ -38,3 +38,5 @@ export function Code({ className, ...props }: React.ComponentPropsWithoutRef<'co
 		/>
 	)
 }
+
+export { Text, TextLink, Strong, Code }

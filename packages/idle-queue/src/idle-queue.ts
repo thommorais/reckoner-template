@@ -4,18 +4,18 @@ import { queueMicrotask } from './queue-microtask'
 const DEFAULT_MIN_TASK_TIME = 0
 
 /** The state captured when a task was queued, passed to it when it runs. */
-export interface TaskState {
+interface TaskState {
 	time: number
 	visibilityState: DocumentVisibilityState
 }
 
-export type Task = (state: TaskState) => void
+type Task = (state: TaskState) => void
 
-export interface TaskOptions {
+interface TaskOptions {
 	minTaskTime?: number
 }
 
-export interface IdleQueueOptions extends TaskOptions {
+interface IdleQueueOptions extends TaskOptions {
 	/**
 	 * Flush pending tasks when the page is hidden or unloaded, so queued work
 	 * is not lost when the user leaves.
@@ -51,7 +51,7 @@ const createTaskState = (): TaskState => ({
  * Tasks run in FIFO order, yielding back to the browser when the idle deadline
  * runs short, and resuming on the next idle period.
  */
-export const createIdleQueue = (options: IdleQueueOptions = {}) => {
+const createIdleQueue = (options: IdleQueueOptions = {}) => {
 	const { ensureTasksRun = false, minTaskTime: defaultMinTaskTime = DEFAULT_MIN_TASK_TIME, onError } = options
 
 	let taskQueue: QueuedTask[] = []
@@ -201,4 +201,7 @@ export const createIdleQueue = (options: IdleQueueOptions = {}) => {
 	}
 }
 
-export type IdleQueue = ReturnType<typeof createIdleQueue>
+type IdleQueue = ReturnType<typeof createIdleQueue>
+
+export { createIdleQueue }
+export type { TaskState, Task, TaskOptions, IdleQueueOptions, IdleQueue }

@@ -6,7 +6,7 @@ import { useDisabled, useProvidedId, useProvidedLabel } from './fieldset.context
 const dateTypes = ['date', 'datetime-local', 'month', 'time', 'week']
 type DateType = (typeof dateTypes)[number]
 
-export const inputControlClasses = tv({
+const inputControlClasses = tv({
 	base: [
 		'relative block w-full',
 		'border-info-700/20 data-hover:border-info-700/30 rounded-sm border',
@@ -50,7 +50,7 @@ type InputProps = ComponentProps<'input'> & {
 	type: 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url' | DateType
 }
 
-export const Input = ({ className, ...props }: InputProps) => {
+const Input = ({ className, ...props }: InputProps) => {
 	const providedDisabled = useDisabled()
 	const internalId = useId()
 	const providedId = useProvidedId()
@@ -81,3 +81,5 @@ export const Input = ({ className, ...props }: InputProps) => {
 		</span>
 	)
 }
+
+export { inputControlClasses, Input }

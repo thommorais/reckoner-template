@@ -3,7 +3,7 @@ import { LOCAL_HREFS } from '_/constants'
 import { defaultLocale } from '_/i18n/dictionaries/locales'
 import Link from 'next/link'
 
-function NotFound() {
+const NotFound = () => {
 	return (
 		<HTML locale={defaultLocale}>
 			<body>

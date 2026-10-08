@@ -3,13 +3,15 @@ export { ENVS } from '_/constants/envs'
 export { MEDIA_QUERIES } from '_/constants/media-queries'
 export { VIEW } from '_/constants/view'
 
-export const CONST = {
+const CONST = {
 	PRODUCTION: 'production',
 	SERVER: 'server',
 	CLIENT: 'client',
 	UNKNOWN: 'unknown',
 } as const
 
-export const LOCAL_HREFS = {
+const LOCAL_HREFS = {
 	HOME: '/',
 }
+
+export { CONST, LOCAL_HREFS }

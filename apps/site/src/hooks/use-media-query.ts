@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-export const MEDIA_QUERIES = {
+const MEDIA_QUERIES = {
 	tablet: '(min-width: 768px)',
 	desktop: '(min-width: 1024px)',
 	mobile: '(max-width: 767px)',
@@ -9,7 +9,7 @@ export const MEDIA_QUERIES = {
 
 type MediaQuery = Readonly<(typeof MEDIA_QUERIES)[keyof typeof MEDIA_QUERIES]>
 
-export const useMediaQuery = (query: MediaQuery) => {
+const useMediaQuery = (query: MediaQuery) => {
 	const [matches, setMatches] = useState<boolean>()
 
 	useEffect(() => {
@@ -22,3 +22,5 @@ export const useMediaQuery = (query: MediaQuery) => {
 
 	return matches
 }
+
+export { MEDIA_QUERIES, useMediaQuery }

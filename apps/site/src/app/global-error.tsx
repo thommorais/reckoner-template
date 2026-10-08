@@ -2,7 +2,7 @@
 
 import { Container } from '_/components/ui/container'
 
-function GlobalError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
+const GlobalError = ({ reset }: { error: Error & { digest?: string }; reset: () => void }) => {
 	return (
 		// global-error must include html and body tags
 		<html lang='en'>

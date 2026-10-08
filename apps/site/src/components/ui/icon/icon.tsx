@@ -6,7 +6,7 @@ const iconClasses = tv({
 	base: '',
 })
 
-function Icon({
+const Icon = ({
 	name,
 	size = 16,
 	className,
@@ -14,7 +14,7 @@ function Icon({
 }: SVGProps<SVGSVGElement> & {
 	name: IconName
 	size?: number | string
-}) {
+}) => {
 	return (
 		<svg
 			height={size}
@@ -29,6 +29,5 @@ function Icon({
 	)
 }
 
-export type { IconName }
-
 export { Icon }
+export type { IconName }

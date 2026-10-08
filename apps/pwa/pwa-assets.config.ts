@@ -1,8 +1,7 @@
 import { defineConfig } from '@vite-pwa/assets-generator/config'
 
 // Run `pnpm generate-pwa-assets` after changing the source SVG.
-// oxlint-disable-next-line import/no-default-export -- assets generator config
-export default defineConfig({
+const config = defineConfig({
 	headLinkOptions: { preset: '2023' },
 	preset: {
 		transparent: {
@@ -20,3 +19,6 @@ export default defineConfig({
 	},
 	images: ['public/icons/icon.svg'],
 })
+
+// oxlint-disable-next-line import/no-default-export -- assets generator config
+export default config

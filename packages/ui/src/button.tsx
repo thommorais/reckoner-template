@@ -285,7 +285,7 @@ type ButtonProps = Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'
 		LinkComponent?: React.ComponentType<any>
 	}
 
-export const Button = ({
+const Button = ({
 	color,
 	variant,
 	size,
@@ -337,7 +337,7 @@ type TouchTargetProps = {
 	children: React.ReactNode
 }
 
-export const TouchTarget = ({ children }: TouchTargetProps) => {
+const TouchTarget = ({ children }: TouchTargetProps) => {
 	return (
 		<>
 			<span
@@ -370,3 +370,5 @@ const LoadingSpinner = () => {
 		</svg>
 	)
 }
+
+export { Button, TouchTarget }

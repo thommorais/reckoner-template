@@ -6,22 +6,22 @@ import type React from 'react'
 import { Button } from './button'
 import { Link } from './link'
 
-export function Dropdown(props: Headless.MenuProps) {
+const Dropdown = (props: Headless.MenuProps) => {
 	return <Headless.Menu {...props} />
 }
 
-export function DropdownButton<T extends React.ElementType = typeof Button>({
+const DropdownButton = <T extends React.ElementType = typeof Button>({
 	as = Button,
 	...props
-}: { className?: string } & Omit<Headless.MenuButtonProps<T>, 'className'>) {
+}: { className?: string } & Omit<Headless.MenuButtonProps<T>, 'className'>) => {
 	return <Headless.MenuButton as={as} {...props} />
 }
 
-export function DropdownMenu({
+const DropdownMenu = ({
 	anchor = 'bottom',
 	className,
 	...props
-}: { className?: string } & Omit<Headless.MenuItemsProps, 'as' | 'className'>) {
+}: { className?: string } & Omit<Headless.MenuItemsProps, 'as' | 'className'>) => {
 	return (
 		<Headless.MenuItems
 			{...props}
@@ -50,13 +50,13 @@ export function DropdownMenu({
 	)
 }
 
-export function DropdownItem({
+const DropdownItem = ({
 	className,
 	...props
 }: { className?: string } & (
 	| ({ href?: never } & Omit<Headless.MenuItemProps<'button'>, 'as' | 'className'>)
 	| ({ href: string } & Omit<Headless.MenuItemProps<typeof Link>, 'as' | 'className'>)
-)) {
+)) => {
 	const classes = cn(
 		className,
 		// Base styles
@@ -85,14 +85,14 @@ export function DropdownItem({
 	)
 }
 
-export function DropdownHeader({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+const DropdownHeader = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
 	return <div {...props} className={cn(className, 'col-span-5 px-3.5 pt-2.5 pb-1 sm:px-3')} />
 }
 
-export function DropdownSection({
+const DropdownSection = ({
 	className,
 	...props
-}: { className?: string } & Omit<Headless.MenuSectionProps, 'as' | 'className'>) {
+}: { className?: string } & Omit<Headless.MenuSectionProps, 'as' | 'className'>) => {
 	return (
 		<Headless.MenuSection
 			{...props}
@@ -105,10 +105,10 @@ export function DropdownSection({
 	)
 }
 
-export function DropdownHeading({
+const DropdownHeading = ({
 	className,
 	...props
-}: { className?: string } & Omit<Headless.MenuHeadingProps, 'as' | 'className'>) {
+}: { className?: string } & Omit<Headless.MenuHeadingProps, 'as' | 'className'>) => {
 	return (
 		<Headless.MenuHeading
 			{...props}
@@ -120,10 +120,10 @@ export function DropdownHeading({
 	)
 }
 
-export function DropdownDivider({
+const DropdownDivider = ({
 	className,
 	...props
-}: { className?: string } & Omit<Headless.MenuSeparatorProps, 'as' | 'className'>) {
+}: { className?: string } & Omit<Headless.MenuSeparatorProps, 'as' | 'className'>) => {
 	return (
 		<Headless.MenuSeparator
 			{...props}
@@ -135,14 +135,14 @@ export function DropdownDivider({
 	)
 }
 
-export function DropdownLabel({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+const DropdownLabel = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
 	return <div {...props} data-slot='label' className={cn(className, 'col-start-2 row-start-1')} {...props} />
 }
 
-export function DropdownDescription({
+const DropdownDescription = ({
 	className,
 	...props
-}: { className?: string } & Omit<Headless.DescriptionProps, 'as' | 'className'>) {
+}: { className?: string } & Omit<Headless.DescriptionProps, 'as' | 'className'>) => {
 	return (
 		<Headless.Description
 			data-slot='description'
@@ -155,11 +155,11 @@ export function DropdownDescription({
 	)
 }
 
-export function DropdownShortcut({
+const DropdownShortcut = ({
 	keys,
 	className,
 	...props
-}: { keys: string | string[]; className?: string } & Omit<Headless.DescriptionProps<'kbd'>, 'as' | 'className'>) {
+}: { keys: string | string[]; className?: string } & Omit<Headless.DescriptionProps<'kbd'>, 'as' | 'className'>) => {
 	return (
 		<Headless.Description
 			as='kbd'
@@ -180,4 +180,18 @@ export function DropdownShortcut({
 			))}
 		</Headless.Description>
 	)
+}
+
+export {
+	Dropdown,
+	DropdownButton,
+	DropdownMenu,
+	DropdownItem,
+	DropdownHeader,
+	DropdownSection,
+	DropdownHeading,
+	DropdownDivider,
+	DropdownLabel,
+	DropdownDescription,
+	DropdownShortcut,
 }

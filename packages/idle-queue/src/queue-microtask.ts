@@ -1,4 +1,4 @@
-export type Microtask = () => void
+type Microtask = () => void
 
 type Scheduler = (microtask: Microtask) => void
 
@@ -79,7 +79,10 @@ let scheduler: Scheduler | null = null
  * Schedules a callback on the microtask queue, rethrowing failures instead of
  * turning them into unhandled rejections.
  */
-export const queueMicrotask = (microtask: Microtask): void => {
+const queueMicrotask = (microtask: Microtask): void => {
 	scheduler ??= selectScheduler()
 	scheduler(microtask)
 }
+
+export { queueMicrotask }
+export type { Microtask }

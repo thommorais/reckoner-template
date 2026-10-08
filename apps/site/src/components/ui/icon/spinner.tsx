@@ -1,7 +1,7 @@
 import type React from 'react'
 import { forwardRef } from 'react'
 
-export const Spinner = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(function Spinner(props) {
+const Spinner = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(props => {
 	return (
 		<svg className={props.className} data-name='Layer 1' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
 			<path
@@ -16,3 +16,7 @@ export const Spinner = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(
 		</svg>
 	)
 })
+
+Spinner.displayName = 'Spinner'
+
+export { Spinner }

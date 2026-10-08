@@ -169,7 +169,7 @@ type CardTitleProps = React.ComponentPropsWithRef<'h3'> & VariantProps<typeof ca
 type CardDescriptionProps = React.ComponentPropsWithRef<'p'> & VariantProps<typeof cardDescriptionClasses>
 
 // Components
-export const Card = ({ variant, padding, interactive, bordered, className, asChild, ...props }: CardProps) => {
+const Card = ({ variant, padding, interactive, bordered, className, asChild, ...props }: CardProps) => {
 	const Comp = asChild ? Slot : 'div'
 
 	return (
@@ -181,20 +181,20 @@ export const Card = ({ variant, padding, interactive, bordered, className, asChi
 	)
 }
 
-export const CardHeader = ({ spacing, className, asChild, ...props }: CardHeaderProps) => {
+const CardHeader = ({ spacing, className, asChild, ...props }: CardHeaderProps) => {
 	const Comp = asChild ? Slot : 'div'
 
 	return <Comp data-id='card-header' {...props} className={cardHeaderClasses({ spacing, class: className })} />
 }
 
-export const CardContent = ({ spacing, className, asChild, ...props }: CardContentProps) => {
+const CardContent = ({ spacing, className, asChild, ...props }: CardContentProps) => {
 	const Comp = asChild ? Slot : 'div'
 	return <Comp {...props} data-id='card-content' className={cardContentClasses({ spacing, class: className })} />
 }
 
 type CardFooterProps = React.ComponentPropsWithRef<'footer'> & VariantProps<typeof cardFooterClasses>
 
-export const CardFooter = ({ spacing, justify, ...props }: CardFooterProps) => {
+const CardFooter = ({ spacing, justify, ...props }: CardFooterProps) => {
 	return (
 		<footer
 			{...props}
@@ -204,10 +204,12 @@ export const CardFooter = ({ spacing, justify, ...props }: CardFooterProps) => {
 	)
 }
 
-export const CardTitle = ({ size, className, ...props }: CardTitleProps) => {
+const CardTitle = ({ size, className, ...props }: CardTitleProps) => {
 	return <h3 {...props} className={cardTitleClasses({ size, class: className })} />
 }
 
-export const CardDescription = ({ size, className, ...props }: CardDescriptionProps) => {
+const CardDescription = ({ size, className, ...props }: CardDescriptionProps) => {
 	return <p {...props} className={cardDescriptionClasses({ size, class: className })} />
 }
+
+export { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription }

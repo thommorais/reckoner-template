@@ -6,5 +6,6 @@ const i18nServer = createI18nServer<DictionaryLoaders, ExplicitDictionaries>(dic
 
 const getI18n = i18nServer.getI18n as unknown as LooseI18n
 
-export const { getCurrentLocale, getStaticParams } = i18nServer
-export { getI18n }
+const { getCurrentLocale, getStaticParams } = i18nServer
+
+export { getCurrentLocale, getI18n, getStaticParams }

@@ -4,7 +4,7 @@ import { createContext } from 'react'
 
 const IdleQueueContext = createContext<ReturnType<typeof useIdleQueue> | null>(null)
 
-export const IdleQueueProvider = ({ children }: { children: React.ReactNode }) => {
+const IdleQueueProvider = ({ children }: { children: React.ReactNode }) => {
 	const queue = useIdleQueue({
 		ensureTasksRun: true,
 		onError: _error => {},
@@ -12,3 +12,5 @@ export const IdleQueueProvider = ({ children }: { children: React.ReactNode }) =
 
 	return <IdleQueueContext.Provider value={queue}>{children}</IdleQueueContext.Provider>
 }
+
+export { IdleQueueProvider }

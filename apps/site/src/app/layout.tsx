@@ -4,11 +4,11 @@ import '_/styles/tailwind.css'
 import type { Metadata } from 'next'
 import { meta } from './meta'
 
-export function generateStaticParams() {
+const generateStaticParams = () => {
 	return getStaticParams()
 }
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
 	title: meta.name,
 	description: meta.description,
 	manifest: '/manifest.json',
@@ -44,6 +44,8 @@ type RootLayoutProps = {
 }
 
 const RootLayout = async ({ children }: RootLayoutProps): Promise<React.ReactNode> => children
+
+export { generateStaticParams, metadata }
 
 // oxlint-disable-next-line import/no-default-export -- layout
 export default RootLayout

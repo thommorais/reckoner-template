@@ -1,4 +1,6 @@
-export const en = 'en' as const
-export const pt = 'pt' as const
-export const locales = [en, pt] as const
-export const defaultLocale = pt
+const en = 'en' as const
+const pt = 'pt' as const
+const locales = [en, pt] as const
+const defaultLocale = pt
+
+export { en, pt, locales, defaultLocale }

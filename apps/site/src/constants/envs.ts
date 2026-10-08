@@ -1,7 +1,7 @@
 import { isServerSide } from '_/lib/is-server-side'
 import { z } from '_/lib/third-party/zod'
 
-export const EMPTY = 'EMPTY' as const
+const EMPTY = 'EMPTY' as const
 
 const flags = {
 	IS_PROD: process.env.NODE_ENV === 'production',
@@ -95,4 +95,5 @@ const processEnv: PROCESS_ENV = {
 }
 
 const ENVS = createEnvs(parseEnvs(processEnv, clientSchema, serverSchema))
-export { ENVS }
+
+export { EMPTY, ENVS }

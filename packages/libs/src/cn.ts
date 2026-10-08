@@ -3,7 +3,7 @@ import { tv } from './tv'
 const cnClasses = tv({ base: [] })
 
 /** Anything accepted as a class name: strings, nested arrays, and falsy holes. */
-export type ClassValue = string | null | undefined | false | ClassValue[]
+type ClassValue = string | null | undefined | false | ClassValue[]
 
 /**
  * Joins class names, resolving Tailwind conflicts: later classes win over
@@ -15,4 +15,7 @@ export type ClassValue = string | null | undefined | false | ClassValue[]
  * component's own utility instead of both landing and letting source order
  * decide.
  */
-export const cn = (...args: ClassValue[]): string => cnClasses({ class: [args] }) ?? ''
+const cn = (...args: ClassValue[]): string => cnClasses({ class: [args] }) ?? ''
+
+export { cn }
+export type { ClassValue }

@@ -82,7 +82,7 @@ const collectFiles = (tree: Tree, dir: string): string[] => {
 	return found
 }
 
-export default async function renameScopeGenerator(tree: Tree, options: RenameScopeGeneratorSchema) {
+const renameScopeGenerator = async (tree: Tree, options: RenameScopeGeneratorSchema) => {
 	const from = options.from ?? DEFAULT_FROM
 	const to = options.name
 
@@ -154,3 +154,5 @@ const renameCogRepository = (tree: Tree, from: string, to: string) => {
 
 	if (updated !== raw) tree.write(path, updated)
 }
+
+export default renameScopeGenerator

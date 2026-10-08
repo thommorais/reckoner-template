@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-export interface UseMediaQueryOptions {
+interface UseMediaQueryOptions {
 	getInitialValueInEffect: boolean
 }
 
@@ -9,12 +9,12 @@ type MediaQueryCallback = (event: { matches: boolean; media: string }) => void
 /**
  * Attach media query listener using modern addEventListener API
  * */
-function attachMediaListener(query: MediaQueryList, callback: MediaQueryCallback) {
+const attachMediaListener = (query: MediaQueryList, callback: MediaQueryCallback) => {
 	query.addEventListener('change', callback)
 	return () => query.removeEventListener('change', callback)
 }
 
-function getInitialValue(query: string, initialValue?: boolean) {
+const getInitialValue = (query: string, initialValue?: boolean) => {
 	if (typeof initialValue === 'boolean') {
 		return initialValue
 	}
@@ -26,13 +26,13 @@ function getInitialValue(query: string, initialValue?: boolean) {
 	return false
 }
 
-export function useMediaQuery(
+const useMediaQuery = (
 	query: string,
 	initialValue?: boolean,
 	{ getInitialValueInEffect }: UseMediaQueryOptions = {
 		getInitialValueInEffect: true,
 	},
-) {
+) => {
 	const [matches, setMatches] = useState(getInitialValueInEffect ? initialValue : getInitialValue(query, initialValue))
 	const queryRef = useRef<MediaQueryList>(null)
 
@@ -48,3 +48,6 @@ export function useMediaQuery(
 
 	return matches
 }
+
+export { useMediaQuery }
+export type { UseMediaQueryOptions }

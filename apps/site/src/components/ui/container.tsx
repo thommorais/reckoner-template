@@ -15,4 +15,5 @@ const Container = ({ asChild, className, ...props }: ContainerProps & VariantPro
 	return <Comp {...props} className={containerClasses({ class: className })} />
 }
 
-export { Container, type ContainerProps }
+export { Container }
+export type { ContainerProps }

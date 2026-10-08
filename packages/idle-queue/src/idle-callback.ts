@@ -1,12 +1,12 @@
 /** Mirrors the DOM `IdleDeadline`, so the shim and the native object agree. */
-export interface IdleDeadline {
+interface IdleDeadline {
 	didTimeout: boolean
 	timeRemaining: () => number
 }
 
-export type IdleRequestCallback = (deadline: IdleDeadline) => void
+type IdleRequestCallback = (deadline: IdleDeadline) => void
 
-export interface IdleRequestOptions {
+interface IdleRequestOptions {
 	timeout?: number
 }
 
@@ -35,16 +35,19 @@ const cancelIdleCallbackShim = (handle: number): void => {
  * missing. Support is checked per call so the module stays importable under
  * SSR, where no global exists at load time.
  */
-export const rIC = (callback: IdleRequestCallback, options?: IdleRequestOptions): number =>
+const rIC = (callback: IdleRequestCallback, options?: IdleRequestOptions): number =>
 	supportsRequestIdleCallback()
 		? globalThis.requestIdleCallback(callback as globalThis.IdleRequestCallback, options)
 		: requestIdleCallbackShim(callback)
 
 /** Cancels a callback scheduled by {@link rIC}. */
-export const cIC = (handle: number): void => {
+const cIC = (handle: number): void => {
 	if (supportsRequestIdleCallback()) {
 		globalThis.cancelIdleCallback(handle)
 	} else {
 		cancelIdleCallbackShim(handle)
 	}
 }
+
+export { rIC, cIC }
+export type { IdleDeadline, IdleRequestCallback, IdleRequestOptions }

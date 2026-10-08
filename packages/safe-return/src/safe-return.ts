@@ -1,11 +1,11 @@
 /** A successful result, carrying data. */
-export interface SafeData<T> {
+interface SafeData<T> {
 	success: true
 	data: T
 }
 
 /** A failed result, carrying an error. */
-export interface SafeError<E = string> {
+interface SafeError<E = string> {
 	success: false
 	error: E
 }
@@ -16,17 +16,17 @@ export interface SafeError<E = string> {
  * @typeParam T the type of the successful value
  * @typeParam E the type of the error; a plain message by default
  */
-export type Safe<T, E = string> = SafeData<T> | SafeError<E>
+type Safe<T, E = string> = SafeData<T> | SafeError<E>
 
 const UNIDENTIFIED_ERROR = "error can't be identified"
 
 /** Creates a successful result. */
-export function ok<T>(data: T): SafeData<T> {
+const ok = <T>(data: T): SafeData<T> => {
 	return { data, success: true }
 }
 
 /** Creates a failed result. */
-export function err<E = string>(error: E): SafeError<E> {
+const err = <E = string>(error: E): SafeError<E> => {
 	return { error, success: false }
 }
 
@@ -36,7 +36,7 @@ export function err<E = string>(error: E): SafeError<E> {
  * @param e the thrown value
  * @param message an optional message that overrides whatever `e` describes
  */
-export function errorToSafe(e: unknown, message?: string): SafeError<string> {
+const errorToSafe = (e: unknown, message?: string): SafeError<string> => {
 	if (message !== undefined) {
 		return err(message)
 	}
@@ -58,7 +58,7 @@ export function errorToSafe(e: unknown, message?: string): SafeError<string> {
  * @param func the function to run
  * @param message an optional message to report instead of the thrown one
  */
-export function safeSync<T>(func: () => T, message?: string): Safe<T> {
+const safeSync = <T>(func: () => T, message?: string): Safe<T> => {
 	try {
 		return ok(func())
 	} catch (e) {
@@ -72,7 +72,7 @@ export function safeSync<T>(func: () => T, message?: string): Safe<T> {
  * @param promise the promise to await
  * @param message an optional message to report instead of the rejected one
  */
-export async function safeAsync<T>(promise: Promise<T>, message?: string): Promise<Safe<T>> {
+const safeAsync = async <T>(promise: Promise<T>, message?: string): Promise<Safe<T>> => {
 	try {
 		return ok(await promise)
 	} catch (e) {
@@ -91,13 +91,10 @@ export async function safeAsync<T>(promise: Promise<T>, message?: string): Promi
  * if (!result.success) return
  * use(result.data)
  */
-export function safe<T>(promise: Promise<T>, message?: string): Promise<Safe<T>>
-export function safe<T>(func: () => Promise<T>, message?: string): Promise<Safe<T>>
-export function safe<T>(func: () => T, message?: string): Safe<T>
-export function safe<T>(
-	promiseOrFunc: Promise<T> | (() => T | Promise<T>),
-	message?: string,
-): Promise<Safe<T>> | Safe<T> {
+function safe<T>(promise: Promise<T>, message?: string): Promise<Safe<T>>
+function safe<T>(func: () => Promise<T>, message?: string): Promise<Safe<T>>
+function safe<T>(func: () => T, message?: string): Safe<T>
+function safe<T>(promiseOrFunc: Promise<T> | (() => T | Promise<T>), message?: string): Promise<Safe<T>> | Safe<T> {
 	if (promiseOrFunc instanceof Promise) {
 		return safeAsync(promiseOrFunc, message)
 	}
@@ -115,16 +112,19 @@ export function safe<T>(
 }
 
 /** Transforms the data of a successful result, passing failures through. */
-export function map<T, U, E>(result: Safe<T, E>, fn: (value: T) => U): Safe<U, E> {
+const map = <T, U, E>(result: Safe<T, E>, fn: (value: T) => U): Safe<U, E> => {
 	return result.success ? ok(fn(result.data)) : result
 }
 
 /** Chains a result-returning function, passing failures through. */
-export function flatMap<T, U, E>(result: Safe<T, E>, fn: (value: T) => Safe<U, E>): Safe<U, E> {
+const flatMap = <T, U, E>(result: Safe<T, E>, fn: (value: T) => Safe<U, E>): Safe<U, E> => {
 	return result.success ? fn(result.data) : result
 }
 
 /** Returns the data of a success, or `fallback` for a failure. */
-export function unwrapOr<T, E>(result: Safe<T, E>, fallback: T): T {
+const unwrapOr = <T, E>(result: Safe<T, E>, fallback: T): T => {
 	return result.success ? result.data : fallback
 }
+
+export { ok, err, errorToSafe, safeSync, safeAsync, safe, map, flatMap, unwrapOr }
+export type { SafeData, SafeError, Safe }

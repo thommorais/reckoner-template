@@ -39,7 +39,7 @@ const templatesDir = (): string => {
 	return joinPathFragments(workspaceRoot, 'packages/workspace-tools/generators/package/files')
 }
 
-export default async function packageGenerator(tree: Tree, options: PackageGeneratorSchema) {
+const packageGenerator = async (tree: Tree, options: PackageGeneratorSchema) => {
 	const { fileName, propertyName } = names(options.name)
 	const unitTestRunner = options.unitTestRunner ?? 'vitest'
 	const root = joinPathFragments(PACKAGES_DIR, fileName)
@@ -103,3 +103,5 @@ const readVersion = (tree: Tree, dependency: keyof typeof FALLBACK_VERSIONS): st
 	const { devDependencies = {} } = readJson(tree, REFERENCE_PACKAGE)
 	return devDependencies[dependency] ?? FALLBACK_VERSIONS[dependency]
 }
+
+export default packageGenerator

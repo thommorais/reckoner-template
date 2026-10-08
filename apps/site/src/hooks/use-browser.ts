@@ -1,39 +1,39 @@
 import { useIsomorphicEffect } from '_/hooks/use-isomorphic-effect'
 import { useState } from 'react'
 
-export type Browser = 'undetermined' | 'chrome' | 'firefox' | 'safari' | 'edge' | 'opera' | 'ie' | 'other'
+type Browser = 'undetermined' | 'chrome' | 'firefox' | 'safari' | 'edge' | 'opera' | 'ie' | 'other'
 
-function isChrome(userAgent: string): boolean {
+const isChrome = (userAgent: string): boolean => {
 	const chromePattern = /(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9]+)/i
 	return chromePattern.test(userAgent)
 }
 
-function isFirefox(userAgent: string): boolean {
+const isFirefox = (userAgent: string): boolean => {
 	const firefoxPattern = /Firefox\/([0-9]+)/i
 	return firefoxPattern.test(userAgent)
 }
 
-function isSafari(userAgent: string): boolean {
+const isSafari = (userAgent: string): boolean => {
 	const safariPattern = /^((?!chrome|android).)*safari/i
 	return safariPattern.test(userAgent)
 }
 
-function isEdge(userAgent: string): boolean {
+const isEdge = (userAgent: string): boolean => {
 	const edgePattern = /Edge\/([0-9]+)/i
 	return edgePattern.test(userAgent)
 }
 
-function isOpera(userAgent: string): boolean {
+const isOpera = (userAgent: string): boolean => {
 	const operaPattern = /(OPR|Opera)\/([0-9]+)/i
 	return operaPattern.test(userAgent)
 }
 
-function isIE(userAgent: string): boolean {
+const isIE = (userAgent: string): boolean => {
 	const iePattern = /MSIE|Trident/i
 	return iePattern.test(userAgent)
 }
 
-function getBrowser(): Browser {
+const getBrowser = (): Browser => {
 	if (typeof window === 'undefined') {
 		return 'undetermined'
 	}
@@ -73,7 +73,7 @@ interface UseBrowserOptions {
 	getValueInEffect: boolean
 }
 
-export function useBrowser(options: UseBrowserOptions = { getValueInEffect: true }): Browser {
+const useBrowser = (options: UseBrowserOptions = { getValueInEffect: true }): Browser => {
 	const [value, setValue] = useState<Browser>(options.getValueInEffect ? 'undetermined' : getBrowser())
 
 	useIsomorphicEffect(() => {
@@ -85,7 +85,7 @@ export function useBrowser(options: UseBrowserOptions = { getValueInEffect: true
 	return value
 }
 
-export function getBrowserVersion(): string | null {
+const getBrowserVersion = (): string | null => {
 	if (typeof window === 'undefined') {
 		return null
 	}
@@ -101,3 +101,7 @@ export function getBrowserVersion(): string | null {
 
 	return match[2] || null
 }
+
+export { useBrowser, getBrowserVersion }
+
+export type { Browser }
