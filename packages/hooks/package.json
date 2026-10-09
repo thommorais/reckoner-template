@@ -1,0 +1,43 @@
+{
+	"name": "@thom/hooks",
+	"version": "0.1.0",
+	"private": true,
+	"sideEffects": false,
+	"exports": {
+		"./package.json": "./package.json",
+		"./use-browser": "./src/use-browser.ts",
+		"./use-debounce-state": "./src/use-debounce-state.ts",
+		"./use-haptic": "./src/use-haptic.ts",
+		"./use-idle-queue": "./src/use-idle-queue.ts",
+		"./use-intersection-observer": "./src/use-intersection-observer.ts",
+		"./use-isomorphic-effect": "./src/use-isomorphic-effect.ts",
+		"./use-keybindings": "./src/use-keybindings.ts",
+		"./use-local-storage": "./src/use-local-storage.ts",
+		"./use-long-press": "./src/use-long-press.ts",
+		"./use-measure": "./src/use-measure.ts",
+		"./use-media-query": "./src/use-media-query.ts",
+		"./use-network": "./src/use-network.ts",
+		"./use-pagination": "./src/use-pagination.ts",
+		"./use-uncontrolled": "./src/use-uncontrolled.ts",
+		"./use-window-event": "./src/use-window-event.ts"
+	},
+	"scripts": {
+		"check-types": "tsc --noEmit",
+		"clean": "rm -rf node_modules && rm -rf dist",
+		"lint": "oxlint ./src",
+		"format": "oxfmt ./src"
+	},
+	"dependencies": {
+		"@thom/libs": "workspace:*",
+		"@thom/idle-queue": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:"
+	},
+	"devDependencies": {
+		"@thom/typescript-config": "workspace:*",
+		"@types/node": "catalog:",
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"typescript": "catalog:"
+	}
+}

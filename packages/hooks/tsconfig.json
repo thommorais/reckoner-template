@@ -1,0 +1,9 @@
+{
+	"extends": "@thom/typescript-config/react-library.json",
+	"compilerOptions": {
+		"moduleResolution": "bundler",
+		"target": "ESNext"
+	},
+	"include": ["**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules", "dist"]
+}
