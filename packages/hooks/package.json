@@ -32,6 +32,7 @@
 		"./use-reduced-motion": "./src/use-reduced-motion.ts",
 		"./use-scroll-direction": "./src/use-scroll-direction.ts",
 		"./use-uncontrolled": "./src/use-uncontrolled.ts",
+		"./use-validated-state": "./src/use-validated-state.ts",
 		"./use-window-event": "./src/use-window-event.ts",
 		"./use-window-scroll": "./src/use-window-scroll.ts"
 	},

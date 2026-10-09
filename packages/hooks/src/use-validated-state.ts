@@ -13,31 +13,32 @@ const useValidatedState = <T>(
 	validate: (value: T) => boolean,
 	initialValidationState?: boolean,
 ): UseValidatedStateReturnValue<T> => {
-	const [value, setValue] = useState<T>(initialValue)
-	const [lastValidValue, setLastValidValue] = useState<T | undefined>(validate(initialValue) ? initialValue : undefined)
-	const [valid, setValid] = useState<boolean>(
-		typeof initialValidationState === 'boolean' ? initialValidationState : validate(initialValue),
-	)
+	const [state, setState] = useState<UseValidatedStateValue<T>>(() => {
+		const valid = validate(initialValue)
+
+		return {
+			value: initialValue,
+			lastValidValue: valid ? initialValue : undefined,
+			valid: initialValidationState ?? valid,
+		}
+	})
 
 	const onChange = useCallback(
-		(val: T) => {
-			if (validate(val)) {
-				setLastValidValue(val)
-				setValid(true)
-			} else {
-				setValid(false)
-			}
+		(value: T) => {
+			const valid = validate(value)
 
-			setValue(val)
+			setState(previous => ({
+				value,
+				lastValidValue: valid ? value : previous.lastValidValue,
+				valid,
+			}))
 		},
 		[validate],
 	)
 
-	return [{ value, lastValidValue, valid }, onChange] as const
-}
-
-export namespace useValidatedState {
-	export type ReturnValue<T> = UseValidatedStateReturnValue<T>
+	return [state, onChange]
 }
 
 export { useValidatedState }
+
+export type { UseValidatedStateReturnValue, UseValidatedStateValue }
