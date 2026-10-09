@@ -24,6 +24,9 @@ const useDebouncedState = <T = unknown>(
 			cancel()
 			if (leadingRef.current && leading) {
 				setValue(newValue)
+				timeoutRef.current = window.setTimeout(() => {
+					leadingRef.current = true
+				}, wait)
 			} else {
 				timeoutRef.current = window.setTimeout(() => {
 					leadingRef.current = true
