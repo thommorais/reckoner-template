@@ -1,5 +1,5 @@
 'use client'
-import { useIdleQueue } from '_/components/hooks/use-idle-queue'
+import { useIdleQueue } from '@thom/hooks/use-idle-queue'
 import { createContext } from 'react'
 
 const IdleQueueContext = createContext<ReturnType<typeof useIdleQueue> | null>(null)

@@ -18,6 +18,7 @@
 		"@headlessui/react": "catalog:",
 		"@radix-ui/react-slot": "catalog:",
 		"@tailwindcss/cli": "catalog:",
+		"@thom/hooks": "workspace:*",
 		"@thom/idle-queue": "workspace:*",
 		"@thom/safe-return": "workspace:*",
 		"@types/web-push": "^3.6.4",
