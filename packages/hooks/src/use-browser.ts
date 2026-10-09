@@ -3,23 +3,29 @@ import { useSyncExternalStore } from 'react'
 
 type Browser = 'undetermined' | 'chrome' | 'firefox' | 'safari' | 'edge' | 'opera' | 'ie' | 'other'
 
-const matchers: readonly (readonly [Exclude<Browser, 'undetermined' | 'other'>, RegExp])[] = [
-	['edge', /Edge\/([0-9]+)/i],
-	['chrome', /(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9]+)/i],
-	['firefox', /Firefox\/([0-9]+)/i],
-	['safari', /^((?!chrome|android).)*safari/i],
-	['opera', /(OPR|Opera)\/([0-9]+)/i],
-	['ie', /MSIE|Trident/i],
+type Matcher = {
+	browser: Exclude<Browser, 'undetermined' | 'other'>
+	detect: RegExp
+	version: RegExp
+}
+
+const matchers: readonly Matcher[] = [
+	{ browser: 'edge', detect: /Edge\/([0-9]+)/i, version: /Edge\/([0-9]+)/i },
+	{ browser: 'chrome', detect: /(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9]+)/i, version: /Chrom(?:e|ium)\/([0-9]+)/i },
+	{ browser: 'firefox', detect: /Firefox\/([0-9]+)/i, version: /Firefox\/([0-9]+)/i },
+	{ browser: 'safari', detect: /^((?!chrome|android).)*safari/i, version: /Version\/([0-9]+)/i },
+	{ browser: 'opera', detect: /(OPR|Opera)\/([0-9]+)/i, version: /(?:OPR|Opera)\/([0-9]+)/i },
+	{ browser: 'ie', detect: /MSIE|Trident/i, version: /(?:MSIE |rv:)([0-9]+)/i },
 ]
+
+const detectBrowser = (userAgent: string) => matchers.find(({ detect }) => detect.test(userAgent))
 
 const getBrowser = (): Browser => {
 	if (isServerSide()) {
 		return 'undetermined'
 	}
 
-	const { userAgent } = window.navigator
-
-	return matchers.find(([, pattern]) => pattern.test(userAgent))?.[0] ?? 'other'
+	return detectBrowser(window.navigator.userAgent)?.browser ?? 'other'
 }
 
 const getBrowserVersion = (): string | null => {
@@ -27,9 +33,10 @@ const getBrowserVersion = (): string | null => {
 		return null
 	}
 
-	const match = window.navigator.userAgent.match(/(chrome|firefox|safari|opera|edge|msie|trident(?=\/))\/?\s*(\d+)/i)
+	const { userAgent } = window.navigator
+	const matcher = detectBrowser(userAgent)
 
-	return match?.[2] || null
+	return matcher ? (userAgent.match(matcher.version)?.[1] ?? null) : null
 }
 
 const subscribe = () => () => {}
