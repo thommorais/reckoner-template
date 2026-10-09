@@ -37,6 +37,7 @@ const progressFrom = ({ isScrollingUp, scrollY, progress }: Anchor, scrollPositi
 const advanceAnchor = (
 	anchor: Anchor,
 	scrollPosition: number,
+	previousPosition: number,
 	fixedAt: number,
 	isScrollingUp: boolean,
 	scrollDistance: number,
@@ -51,8 +52,8 @@ const advanceAnchor = (
 		return {
 			fixed,
 			isScrollingUp,
-			scrollY: scrollPosition,
-			progress: progressFrom(anchor, scrollPosition, scrollDistance),
+			scrollY: previousPosition,
+			progress: progressFrom(anchor, previousPosition, scrollDistance),
 		}
 	}
 
@@ -77,7 +78,12 @@ const useHeadroom = ({
 		progress: fixed ? 1 : 0,
 	})
 
-	const currentAnchor = advanceAnchor(anchor, scrollPosition, fixedAt, isScrollingUp, scrollDistance)
+	const [previousPosition, setPreviousPosition] = useState(scrollPosition)
+	if (previousPosition !== scrollPosition) {
+		setPreviousPosition(scrollPosition)
+	}
+
+	const currentAnchor = advanceAnchor(anchor, scrollPosition, previousPosition, fixedAt, isScrollingUp, scrollDistance)
 	if (currentAnchor !== anchor) {
 		setAnchor(currentAnchor)
 	}

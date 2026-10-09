@@ -126,7 +126,7 @@ describe('useHeadroom', () => {
 		scrollTo(140)
 
 		expect(result.current.pinned).toBe(true)
-		expect(result.current.scrollProgress).toBe(0.5)
+		expect(result.current.scrollProgress).toBe(0.6)
 	})
 
 	it('reveals in proportion to the distance scrolled back up', () => {
@@ -135,10 +135,10 @@ describe('useHeadroom', () => {
 		scrollTo(500)
 		scrollTo(490)
 		scrollTo(465)
-		expect(result.current.scrollProgress).toBe(0.25)
+		expect(result.current.scrollProgress).toBe(0.35)
 
 		scrollTo(440)
-		expect(result.current.scrollProgress).toBe(0.5)
+		expect(result.current.scrollProgress).toBe(0.6)
 	})
 
 	it('reveals in proportion to the first upward jump after scrolling down', () => {
