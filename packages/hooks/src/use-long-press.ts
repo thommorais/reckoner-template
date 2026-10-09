@@ -31,13 +31,14 @@ const useLongPress = (onLongPress: () => void, disabled = false): LongPressHandl
 			if (disabled) {
 				return
 			}
+			cancel()
 			origin.current = { x: event.clientX, y: event.clientY }
 			timer.current = setTimeout(() => {
 				timer.current = null
 				onLongPress()
 			}, HOLD_MS)
 		},
-		[disabled, onLongPress],
+		[disabled, onLongPress, cancel],
 	)
 
 	const onPointerMove = useCallback(
