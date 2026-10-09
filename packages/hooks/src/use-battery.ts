@@ -58,10 +58,11 @@ const useBattery = (): BatteryState => {
 			return
 		}
 
+		const getBattery = nav.getBattery.bind(nav)
 		let cancelled = false
 		let detach = () => {}
 
-		void tryCatch(nav.getBattery()).then(result => {
+		void tryCatch(new Promise<BatteryManager>(resolve => resolve(getBattery()))).then(result => {
 			if (cancelled) {
 				return
 			}
