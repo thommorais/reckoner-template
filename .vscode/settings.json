@@ -12,7 +12,7 @@
 		"source.organizeImports.oxc": "always",
 		"source.addMissingImports.oxc": "explicit",
 		"source.fixAll.oxc": "explicit",
-		"source.organizeImports": "never"
+		"source.organizeImports": "always"
 	},
 	"editor.bracketPairColorization.enabled": true,
 	"editor.guides.bracketPairs": "active",
@@ -77,8 +77,7 @@
 	// ========================================
 	"cSpell.words": [
 		"animejs",
-		"oxfmt",
-		"oxlint",
+		"Chrom",
 		"Cocogitto",
 		"Dexie",
 		"gsap",
@@ -88,6 +87,8 @@
 		"Leitner",
 		"Nuqs",
 		"opsi",
+		"oxfmt",
+		"oxlint",
 		"pocketbase",
 		"português",
 		"primary",
@@ -96,6 +97,7 @@
 		"tailwindcss",
 		"turbopack",
 		"verno",
+		"wimax",
 		"yeap"
 	],
 	// ========================================
