@@ -9,22 +9,20 @@ type UseDebouncedStateReturnValue<T> = [T, (newValue: SetStateAction<T>) => void
 const useDebouncedState = <T = unknown>(
 	defaultValue: T,
 	wait: number,
-	options: UseDebouncedStateOptions = { leading: false },
+	{ leading = false }: UseDebouncedStateOptions = {},
 ): UseDebouncedStateReturnValue<T> => {
 	const [value, setValue] = useState(defaultValue)
-	const timeoutRef = useRef<number | null>(null)
+	const timeoutRef = useRef<number | undefined>(undefined)
 	const leadingRef = useRef(true)
 
-	const clearTimeout = useCallback(() => {
-		window.clearTimeout(timeoutRef.current || 0)
-	}, [])
+	const cancel = useCallback(() => window.clearTimeout(timeoutRef.current), [])
 
-	useEffect(() => clearTimeout, [clearTimeout])
+	useEffect(() => cancel, [cancel])
 
 	const debouncedSetValue = useCallback(
 		(newValue: SetStateAction<T>) => {
-			clearTimeout()
-			if (leadingRef.current && options.leading) {
+			cancel()
+			if (leadingRef.current && leading) {
 				setValue(newValue)
 			} else {
 				timeoutRef.current = window.setTimeout(() => {
@@ -34,10 +32,10 @@ const useDebouncedState = <T = unknown>(
 			}
 			leadingRef.current = false
 		},
-		[options.leading, clearTimeout, wait],
+		[leading, cancel, wait],
 	)
 
-	return [value, debouncedSetValue] as const
+	return [value, debouncedSetValue]
 }
 
 export { useDebouncedState }

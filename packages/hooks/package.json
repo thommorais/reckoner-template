@@ -25,19 +25,27 @@
 		"check-types": "tsc --noEmit",
 		"clean": "rm -rf node_modules && rm -rf dist",
 		"lint": "oxlint ./src",
-		"format": "oxfmt ./src"
+		"format": "oxfmt ./src",
+		"test": "vitest",
+		"test:run": "vitest run",
+		"test:watch": "vitest --watch"
 	},
 	"dependencies": {
 		"@thom/libs": "workspace:*",
 		"@thom/idle-queue": "workspace:*",
+		"@thom/try-catch": "workspace:*",
 		"react": "catalog:",
 		"react-dom": "catalog:"
 	},
 	"devDependencies": {
+		"@testing-library/dom": "catalog:",
+		"@testing-library/react": "catalog:",
 		"@thom/typescript-config": "workspace:*",
 		"@types/node": "catalog:",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
-		"typescript": "catalog:"
+		"happy-dom": "catalog:",
+		"typescript": "catalog:",
+		"vitest": "catalog:"
 	}
 }

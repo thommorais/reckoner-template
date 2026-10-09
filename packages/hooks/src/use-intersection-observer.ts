@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useEffectEvent, useState } from 'react'
 
 type State = {
 	isIntersecting: boolean
@@ -20,16 +20,8 @@ type IntersectionReturn = [(node?: Element | null) => void, boolean, Intersectio
 	entry?: IntersectionObserverEntry
 }
 
-const normalizeThresholds = (thresholds: number | readonly number[]): number[] => {
-	if (typeof thresholds === 'number') {
-		return [thresholds]
-	}
-	return Array.from(thresholds) as number[]
-}
-
-const checkIntersecting = (entry: IntersectionObserverEntry, thresholds: number[]): boolean => {
-	return entry.isIntersecting && thresholds.some(threshold => entry.intersectionRatio >= threshold)
-}
+const checkIntersecting = (entry: IntersectionObserverEntry, thresholds: readonly number[]): boolean =>
+	entry.isIntersecting && thresholds.some(threshold => entry.intersectionRatio >= threshold)
 
 const useIntersectionObserver = ({
 	threshold = 0,
@@ -39,71 +31,52 @@ const useIntersectionObserver = ({
 	initialIsIntersecting = false,
 	onChange,
 }: UseIntersectionObserverOptions = {}): IntersectionReturn => {
-	const [ref, setRef] = useState<Element | null>(null)
+	const [node, setNode] = useState<Element | null>(null)
+	const [state, setState] = useState<State>({ isIntersecting: initialIsIntersecting })
 
-	const [state, setState] = useState<State>(() => ({
-		isIntersecting: initialIsIntersecting,
-		entry: undefined,
-	}))
+	const notify = useEffectEvent((isIntersecting: boolean, entry: IntersectionObserverEntry) =>
+		onChange?.(isIntersecting, entry),
+	)
 
-	const callbackRef = useRef<UseIntersectionObserverOptions['onChange']>(onChange)
-
-	const frozen = state.entry?.isIntersecting && freezeOnceVisible
+	const frozen = freezeOnceVisible && state.entry?.isIntersecting === true
+	const thresholdKey = [threshold].flat().join(',')
 
 	useEffect(() => {
-		if (!ref) return
-
-		if (!('IntersectionObserver' in window)) return
-
-		if (frozen) return
-
-		let unobserve: (() => void) | undefined
+		if (!node || frozen || !('IntersectionObserver' in window)) {
+			return
+		}
 
 		const observer = new IntersectionObserver(
-			(entries: IntersectionObserverEntry[]): void => {
-				const thresholds = normalizeThresholds(observer.thresholds)
-
+			entries => {
 				for (const entry of entries) {
-					const isIntersecting = checkIntersecting(entry, thresholds)
-
+					const isIntersecting = checkIntersecting(entry, observer.thresholds)
 					setState({ isIntersecting, entry })
-
-					if (callbackRef.current) {
-						callbackRef.current(isIntersecting, entry)
-					}
-
-					if (isIntersecting && freezeOnceVisible && unobserve) {
-						unobserve()
-						unobserve = undefined
-					}
+					notify(isIntersecting, entry)
 				}
 			},
-			{ threshold, root, rootMargin },
+			{ threshold: thresholdKey.split(',').map(Number), root, rootMargin },
 		)
 
-		observer.observe(ref)
+		observer.observe(node)
 
-		return () => {
-			observer.disconnect()
-		}
-	}, [ref, threshold, root, rootMargin, frozen, freezeOnceVisible])
+		return () => observer.disconnect()
+	}, [node, frozen, thresholdKey, root, rootMargin])
 
-	const prevRef = useRef<Element | null>(null)
+	const ref = useCallback(
+		(next?: Element | null) => {
+			setNode(next ?? null)
+			if (!next && !freezeOnceVisible) {
+				setState({ isIntersecting: initialIsIntersecting })
+			}
+		},
+		[freezeOnceVisible, initialIsIntersecting],
+	)
 
-	useEffect(() => {
-		if (!ref && state.entry?.target && !freezeOnceVisible && !frozen && prevRef.current !== state.entry.target) {
-			prevRef.current = state.entry.target
-			setState({ isIntersecting: initialIsIntersecting, entry: undefined })
-		}
-	}, [ref, state.entry, freezeOnceVisible, frozen, initialIsIntersecting])
-
-	const result = [setRef, !!state.isIntersecting, state.entry] as IntersectionReturn
-
-	result.ref = result[0]
-	result.isIntersecting = result[1]
-	result.entry = result[2]
-
-	return result
+	return Object.assign([ref, state.isIntersecting, state.entry] as const, {
+		ref,
+		isIntersecting: state.isIntersecting,
+		entry: state.entry,
+	}) as unknown as IntersectionReturn
 }
 
 export { useIntersectionObserver }

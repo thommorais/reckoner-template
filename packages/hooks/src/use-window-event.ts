@@ -1,18 +1,20 @@
-import { useEffect } from 'react'
+import { useEffect, useEffectEvent } from 'react'
+
+type WindowEventListener<K extends string> = K extends keyof WindowEventMap
+	? (event: WindowEventMap[K]) => void
+	: (event: CustomEvent) => void
 
 const useWindowEvent = <K extends string>(
 	type: K,
-	listener: K extends keyof WindowEventMap
-		? (this: Window, ev: WindowEventMap[K]) => void
-		: (this: Window, ev: CustomEvent) => void,
+	listener: WindowEventListener<K>,
 	options?: boolean | AddEventListenerOptions,
 ) => {
+	const onEvent = useEffectEvent((event: Event) => (listener as (event: Event) => void)(event))
+
 	useEffect(() => {
-		if (typeof type === 'string') {
-			window.addEventListener(type, listener as EventListener, options)
-			return () => window.removeEventListener(type, listener as EventListener, options)
-		}
-	}, [type, listener, options])
+		window.addEventListener(type, onEvent, options)
+		return () => window.removeEventListener(type, onEvent, options)
+	}, [type, options])
 }
 
 export { useWindowEvent }

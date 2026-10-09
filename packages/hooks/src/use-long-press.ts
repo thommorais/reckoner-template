@@ -1,15 +1,15 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useEffect, useRef, type PointerEvent as ReactPointerEvent, type SyntheticEvent } from 'react'
 
 const HOLD_MS = 500
 
 const SLOP_PX = 10
 
 type LongPressHandlers = {
-	readonly onPointerDown: (event: React.PointerEvent) => void
-	readonly onPointerMove: (event: React.PointerEvent) => void
+	readonly onPointerDown: (event: ReactPointerEvent) => void
+	readonly onPointerMove: (event: ReactPointerEvent) => void
 	readonly onPointerUp: () => void
 	readonly onPointerCancel: () => void
-	readonly onContextMenu: (event: React.SyntheticEvent) => void
+	readonly onContextMenu: (event: SyntheticEvent) => void
 }
 
 const useLongPress = (onLongPress: () => void, disabled = false): LongPressHandlers => {
@@ -24,8 +24,10 @@ const useLongPress = (onLongPress: () => void, disabled = false): LongPressHandl
 		origin.current = null
 	}, [])
 
+	useEffect(() => cancel, [cancel])
+
 	const onPointerDown = useCallback(
-		(event: React.PointerEvent) => {
+		(event: ReactPointerEvent) => {
 			if (disabled) {
 				return
 			}
@@ -39,7 +41,7 @@ const useLongPress = (onLongPress: () => void, disabled = false): LongPressHandl
 	)
 
 	const onPointerMove = useCallback(
-		(event: React.PointerEvent) => {
+		(event: ReactPointerEvent) => {
 			if (!origin.current) {
 				return
 			}
@@ -52,7 +54,7 @@ const useLongPress = (onLongPress: () => void, disabled = false): LongPressHandl
 		[cancel],
 	)
 
-	const onContextMenu = useCallback((event: React.SyntheticEvent) => event.preventDefault(), [])
+	const onContextMenu = useCallback((event: SyntheticEvent) => event.preventDefault(), [])
 
 	return { onPointerDown, onPointerMove, onPointerUp: cancel, onPointerCancel: cancel, onContextMenu }
 }

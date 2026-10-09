@@ -1,43 +1,38 @@
-import { type RefObject, useCallback, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
-const useMeasure = () => {
-	const [dimensions, setDimensions] = useState<{ width: null | number; height: null | number }>({
-		width: null,
-		height: null,
-	})
+type Dimensions = {
+	width: number | null
+	height: number | null
+}
 
-	const previousObserver = useRef<ResizeObserver>(null)
+const EMPTY: Dimensions = { width: null, height: null }
 
-	const customRef = useCallback((node: RefObject<HTMLDivElement>['current']) => {
-		if (previousObserver.current) {
-			previousObserver.current.disconnect()
-			previousObserver.current = null
+const useMeasure = (): [(node: Element | null) => void, Dimensions] => {
+	const [dimensions, setDimensions] = useState<Dimensions>(EMPTY)
+	const observerRef = useRef<ResizeObserver | null>(null)
+
+	const ref = useCallback((node: Element | null) => {
+		observerRef.current?.disconnect()
+		observerRef.current = null
+
+		if (node?.nodeType !== Node.ELEMENT_NODE) {
+			return
 		}
 
-		if (node?.nodeType === Node.ELEMENT_NODE) {
-			const observer = new ResizeObserver(([entry]) => {
-				if (entry?.borderBoxSize) {
-					if (entry.borderBoxSize[0]) {
-						const { inlineSize: width, blockSize: height } = entry.borderBoxSize[0]
-						setDimensions({ width, height })
-					} else {
-						setDimensions({ width: null, height: null })
-					}
-				}
-			})
+		const observer = new ResizeObserver(([entry]) => {
+			if (!entry?.borderBoxSize) {
+				return
+			}
 
-			observer.observe(node)
-			previousObserver.current = observer
-		}
+			const box = entry.borderBoxSize[0]
+			setDimensions(box ? { width: box.inlineSize, height: box.blockSize } : EMPTY)
+		})
+
+		observer.observe(node)
+		observerRef.current = observer
 	}, [])
 
-	return [customRef, dimensions] as [
-		(node: RefObject<HTMLDivElement>['current']) => void,
-		{
-			width: null | number
-			height: null | number
-		},
-	]
+	return [ref, dimensions]
 }
 
 export { useMeasure }

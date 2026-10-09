@@ -1,37 +1,15 @@
-import { useIsomorphicEffect } from './use-isomorphic-effect'
-import { useState } from 'react'
+import { useSyncExternalStore } from 'react'
 
 type Browser = 'undetermined' | 'chrome' | 'firefox' | 'safari' | 'edge' | 'opera' | 'ie' | 'other'
 
-const isChrome = (userAgent: string): boolean => {
-	const chromePattern = /(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9]+)/i
-	return chromePattern.test(userAgent)
-}
-
-const isFirefox = (userAgent: string): boolean => {
-	const firefoxPattern = /Firefox\/([0-9]+)/i
-	return firefoxPattern.test(userAgent)
-}
-
-const isSafari = (userAgent: string): boolean => {
-	const safariPattern = /^((?!chrome|android).)*safari/i
-	return safariPattern.test(userAgent)
-}
-
-const isEdge = (userAgent: string): boolean => {
-	const edgePattern = /Edge\/([0-9]+)/i
-	return edgePattern.test(userAgent)
-}
-
-const isOpera = (userAgent: string): boolean => {
-	const operaPattern = /(OPR|Opera)\/([0-9]+)/i
-	return operaPattern.test(userAgent)
-}
-
-const isIE = (userAgent: string): boolean => {
-	const iePattern = /MSIE|Trident/i
-	return iePattern.test(userAgent)
-}
+const matchers: readonly (readonly [Exclude<Browser, 'undetermined' | 'other'>, RegExp])[] = [
+	['edge', /Edge\/([0-9]+)/i],
+	['chrome', /(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9]+)/i],
+	['firefox', /Firefox\/([0-9]+)/i],
+	['safari', /^((?!chrome|android).)*safari/i],
+	['opera', /(OPR|Opera)\/([0-9]+)/i],
+	['ie', /MSIE|Trident/i],
+]
 
 const getBrowser = (): Browser => {
 	if (typeof window === 'undefined') {
@@ -40,47 +18,7 @@ const getBrowser = (): Browser => {
 
 	const { userAgent } = window.navigator
 
-	if (isEdge(userAgent)) {
-		return 'edge'
-	}
-
-	if (isChrome(userAgent)) {
-		return 'chrome'
-	}
-
-	if (isFirefox(userAgent)) {
-		return 'firefox'
-	}
-
-	if (isSafari(userAgent)) {
-		return 'safari'
-	}
-
-	if (isOpera(userAgent)) {
-		return 'opera'
-	}
-
-	if (isIE(userAgent)) {
-		return 'ie'
-	}
-
-	return 'other'
-}
-
-interface UseBrowserOptions {
-	getValueInEffect: boolean
-}
-
-const useBrowser = (options: UseBrowserOptions = { getValueInEffect: true }): Browser => {
-	const [value, setValue] = useState<Browser>(options.getValueInEffect ? 'undetermined' : getBrowser())
-
-	useIsomorphicEffect(() => {
-		if (options.getValueInEffect) {
-			setValue(getBrowser())
-		}
-	}, [])
-
-	return value
+	return matchers.find(([, pattern]) => pattern.test(userAgent))?.[0] ?? 'other'
 }
 
 const getBrowserVersion = (): string | null => {
@@ -88,16 +26,16 @@ const getBrowserVersion = (): string | null => {
 		return null
 	}
 
-	const { userAgent } = window.navigator
+	const match = window.navigator.userAgent.match(/(chrome|firefox|safari|opera|edge|msie|trident(?=\/))\/?\s*(\d+)/i)
 
-	const match = userAgent.match(/(chrome|firefox|safari|opera|edge|msie|trident(?=\/))\/?\s*(\d+)/i)
-
-	if (!match) {
-		return null
-	}
-
-	return match[2] || null
+	return match?.[2] || null
 }
+
+const subscribe = () => () => {}
+
+const getServerSnapshot = (): Browser => 'undetermined'
+
+const useBrowser = (): Browser => useSyncExternalStore(subscribe, getBrowser, getServerSnapshot)
 
 export { useBrowser, getBrowserVersion }
 

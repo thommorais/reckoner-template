@@ -1,66 +1,37 @@
-import { createIdleQueue, type IdleQueue } from '@thom/idle-queue'
-import { useEffect, useRef } from 'react'
+import { createIdleQueue, type IdleQueue, type Task, type TaskOptions } from '@thom/idle-queue'
+import { useEffect, useEffectEvent, useMemo, useRef } from 'react'
 
-// oxlint-disable-next-line typescript/no-explicit-any -- Just a placeholder type for now
-type ANYTHING = any
-
-interface UseIdleQueueOptions {
+type UseIdleQueueOptions = {
 	ensureTasksRun?: boolean
 	minTaskTime?: number
-	onError?: (error: Error) => void
+	onError?: (error: unknown) => void
 }
 
-const useIdleQueue = (options: UseIdleQueueOptions = {}) => {
+const useIdleQueue = ({ ensureTasksRun = true, minTaskTime = 0, onError }: UseIdleQueueOptions = {}) => {
 	const queueRef = useRef<IdleQueue | null>(null)
-	const { ensureTasksRun = true, minTaskTime = 0, onError } = options
+	const reportError = useEffectEvent((error: unknown) => onError?.(error))
 
 	useEffect(() => {
-		queueRef.current = createIdleQueue({
-			ensureTasksRun,
-			minTaskTime,
-		})
+		const queue = createIdleQueue({ ensureTasksRun, minTaskTime, onError: reportError })
+		queueRef.current = queue
+
 		return () => {
-			queueRef.current?.destroy()
+			queue.destroy()
 			queueRef.current = null
 		}
 	}, [ensureTasksRun, minTaskTime])
 
-	const safeExecute = <T extends (...args: ANYTHING[]) => ANYTHING>(operation: T): ReturnType<T> | undefined => {
-		try {
-			if (!queueRef.current) {
-				throw new Error('Idle queue not initialized')
-			}
-			return operation()
-		} catch (error) {
-			onError?.(error instanceof Error ? error : new Error('Unknown error'))
-		}
-	}
-
-	return {
-		pushTask: (task: Parameters<IdleQueue['pushTask']>[0], options?: Parameters<IdleQueue['pushTask']>[1]) => {
-			safeExecute(() => queueRef.current?.pushTask(task, options))
-		},
-
-		unshiftTask: (task: Parameters<IdleQueue['unshiftTask']>[0], options?: Parameters<IdleQueue['unshiftTask']>[1]) => {
-			safeExecute(() => queueRef.current?.unshiftTask(task, options))
-		},
-
-		runTasksImmediately: () => {
-			safeExecute(() => queueRef.current?.runTasksImmediately())
-		},
-
-		hasPendingTasks: () => {
-			return safeExecute(() => queueRef.current?.hasPendingTasks()) ?? false
-		},
-
-		clearPendingTasks: () => {
-			safeExecute(() => queueRef.current?.clearPendingTasks())
-		},
-
-		getState: () => {
-			return safeExecute(() => queueRef.current?.getState())
-		},
-	}
+	return useMemo(
+		() => ({
+			pushTask: (task: Task, options?: TaskOptions) => queueRef.current?.pushTask(task, options),
+			unshiftTask: (task: Task, options?: TaskOptions) => queueRef.current?.unshiftTask(task, options),
+			runTasksImmediately: () => queueRef.current?.runTasksImmediately(),
+			hasPendingTasks: () => queueRef.current?.hasPendingTasks() ?? false,
+			clearPendingTasks: () => queueRef.current?.clearPendingTasks(),
+			getState: () => queueRef.current?.getState() ?? null,
+		}),
+		[],
+	)
 }
 
 export { useIdleQueue }

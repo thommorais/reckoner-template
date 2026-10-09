@@ -1,10 +1,9 @@
-import { useWindowEvent } from './use-window-event'
-import { useCallback, useEffect, useState } from 'react'
+import { useMemo, useSyncExternalStore } from 'react'
 
 type EffectiveType = 'slow-2g' | '2g' | '3g' | '4g'
 type ConnectionType = 'bluetooth' | 'cellular' | 'ethernet' | 'wifi' | 'wimax' | 'none' | 'other' | 'unknown'
 
-interface NetworkStatus {
+type NetworkStatus = {
 	downlink?: number
 	downlinkMax?: number
 	effectiveType?: EffectiveType
@@ -13,66 +12,66 @@ interface NetworkStatus {
 	type?: ConnectionType
 }
 
-interface NetworkConnection extends NetworkStatus {
+type NetworkConnection = NetworkStatus & {
 	addEventListener: (type: string, listener: EventListener) => void
 	removeEventListener: (type: string, listener: EventListener) => void
 }
 
-interface NavigatorWithConnection extends Navigator {
+type NavigatorWithConnection = Navigator & {
 	connection?: NetworkConnection
 	mozConnection?: NetworkConnection
 	webkitConnection?: NetworkConnection
 }
 
-function getConnection(): NetworkStatus {
-	if (typeof navigator === 'undefined') {
-		return {}
-	}
-
-	const nav = navigator as NavigatorWithConnection
-	const connection = nav.connection || nav.mozConnection || nav.webkitConnection
-
-	if (!connection) {
-		return {}
-	}
-
-	return {
-		downlink: connection.downlink,
-		downlinkMax: connection.downlinkMax,
-		effectiveType: connection.effectiveType,
-		rtt: connection.rtt,
-		saveData: connection.saveData,
-		type: connection.type,
-	}
-}
-
-interface NetworkState extends NetworkStatus {
+type NetworkState = NetworkStatus & {
 	online: boolean
 }
 
-const useNetwork = (): NetworkState => {
-	const [status, setStatus] = useState<NetworkState>({
-		online: typeof navigator !== 'undefined' ? navigator.onLine : true,
-	})
-
-	const handleConnectionChange = useCallback(() => setStatus(current => ({ ...current, ...getConnection() })), [])
-
-	useWindowEvent('online', () => setStatus({ online: true, ...getConnection() }))
-	useWindowEvent('offline', () => setStatus({ online: false, ...getConnection() }))
-
-	useEffect(() => {
-		const nav = navigator as NavigatorWithConnection
-
-		if (nav.connection) {
-			setStatus({ online: nav.onLine, ...getConnection() })
-			nav.connection.addEventListener('change', handleConnectionChange)
-			return () => nav.connection?.removeEventListener('change', handleConnectionChange)
-		}
-
+const getConnection = (): NetworkConnection | undefined => {
+	if (typeof navigator === 'undefined') {
 		return undefined
-	}, [handleConnectionChange])
+	}
 
-	return status
+	const nav = navigator as NavigatorWithConnection
+	return nav.connection ?? nav.mozConnection ?? nav.webkitConnection
+}
+
+const readNetworkState = (): NetworkState => {
+	const connection = getConnection()
+
+	return {
+		online: typeof navigator !== 'undefined' ? navigator.onLine : true,
+		downlink: connection?.downlink,
+		downlinkMax: connection?.downlinkMax,
+		effectiveType: connection?.effectiveType,
+		rtt: connection?.rtt,
+		saveData: connection?.saveData,
+		type: connection?.type,
+	}
+}
+
+const subscribe = (callback: () => void) => {
+	const connection = getConnection()
+
+	window.addEventListener('online', callback)
+	window.addEventListener('offline', callback)
+	connection?.addEventListener('change', callback)
+
+	return () => {
+		window.removeEventListener('online', callback)
+		window.removeEventListener('offline', callback)
+		connection?.removeEventListener('change', callback)
+	}
+}
+
+const getSnapshot = () => JSON.stringify(readNetworkState())
+
+const getServerSnapshot = () => JSON.stringify({ online: true } satisfies NetworkState)
+
+const useNetwork = (): NetworkState => {
+	const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+
+	return useMemo(() => JSON.parse(snapshot) as NetworkState, [snapshot])
 }
 
 export { useNetwork }

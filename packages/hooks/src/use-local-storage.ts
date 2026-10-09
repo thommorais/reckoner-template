@@ -1,161 +1,107 @@
 import { logger } from '@thom/libs/logger'
-import { useCallback, useEffect, useState } from 'react'
-import { useWindowEvent } from './use-window-event'
+import { tryCatchSync } from '@thom/try-catch'
+import { useCallback, useMemo, useSyncExternalStore } from 'react'
 
 type StorageType = 'localStorage' | 'sessionStorage'
 
-interface UseStorageOptions<T> {
+type UseStorageOptions<T> = {
 	key: string
 	defaultValue?: T
-	getInitialValueInEffect?: boolean
-	sync?: boolean
 	serialize?: (value: T) => string
-	deserialize?: (value: string | undefined) => T
-}
-
-const serializeJSON = <T>(value: T, hookName: string) => {
-	try {
-		return JSON.stringify(value)
-	} catch (_) {
-		throw new Error(`${hookName}: Failed to serialize the value`)
-	}
-}
-
-const deserializeJSON = (value: string | undefined) => {
-	try {
-		return value && JSON.parse(String(value))
-	} catch {
-		return value
-	}
-}
-
-const createStorageHandler = (type: StorageType, hookName: string) => {
-	const getItem = (key: string) => {
-		try {
-			return window[type].getItem(key)
-		} catch (_) {
-			logger.warn(`${hookName}: Failed to get value from storage`)
-			return null
-		}
-	}
-
-	const setItem = (key: string, value: string) => {
-		try {
-			window[type].setItem(key, value)
-		} catch (_) {
-			logger.warn(`${hookName}: Failed to set value to storage`)
-		}
-	}
-
-	const removeItem = (key: string) => {
-		try {
-			window[type].removeItem(key)
-		} catch (_) {
-			logger.warn(`${hookName} Failed to remove value from storage`)
-		}
-	}
-
-	return { getItem, setItem, removeItem }
+	deserialize?: (value: string) => T
 }
 
 type UseStorageReturnValue<T> = [T, (val: T | ((prevState: T) => T)) => void, () => void]
 
-const createStorage = <T>(type: StorageType, hookName: string) => {
+const serializeJSON = <T>(value: T, hookName: string) => {
+	const result = tryCatchSync(() => JSON.stringify(value))
+	if (!result.success) {
+		throw new Error(`${hookName}: Failed to serialize the value`)
+	}
+	return result.data
+}
+
+const deserializeJSON = (value: string) => {
+	const result = tryCatchSync(() => JSON.parse(value))
+	return result.success ? result.data : value
+}
+
+const createStorageHandler = (type: StorageType, hookName: string) => {
+	const attempt = <R>(fn: () => R, failure: string, fallback: R): R => {
+		const result = tryCatchSync(fn)
+		if (result.success) {
+			return result.data
+		}
+		logger.warn(`${hookName}: ${failure}`)
+		return fallback
+	}
+
+	const getItem = (key: string) => attempt(() => window[type].getItem(key), 'Failed to get value from storage', null)
+
+	const setItem = (key: string, value: string) =>
+		attempt(() => window[type].setItem(key, value), 'Failed to set value to storage', undefined)
+
+	const removeItem = (key: string) =>
+		attempt(() => window[type].removeItem(key), 'Failed to remove value from storage', undefined)
+
+	return { getItem, setItem, removeItem }
+}
+
+const getServerSnapshot = () => null
+
+const createUseStorage = (type: StorageType, hookName: string) => {
 	const eventName = type === 'localStorage' ? 'local-storage' : 'session-storage'
 	const { getItem, setItem, removeItem } = createStorageHandler(type, hookName)
 
-	const useStorage = ({
+	const subscribe = (callback: () => void) => {
+		window.addEventListener('storage', callback)
+		window.addEventListener(eventName, callback)
+		return () => {
+			window.removeEventListener('storage', callback)
+			window.removeEventListener(eventName, callback)
+		}
+	}
+
+	const defaultSerialize = (value: unknown) => serializeJSON(value, hookName)
+
+	const notify = () => window.dispatchEvent(new Event(eventName))
+
+	return <T>({
 		key,
 		defaultValue,
-		getInitialValueInEffect = true,
-		sync = true,
 		deserialize = deserializeJSON,
-		serialize = (value: T) => serializeJSON(value, hookName),
+		serialize = defaultSerialize,
 	}: UseStorageOptions<T>): UseStorageReturnValue<T> => {
-		const readStorageValue = useCallback(
-			(skipStorage?: boolean): T => {
-				let storageBlockedOrSkipped
+		const getSnapshot = useCallback(() => getItem(key), [key])
+		const raw = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 
-				try {
-					storageBlockedOrSkipped =
-						typeof window === 'undefined' || !(type in window) || window[type] === null || !!skipStorage
-				} catch (_e) {
-					storageBlockedOrSkipped = true
-				}
-
-				if (storageBlockedOrSkipped) {
-					return defaultValue as T
-				}
-
-				const storageValue = getItem(key)
-				return storageValue !== null ? deserialize(storageValue) : (defaultValue as T)
-			},
-			[key, defaultValue, deserialize],
-		)
-
-		const [value, setValue] = useState<T>(readStorageValue(getInitialValueInEffect))
+		const stored = useMemo(() => (raw === null ? undefined : deserialize(raw)), [raw, deserialize])
 
 		const setStorageValue = useCallback(
 			(val: T | ((prevState: T) => T)) => {
+				let next: T
 				if (val instanceof Function) {
-					setValue(current => {
-						const result = val(current)
-						setItem(key, serialize(result))
-						queueMicrotask(() => {
-							window.dispatchEvent(new CustomEvent(eventName, { detail: { key, value: result } }))
-						})
-						return result
-					})
+					const current = getItem(key)
+					next = val(current === null ? (defaultValue as T) : deserialize(current))
 				} else {
-					setItem(key, serialize(val))
-					window.dispatchEvent(new CustomEvent(eventName, { detail: { key, value: val } }))
-					setValue(val)
+					next = val
 				}
+				setItem(key, serialize(next))
+				notify()
 			},
-			[key, serialize],
+			[key, defaultValue, deserialize, serialize],
 		)
 
 		const removeStorageValue = useCallback(() => {
 			removeItem(key)
-			setValue(defaultValue as T)
-			window.dispatchEvent(new CustomEvent(eventName, { detail: { key, value: defaultValue } }))
-		}, [key, defaultValue])
+			notify()
+		}, [key])
 
-		useWindowEvent('storage', event => {
-			if (sync) {
-				if (event.storageArea === window[type] && event.key === key) {
-					setValue(deserialize(event.newValue ?? undefined))
-				}
-			}
-		})
-
-		useWindowEvent(eventName, event => {
-			if (sync) {
-				if (event.detail.key === key) {
-					setValue(event.detail.value)
-				}
-			}
-		})
-
-		useEffect(() => {
-			if (defaultValue !== undefined && value === undefined) {
-				setStorageValue(defaultValue)
-			}
-		}, [defaultValue, value, setStorageValue])
-
-		useEffect(() => {
-			const val = readStorageValue()
-			val !== undefined && setStorageValue(val)
-		}, [key, setStorageValue])
-
-		return [value === undefined ? (defaultValue as T) : value, setStorageValue, removeStorageValue]
+		return [raw === null ? (defaultValue as T) : (stored as T), setStorageValue, removeStorageValue]
 	}
-
-	return useStorage
 }
 
-const useLocalStorage = <T>(props: UseStorageOptions<T>) => createStorage<T>('localStorage', 'use-local-storage')(props)
-const useSessionStorage = <T>(props: UseStorageOptions<T>) =>
-	createStorage<T>('localStorage', 'use-session-store')(props)
+const useLocalStorage = createUseStorage('localStorage', 'use-local-storage')
+const useSessionStorage = createUseStorage('sessionStorage', 'use-session-storage')
 
 export { useLocalStorage, useSessionStorage }

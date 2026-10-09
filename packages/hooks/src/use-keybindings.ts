@@ -1,19 +1,22 @@
-import type { KeyBindingMap, KeyBindingOptions } from './lib/keybindings'
-import { keybindings } from './lib/keybindings'
-import { useEffect } from 'react'
+import { useEffect, useEffectEvent } from 'react'
+import { keybindings, type KeyBindingMap, type KeyBindingOptions } from './lib/keybindings'
 
 const useKeybindings = (
 	keyBindingMap: KeyBindingMap,
-	target: Window | HTMLElement = window,
-	options: KeyBindingOptions = {},
+	target?: Window | HTMLElement,
+	{ event, capture, timeout }: KeyBindingOptions = {},
 ) => {
+	const run = useEffectEvent((binding: string, keyboardEvent: KeyboardEvent) => keyBindingMap[binding]?.(keyboardEvent))
+	const bindingsKey = Object.keys(keyBindingMap).join('\n')
+
 	useEffect(() => {
-		const unsub = keybindings(target, keyBindingMap, options)
+		const bindings = bindingsKey === '' ? [] : bindingsKey.split('\n')
+		const map: KeyBindingMap = Object.fromEntries(
+			bindings.map(binding => [binding, (keyboardEvent: KeyboardEvent) => run(binding, keyboardEvent)]),
+		)
 
-		return () => unsub()
-	}, [keyBindingMap, target, options])
-
-	return
+		return keybindings(target ?? window, map, { event, capture, timeout })
+	}, [bindingsKey, target, event, capture, timeout])
 }
 
 export { useKeybindings }

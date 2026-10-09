@@ -1,14 +1,12 @@
 type KeyBindingPress = [mods: string[], key: string | RegExp]
 
-interface KeyBindingMap {
-	[keybinding: string]: (event: KeyboardEvent) => void
-}
+type KeyBindingMap = Record<string, (event: KeyboardEvent) => void>
 
-interface KeyBindingHandlerOptions {
+type KeyBindingHandlerOptions = {
 	timeout?: number
 }
 
-interface KeyBindingOptions extends KeyBindingHandlerOptions {
+type KeyBindingOptions = KeyBindingHandlerOptions & {
 	event?: 'keydown' | 'keyup'
 	capture?: boolean
 }
@@ -26,61 +24,45 @@ const MOD = APPLE_DEVICE ? 'Meta' : 'Control'
 
 const ALT_GRAPH_ALIASES = PLATFORM === 'Win32' ? ['Control', 'Alt'] : APPLE_DEVICE ? ['Alt'] : []
 
-const getModifierState = (event: KeyboardEvent, mod: string) => {
-	return typeof event.getModifierState === 'function'
+const getModifierState = (event: KeyboardEvent, mod: string): boolean =>
+	typeof event.getModifierState === 'function'
 		? event.getModifierState(mod) || (ALT_GRAPH_ALIASES.includes(mod) && event.getModifierState('AltGraph'))
 		: false
-}
 
-const parseKeybinding = (str: string): KeyBindingPress[] => {
-	return str
+const parseKeybinding = (str: string): KeyBindingPress[] =>
+	str
 		.trim()
 		.split(' ')
-		.map(press => {
-			let mods = press.split(/\b\+/)
-			let key: string | RegExp = mods.pop() as string
-			const match = key.match(/^\((.+)\)$/)
-			if (match) {
-				key = new RegExp(`^${match[1]}$`)
-			}
-			mods = mods.map(mod => (mod === '$mod' ? MOD : mod))
-			return [mods, key]
-		})
-}
+		.map((press): KeyBindingPress => {
+			const parts = press.split(/\b\+/)
+			const rawKey = parts.at(-1) as string
+			const mods = parts.slice(0, -1).map(mod => (mod === '$mod' ? MOD : mod))
+			const match = rawKey.match(/^\((.+)\)$/)
 
-const matchKeyBindingPress = (event: KeyboardEvent, [mods, key]: KeyBindingPress): boolean => {
-	// prettier-ignore
-	return !(
-		// Allow either the `event.key` or the `event.code`
-		// MDN event.key: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
-		// MDN event.code: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code
-		(
-			(key instanceof RegExp
-				? !(key.test(event.key) || key.test(event.code))
-				: key.toUpperCase() !== event.key.toUpperCase() && key !== event.code) ||
-			// Ensure all the modifiers in the keybinding are pressed.
-			mods.find(mod => {
-				return !getModifierState(event, mod)
-			}) ||
-			// KEYBINDING_MODIFIER_KEYS (Shift/Control/etc) change the meaning of a
-			// keybinding. So if they are pressed but aren't part of the current
-			// keybinding press, then we don't have a match.
-			KEYBINDING_MODIFIER_KEYS.find(mod => {
-				return !mods.includes(mod) && key !== mod && getModifierState(event, mod)
-			})
-		)
-	)
-}
+			return [mods, match ? new RegExp(`^${match[1]}$`) : rawKey]
+		})
+
+const matchesKey = (event: KeyboardEvent, key: string | RegExp): boolean =>
+	key instanceof RegExp
+		? key.test(event.key) || key.test(event.code)
+		: key.toUpperCase() === event.key.toUpperCase() || key === event.code
+
+const hasRequiredModifiers = (event: KeyboardEvent, mods: string[]): boolean =>
+	mods.every(mod => getModifierState(event, mod))
+
+const hasExtraModifiers = (event: KeyboardEvent, mods: string[], key: string | RegExp): boolean =>
+	KEYBINDING_MODIFIER_KEYS.some(mod => !mods.includes(mod) && key !== mod && getModifierState(event, mod))
+
+const matchKeyBindingPress = (event: KeyboardEvent, [mods, key]: KeyBindingPress): boolean =>
+	matchesKey(event, key) && hasRequiredModifiers(event, mods) && !hasExtraModifiers(event, mods, key)
 
 const createKeybindingsHandler = (
 	keyBindingMap: KeyBindingMap,
-	options: KeyBindingHandlerOptions = {},
+	{ timeout = DEFAULT_TIMEOUT }: KeyBindingHandlerOptions = {},
 ): EventListener => {
-	const timeout = options.timeout ?? DEFAULT_TIMEOUT
-
-	const keyBindings = Object.keys(keyBindingMap).map(key => {
-		return [parseKeybinding(key), keyBindingMap[key]] as const
-	})
+	const keyBindings = Object.entries(keyBindingMap).map(
+		([binding, callback]) => [parseKeybinding(binding), callback] as const,
+	)
 
 	const possibleMatches = new Map<KeyBindingPress[], KeyBindingPress[]>()
 	let timer: ReturnType<typeof setTimeout> | null = null
@@ -90,21 +72,15 @@ const createKeybindingsHandler = (
 			return
 		}
 
-		for (const keyBinding of keyBindings) {
-			const sequence = keyBinding[0]
-			const callback = keyBinding[1]
-
-			const prev = possibleMatches.get(sequence)
-			const remainingExpectedPresses = prev ? prev : sequence
+		for (const [sequence, callback] of keyBindings) {
+			const remainingExpectedPresses = possibleMatches.get(sequence) ?? sequence
 			const currentExpectedPress = remainingExpectedPresses[0]
 
 			if (!currentExpectedPress) {
 				continue
 			}
 
-			const matches = matchKeyBindingPress(event, currentExpectedPress)
-
-			if (!matches) {
+			if (!matchKeyBindingPress(event, currentExpectedPress)) {
 				if (!getModifierState(event, event.key)) {
 					possibleMatches.delete(sequence)
 				}
@@ -112,7 +88,7 @@ const createKeybindingsHandler = (
 				possibleMatches.set(sequence, remainingExpectedPresses.slice(1))
 			} else {
 				possibleMatches.delete(sequence)
-				callback?.(event)
+				callback(event)
 			}
 		}
 
@@ -120,7 +96,7 @@ const createKeybindingsHandler = (
 			clearTimeout(timer)
 		}
 
-		timer = setTimeout(possibleMatches.clear.bind(possibleMatches), timeout)
+		timer = setTimeout(() => possibleMatches.clear(), timeout)
 	}
 }
 
@@ -131,9 +107,8 @@ const keybindings = (
 ): (() => void) => {
 	const onKeyEvent = createKeybindingsHandler(keyBindingMap, { timeout })
 	target.addEventListener(event, onKeyEvent, capture)
-	return () => {
-		target.removeEventListener(event, onKeyEvent, capture)
-	}
+
+	return () => target.removeEventListener(event, onKeyEvent, capture)
 }
 
 export { keybindings }

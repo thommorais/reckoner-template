@@ -1,12 +1,9 @@
 import { useMemo } from 'react'
 import { useUncontrolled } from './use-uncontrolled'
 
-const range = (start: number, end: number) => {
-	const length = end - start + 1
-	return Array.from({ length }, (_, index) => index + start)
-}
-
 const DOTS = '...' as const
+
+type PaginationItem = number | typeof DOTS
 
 type UsePaginationOptions = {
 	initialPage?: number
@@ -18,9 +15,12 @@ type UsePaginationOptions = {
 }
 
 type UsePaginationReturnValue = {
-	range: (number | typeof DOTS)[]
+	range: PaginationItem[]
 	active: number
+	setPage: (page: number) => void
 }
+
+const range = (start: number, end: number) => Array.from({ length: end - start + 1 }, (_, index) => index + start)
 
 const usePagination = ({
 	total,
@@ -28,34 +28,36 @@ const usePagination = ({
 	boundaries = 1,
 	page,
 	initialPage = 1,
+	onChange,
 }: UsePaginationOptions): UsePaginationReturnValue => {
-	const _total = Math.max(Math.trunc(total), 0)
-	const [activePage] = useUncontrolled({
+	const totalPages = Math.max(Math.trunc(total), 0)
+	const [activePage, setPage] = useUncontrolled({
 		value: page,
 		defaultValue: initialPage,
 		finalValue: initialPage,
+		onChange,
 	})
 
-	const paginationRange = useMemo((): (number | typeof DOTS)[] => {
+	const paginationRange = useMemo((): PaginationItem[] => {
 		const totalPageNumbers = siblings * 2 + 3 + boundaries * 2
-		if (totalPageNumbers >= _total) {
-			return range(1, _total)
+		if (totalPageNumbers >= totalPages) {
+			return range(1, totalPages)
 		}
 
 		const leftSiblingIndex = Math.max(activePage - siblings, boundaries)
-		const rightSiblingIndex = Math.min(activePage + siblings, _total - boundaries)
+		const rightSiblingIndex = Math.min(activePage + siblings, totalPages - boundaries)
 
 		const shouldShowLeftDots = leftSiblingIndex > boundaries + 2
-		const shouldShowRightDots = rightSiblingIndex < _total - (boundaries + 1)
+		const shouldShowRightDots = rightSiblingIndex < totalPages - (boundaries + 1)
 
 		if (!shouldShowLeftDots && shouldShowRightDots) {
 			const leftItemCount = siblings * 2 + boundaries + 2
-			return [...range(1, leftItemCount), DOTS, ...range(_total - (boundaries - 1), _total)]
+			return [...range(1, leftItemCount), DOTS, ...range(totalPages - (boundaries - 1), totalPages)]
 		}
 
 		if (shouldShowLeftDots && !shouldShowRightDots) {
 			const rightItemCount = boundaries + 1 + 2 * siblings
-			return [...range(1, boundaries), DOTS, ...range(_total - rightItemCount, _total)]
+			return [...range(1, boundaries), DOTS, ...range(totalPages - rightItemCount, totalPages)]
 		}
 
 		return [
@@ -63,14 +65,11 @@ const usePagination = ({
 			DOTS,
 			...range(leftSiblingIndex, rightSiblingIndex),
 			DOTS,
-			...range(_total - boundaries + 1, _total),
+			...range(totalPages - boundaries + 1, totalPages),
 		]
-	}, [_total, siblings, activePage, boundaries])
+	}, [totalPages, siblings, activePage, boundaries])
 
-	return {
-		range: paginationRange,
-		active: activePage,
-	}
+	return { range: paginationRange, active: activePage, setPage }
 }
 
 export { DOTS, usePagination }
