@@ -5,8 +5,8 @@ const proxy = async (request: NextRequest) => {
 	return I18nMiddleware(request)
 }
 
-const config = {
+export { proxy }
+
+export const config = {
 	matcher: ['/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt).*)'],
 }
-
-export { config, proxy }
