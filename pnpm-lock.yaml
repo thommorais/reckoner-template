@@ -196,6 +196,9 @@ importers:
       '@tailwindcss/cli':
         specifier: 'catalog:'
         version: 4.3.3
+      '@thom/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
       '@thom/idle-queue':
         specifier: workspace:*
         version: link:../../packages/idle-queue
@@ -305,6 +308,9 @@ importers:
       '@thom/try-catch':
         specifier: workspace:*
         version: link:../try-catch
+      '@thom/utils':
+        specifier: workspace:*
+        version: link:../utils
       react:
         specifier: 'catalog:'
         version: 19.3.0

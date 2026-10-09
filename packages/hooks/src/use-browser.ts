@@ -1,3 +1,4 @@
+import { isServerSide } from '@thom/utils/env'
 import { useSyncExternalStore } from 'react'
 
 type Browser = 'undetermined' | 'chrome' | 'firefox' | 'safari' | 'edge' | 'opera' | 'ie' | 'other'
@@ -12,7 +13,7 @@ const matchers: readonly (readonly [Exclude<Browser, 'undetermined' | 'other'>, 
 ]
 
 const getBrowser = (): Browser => {
-	if (typeof window === 'undefined') {
+	if (isServerSide()) {
 		return 'undetermined'
 	}
 
@@ -22,7 +23,7 @@ const getBrowser = (): Browser => {
 }
 
 const getBrowserVersion = (): string | null => {
-	if (typeof window === 'undefined') {
+	if (isServerSide()) {
 		return null
 	}
 

@@ -5,6 +5,7 @@
 	"sideEffects": false,
 	"exports": {
 		"./async": "./src/async.ts",
+		"./clamp": "./src/clamp.ts",
 		"./env": "./src/env.ts",
 		"./object": "./src/object.ts",
 		"./random": "./src/random.ts",

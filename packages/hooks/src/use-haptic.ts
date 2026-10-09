@@ -1,5 +1,6 @@
 import { logger } from '@thom/libs/logger'
 import { tryCatchSync } from '@thom/try-catch'
+import { isServerSide } from '@thom/utils/env'
 import { useCallback, useEffect, useRef } from 'react'
 
 type Duration = number | number[]
@@ -20,7 +21,7 @@ const supportsIOSSwitch = (): boolean => {
 	return result.success && result.data
 }
 
-const supportsHaptics: boolean = typeof window !== 'undefined' && (supportsVibrate() || supportsIOSSwitch())
+const supportsHaptics: boolean = !isServerSide() && (supportsVibrate() || supportsIOSSwitch())
 
 const logFailure = (label: string, fn: () => void): void => {
 	const result = tryCatchSync(fn)
